@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url(../img/perfumes.jpg) no-repeat center top;
+    background-size: cover;
+    font-family: sans-serif;
+    height: 100vh;
+}
+
+header{
+    width: 100%;
+    overflow: hidden;
+    background-color: #948E99;
+    margin-bottom: 20px;
+}
+
+header nav{
+    float: right;
+    line-height: 100px;
+}
+
+header nav a {
+    display: inline-block;
+    color: #CAD1C3;
+    text-decoration: none;
+    padding: 10px 20px;
+    line-height: normal;
+    font-size: 20px;
+    font-weight: bold;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    border-radius: 50px;
+}
+
+header nav a:hover{
+    background: #51425F;
+}
+
+.index {
+    display: grid;
+    place-items: center;
+    color: #fff;
+    top: 70%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.index input[type="button"] {
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #51425F;
+    color: #CAD1C3;
+    font-size: 24px;
+    border-radius: 50px;
+    width: 600px;
+}
+
+.index input[type="button"]:hover {
+    cursor: pointer;
+    background: white;
+    color: #000;
+}
