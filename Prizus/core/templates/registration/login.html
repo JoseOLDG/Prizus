@@ -16,8 +16,10 @@
                         <hr>
                         <form action="" method="post">
 
-                            {% csrf_toke %}
+                            {% csrf_token %}
                             {{ form }}
+
+                            <input type="submit" value="ingresar">
 
                         </form>
                     </div>
