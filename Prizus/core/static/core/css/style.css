@@ -15,7 +15,7 @@ body {
 }
 
 .index {
-    display: grid;
+    display: grid; 
     place-items: center;
     color: #fff;
     top: 70%;
