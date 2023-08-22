@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <divc class="col-12 col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Registro de usuario</h2>
+                        <hr>
+                        <form action="" method="post">
+
+                            {% csrf_token %}
+                            {{ form }}
+                            <a href="{% url 'index' %}">Ir al home</a>
+                            <a href="{% url 'login' %}">Iniciar Sesión</a>
+
+                            <input type="submit" value="Registrar" class="btn btn-succes float-right">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
