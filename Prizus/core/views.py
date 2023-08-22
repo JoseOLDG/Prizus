@@ -21,5 +21,6 @@ def registro(request):
             login(request,user)
             return redirect(to="index")
         data["form"] = formulario
+        
     
     return render(request, 'registration/registro.html', data)
