@@ -19,7 +19,7 @@ body {
     place-items: center;
     color: #fff;
     top: 70%;
-    left: 50%;
+    left: 50%; 
     position: absolute;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
