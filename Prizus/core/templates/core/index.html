@@ -8,25 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+   
+   
     <title>Document</title>
 </head>
 <body>
     <header>
-        <div class="wrapper">
-            <div class="logotipo">
-                Prizus
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #948E99;">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              
+              <form class="form-inline my-2 my-lg-0">
+                
+                <button><a href="{% url 'login' %}">Ingreso</a></button>
+                <button><a href="{% url 'registro' %}">Registro</a></button>
+              </form>
             </div>
-                <div class="logeo">
-                    <input type="button" value="Ingresar" id="boton" onclick="Ingreso()">
-                    <input type="button" value="Registrarse" id="boton" onclick="Registro()">
-                    
-                </div>
-            
-        </div>
+          </nav>
     </header>
 
     <div class="index">
-        <input type="button" value="Ir a Prizus" id="boton" onclick="IniciarSecion()">
+        
+        <button>Ir a Prizus</button>
     </div>
 
 </body>

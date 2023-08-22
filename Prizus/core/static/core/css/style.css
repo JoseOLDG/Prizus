@@ -7,35 +7,11 @@ body {
     height: 100vh;
 }
 
-header{
-    width: 100%;
-    overflow: hidden;
-    background-color: #948E99;
-    margin-bottom: 20px;
-}
 
 
 .logeo {
     float: right;
     padding: 20px 20px;
-}
-
-.logeo input[type="button"] {
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #51425F;
-    color: #CAD1C3;
-    font-size: 12px;
-    border-radius: 50px;
-    width: 100px;
-    
-}
-
-.logeo input:hover{
-    cursor: pointer;
-    background: white;
-    color: #000;
 }
 
 .index {
@@ -50,7 +26,8 @@ header{
     padding: 70px 30px;
 }
 
-.index input[type="button"] {
+
+.index button{
     border: none;
     outline: none;
     height: 40px;
@@ -61,8 +38,43 @@ header{
     width: 600px;
 }
 
-.index input[type="button"]:hover {
+.index button:hover{
     cursor: pointer;
     background: white;
     color: #000;
+}
+
+header button{
+    display: block;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #51425F;
+    color: #CAD1C3;
+    font-size: 12px;
+    border-radius: 50px;
+    width: 100px;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+header button:hover{
+    cursor: pointer;
+    background: white;
+    color: #000;
+    text-decoration: none;
+}
+header button a{
+    display: block;
+    color: #CAD1C3;
+    text-decoration: none;
+}
+
+header button a:hover{
+    text-decoration: none;
+    color: #000;
+}
+
+header form{
+    margin-left: auto;
 }
