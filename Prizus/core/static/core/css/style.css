@@ -1,9 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    background: url(../img/perfumes.jpg) no-repeat center top;
+    background: #51425F;
     background-size: cover;
-    font-family: sans-serif;
+    font-family: sans-serif; 
     height: 100vh;
 }
 
@@ -77,4 +77,39 @@ header button a:hover{
 
 header form{
     margin-left: auto;
+}
+
+
+/* REgistro*/
+ 
+.botreg {
+    display: block;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #51425F;
+    color: #CAD1C3;
+    font-size: 12px;
+    border-radius: 50px;
+    width: 100px;
+    text-decoration: none;
+    margin-left: auto;
+}
+
+.botreg:hover{
+    cursor: pointer;
+    background: white;
+    color: #000;
+    text-decoration: none;
+}
+
+.linkreg{
+    display: block;
+    text-decoration: none;
+    color: #51425F;
+}
+
+.linkreg:hover{
+    text-decoration: none;
+    color: #000;
 }

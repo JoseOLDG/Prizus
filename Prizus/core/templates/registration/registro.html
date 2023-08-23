@@ -16,8 +16,18 @@
             margin: 0 auto;
             background-color: #D9D9D9;
             font-weight: bold;
+
             
-}
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #222222;
+            background-size: cover;
+            font-family: sans-serif; 
+            height: 100vh;
+        }
     </style>
     <title>Register</title>
 
@@ -29,15 +39,15 @@
                 
                     <div class="card-body">
                         <form action="" method="post" class="formucolor">
-                            <h2>Registro de usuario</h2>
+                            <h2>Regístrate</h2>
                             <div class="form-group">
                                 {% csrf_token %}
                                 {{ form|crispy }}
                             
-                            <a href="{% url 'index' %}">Ir al home</a>
-                            <a href="{% url 'login' %}">Iniciar Sesión</a>
+                            <a href="{% url 'index' %}" class="linkreg">Ir al home</a>
+                            <a href="{% url 'login' %}" class="linkreg">Iniciar Sesión</a>
+                            <input type="submit" value="Registrar" class="botreg">
                             </div>
-                            <input type="submit" value="Registrar" class="btn btn-succes float-right">
 
                         </form>
                     </div>
