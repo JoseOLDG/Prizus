@@ -8,6 +8,9 @@ from django.contrib.auth import authenticate, login
 def index(request):
     return render(request, 'core/index.html')
 
+def menu(request):
+    return render(request, 'core/menu.html')
+
 #def login(request):
 #    return render(request, 'core/login.html')
 
