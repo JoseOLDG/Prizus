@@ -46,6 +46,13 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #948E99;">
             <img src="{% static 'core/img/BRIZUS.png' %}" alt="logo img" class="logo">
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <form class="form-inline my-2 my-lg-0">
+                    <a href="javascript: history.go(-1)" class="btn1">Volver</a>
+                </form>
+              </div>
         </nav>
     </header>
     <div class="container">
@@ -56,12 +63,12 @@
                     <h2>Ingrese credenciales</h2>
                     <hr>
                     <form action="" method="post" class="formucolor">
-                        <h2>Ingrese credenciales</h2>
+                        <h2>Ingrese credenciales</h2> 
 
                         {% csrf_token %}
                         {{ form|crispy }}
                         <div class="contenedor">
-                            <a href="javascript: history.go(-1)" class="linkreg">Volver</a>
+                            <a href="{% url 'password_reset' %}" class="linkreg">¿Olvidasde tu contraseña?</a>
                             &nbsp;
                             <input type="submit" value="ingresar" class="botreg">
                         </div>
