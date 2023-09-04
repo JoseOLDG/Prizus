@@ -11,12 +11,6 @@ def index(request):
 def menu(request):
     return render(request, 'core/menu.html')
 
-#def login(request):
-#    return render(request, 'core/login.html')
-
-#def registro(request):
-#    return render(request, 'core/registro.html')
-
 def registro(request):
     data = {
         'form': CustomUserCreationForm()
