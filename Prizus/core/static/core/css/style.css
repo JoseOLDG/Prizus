@@ -12,12 +12,6 @@ body {
     margin-left: 20px;
 }
 
-
-/*.logeo {
-    float: right;
-    padding: 20px 20px;
-}*/
-
 .indexbtn {
     display: block; 
     place-items: center;
@@ -45,38 +39,6 @@ body {
     color: #000;
     text-decoration: none;
 }
-
-/*header button{
-    display: block;
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #51425F;
-    color: #CAD1C3;
-    font-size: 12px;
-    border-radius: 50px;
-    width: 100px;
-    text-decoration: none;
-    margin-left: 5px;
-}
-
-header button:hover{
-    cursor: pointer;
-    background: white;
-    color: #000;
-    text-decoration: none;
-}
-header button a{
-    display: block;
-    color: #CAD1C3;
-    text-decoration: none;
-    
-}
-
-header button a:hover{
-    text-decoration: none;
-    color: #000;
-}*/
 
 .btn1{
     display: block;
