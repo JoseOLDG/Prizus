@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,7 +41,15 @@ INSTALLED_APPS = [
     'core',
     'crispy_forms',
     'crispy_bootstrap4',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    #'django.contrib.sites',
 ]
+
+SITE_ID = 1
+SOCIALACCOUNT_LOGIN_ON_GET=True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -131,6 +139,10 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = 'resetprizus@gmail.com'
 EMAIL_HOST_PASSWORD = 'nkqzgcoubezwtpqd'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
