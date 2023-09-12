@@ -27,3 +27,6 @@ def registro(request):
         
     
     return render(request, 'registration/registro.html', data)
+
+def prueba(request):
+    return render(request, 'core/prueba.html')

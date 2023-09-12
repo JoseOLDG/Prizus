@@ -9,6 +9,10 @@
     padding: 15px 10px;
 }
 
+.container-items a{
+    text-decoration: none;
+}
+
 .container-items a:hover{
     text-decoration: none;
 }
@@ -65,3 +69,21 @@
     margin-bottom: auto;
     font-family: 'Ubuntu';
 }
+
+.contenerdorbody{
+    display: flex;
+}
+
+.acordeon{
+    display: grid;
+    margin: auto;
+    width: 300px;
+    height: 300px;
+    padding: 15px;
+    
+}
+
+.accordion{
+    --bs-accordion-btn-bg: #222222;
+}
+

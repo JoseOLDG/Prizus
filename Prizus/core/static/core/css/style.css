@@ -40,6 +40,17 @@ body {
     text-decoration: none;
 }
 
+.contenedorbtn{
+    display: flex;
+
+}
+
+.busqueda{
+    display: flex;
+    width: 600px;
+    margin-right: 400px;
+}
+
 .btn1{
     display: block;
     border: none;
