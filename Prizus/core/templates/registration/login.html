@@ -71,14 +71,14 @@
                         <div class="contenedor">
                             <a href="{% url 'password_reset' %}" class="linkreg">¿Olvidasde tu contraseña?</a>
                             &nbsp;
-                            <input type="submit" value="ingresar" class="botreg">
-                            <a href="{% provider_login_url 'google' %}?next=/">
+                            <a href="{% provider_login_url 'google' %}?next=/" class="linkreg">
                                 <i class="fab fa-google"></i>
-                                Iniciar sesión con google
+                                Login con google
                             </a>
                             {% if user.is_authenticated %}
-                                estoy autenticado
                             {% endif %}
+                            <input type="submit" value="ingresar" class="botreg">
+                            
                         </div>
                     </form>
                 </div>
