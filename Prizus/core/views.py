@@ -41,9 +41,8 @@ def producto(request):
     POST request es para cuando se escribe un comentario y
     el GET request para listarlos en el mismo html
     """
-    if request.method == 'GET':
-        comentarios = comentario.objects.all()
-        return render(request, 'products/producto.html', {'comentarios': comentarios})
+    
+    comentarios = comentario.objects.all()
 
     if request.method == 'POST':
         texto = request.POST['texto']
@@ -51,28 +50,7 @@ def producto(request):
         comments.save()
         return redirect('producto')
 
-    return render(request, 'products/producto.html')
-
-#def login2(request):
-    if request.method == 'GET':
-        return render(request, 'registration2/login2.html', {'form': AuthenticationForm})
-
-
-#def login2(request):
-    if request.method == 'GET':
-        return render(request, 'registration2/login2.html', {
-            "form": AuthenticationForm
-            })
-    else:
-        user = authenticate(
-            request, username=request.POST['username'], password=request.POST['password'])
-        if user is None:
-            return render(request, 'registration2/login2.html', {"form": AuthenticationForm, "error": "Username or password is incorrect."})
-
-        login(request, user)
-        return redirect('xd.html')
-
-    
+    return render(request, 'products/producto.html', {'comentarios': comentarios})
 
 def login2(request):
     if request.method == 'GET':

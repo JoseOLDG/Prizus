@@ -12,10 +12,7 @@ urlpatterns = [
     path('', index, name="index"),
     path('registro/', registro, name="registro"),
     path('menu/', menu, name="menu"),
-
     path('producto/', producto, name="producto"),
-
     path('login2/', login2, name="login2"),
-   
 
 ]

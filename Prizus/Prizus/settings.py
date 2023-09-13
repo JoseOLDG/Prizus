@@ -41,11 +41,11 @@ INSTALLED_APPS = [
     'core',
     'crispy_forms',
     'crispy_bootstrap4',
+    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    #'django.contrib.sites',
 ]
 
 SITE_ID = 1
@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -68,7 +69,7 @@ ROOT_URLCONF = 'Prizus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR , 'core/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -146,6 +147,24 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '779765948692-aiduorpfppncs210r0fhvd73i3ghsufj.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

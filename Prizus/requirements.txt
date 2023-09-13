@@ -2,3 +2,4 @@ django-crispy-forms
 crispy-bootstrap4
 django
 requests
+django-allauth
