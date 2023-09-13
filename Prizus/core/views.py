@@ -2,6 +2,7 @@ from pyexpat.errors import messages
 from django.shortcuts import redirect, render
 from .forms import UserCreationForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 
@@ -27,4 +28,22 @@ def registro(request):
         
     
     return render(request, 'registration/registro.html', data)
+
+#def login2(request):
+    if request.method == 'GET':
+        return render(request, 'registration2/login2.html', {'form': AuthenticationForm})
+
+def login2(request):
+    if request.method == 'GET':
+        return render(request, 'registration2/login2.html', {
+            "form": AuthenticationForm
+            })
+    else:
+        user = authenticate(
+            request, username=request.POST['username'], password=request.POST['password'])
+        if user is None:
+            return render(request, 'registration2/login2.html', {"form": AuthenticationForm, "error": "Username or password is incorrect."})
+
+        login(request, user)
+        return redirect('xd.html')
 
