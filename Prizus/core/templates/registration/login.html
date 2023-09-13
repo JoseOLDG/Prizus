@@ -1,6 +1,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
-
+{% load socialaccount %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -79,7 +79,14 @@
                         <div class="contenedor">
                             <a href="{% url 'password_reset' %}" class="linkreg">¿Olvidasde tu contraseña?</a>
                             &nbsp;
+                            <a href="{% provider_login_url 'google' %}?next=/" class="linkreg">
+                                <i class="fab fa-google"></i>
+                                Login con google
+                            </a>
+                            {% if user.is_authenticated %}
+                            {% endif %}
                             <input type="submit" value="ingresar" class="botreg">
+                            
                         </div>
                     </form>
                 </div>

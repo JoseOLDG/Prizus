@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from .models import comentario
 
 from django.contrib.auth.forms import AuthenticationForm
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -34,7 +35,6 @@ def registro(request):
     return render(request, 'registration/registro.html', data)
 
 
-
 def producto(request):
     """
     Esta vista carga la lista de comentarios, el 
@@ -57,7 +57,8 @@ def producto(request):
     if request.method == 'GET':
         return render(request, 'registration2/login2.html', {'form': AuthenticationForm})
 
-def login2(request):
+
+#def login2(request):
     if request.method == 'GET':
         return render(request, 'registration2/login2.html', {
             "form": AuthenticationForm
@@ -71,4 +72,22 @@ def login2(request):
         login(request, user)
         return redirect('xd.html')
 
+    
+
+def login2(request):
+    if request.method == 'GET':
+        return render(request, 'registration2/login2.html', {"form": AuthenticationForm()})
+
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(request, username=username, password=password)
+    if user is None:
+        return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "Username or password is incorrect."})
+
+    if user.is_staff:
+        login(request, user)
+        return redirect('xd.html')
+    else:
+        return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
 
