@@ -1,9 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    background: #51425F;
+    background: #222222;
     background-size: cover;
-    font-family: sans-serif; 
+    font-family: sans-serif;
     height: 100vh;
 }
 
@@ -11,12 +11,6 @@ body {
     width: 200px;
     margin-left: 20px;
 }
-
-
-/*.logeo {
-    float: right;
-    padding: 20px 20px;
-}*/
 
 .indexbtn {
     display: block; 
@@ -30,60 +24,40 @@ body {
     border: none;
     outline: none;
     height: 40px;
-    background: #51425F;
-    color: #CAD1C3;
+    background: #A59D95;
+    color: #222222;
     font-size: 24px;
     border-radius: 50px;
     width: 600px;
+    font-family: 'Ubuntu';
     
 }
 
 .indexbtn:hover{
     cursor: pointer;
-    background: white;
+    background: #CCCCCC;
     color: #000;
     text-decoration: none;
 }
 
-/*header button{
-    display: block;
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #51425F;
-    color: #CAD1C3;
-    font-size: 12px;
-    border-radius: 50px;
-    width: 100px;
-    text-decoration: none;
-    margin-left: 5px;
+.contenedorbtn{
+    display: flex;
+
 }
 
-header button:hover{
-    cursor: pointer;
-    background: white;
-    color: #000;
-    text-decoration: none;
+.busqueda{
+    display: flex;
+    width: 600px;
+    margin-right: 400px;
 }
-header button a{
-    display: block;
-    color: #CAD1C3;
-    text-decoration: none;
-    
-}
-
-header button a:hover{
-    text-decoration: none;
-    color: #000;
-}*/
 
 .btn1{
     display: block;
     border: none;
     outline: none;
     height: 40px;
-    background: #51425F;
-    color: #CAD1C3;
+    background: #A59D95;
+    color: #222222;
     font-size: 12px;
     border-radius: 50px;
     width: 100px;
@@ -91,16 +65,16 @@ header button a:hover{
     margin-left: 5px;
     position: relative;
     display: block;
-    color: #CAD1C3;
     padding: 10px;
     text-align: center;
+    font-family: 'Ubuntu';
     
 
 }
 .btn1:hover{
     text-decoration: none;
-    color: #000;
-    background: white;
+    color: #222222;
+    background: #CCCCCC;
 }
 
 
@@ -116,8 +90,8 @@ header form{
     border: none;
     outline: none;
     height: 40px;
-    background: #51425F;
-    color: #CAD1C3;
+    background: #A59D95;
+    color: #222222;
     font-size: 12px;
     border-radius: 50px;
     width: 100px;
@@ -127,18 +101,18 @@ header form{
 
 .botreg:hover{
     cursor: pointer;
-    background: white;
-    color: #000;
+    background: #CCCCCC;
+    color: #222222;
     text-decoration: none;
 }
 
 .linkreg{
     display: block;
     text-decoration: none;
-    color: #51425F;
+    color: #666666;
 }
 
 .linkreg:hover{
     text-decoration: none;
-    color: #000;
+    color: #222222;
 }
