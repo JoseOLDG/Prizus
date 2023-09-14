@@ -45,10 +45,13 @@ def producto(request):
     comentarios = comentario.objects.all()
 
     if request.method == 'POST':
-        texto = request.POST['texto']
-        comments = comentario(usuario=request.user, texto=texto)
-        comments.save()
-        return redirect('producto')
+        try:
+            texto = request.POST['texto']
+            comments = comentario(usuario=request.user, texto=texto)
+            comments.save()
+            return redirect('producto')
+        except:
+            return redirect('login')
 
     return render(request, 'products/producto.html', {'comentarios': comentarios})
 
