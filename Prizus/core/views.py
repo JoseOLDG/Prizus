@@ -1,9 +1,9 @@
 from pyexpat.errors import messages
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .forms import UserCreationForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 
-from .models import comentario
+from .models import comentario, producto, precio
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
@@ -15,7 +15,10 @@ def index(request):
     return render(request, 'core/index.html')
 
 def menu(request):
-    return render(request, 'core/menu.html')
+    content = {
+        'productos': producto.objects.all()
+    }
+    return render(request, 'core/menu.html', content)
 
 def registro(request):
     data = {
@@ -34,8 +37,7 @@ def registro(request):
     
     return render(request, 'registration/registro.html', data)
 
-
-def producto(request):
+def perfumes(request, slug):
     """
     Esta vista carga la lista de comentarios, el 
     POST request es para cuando se escribe un comentario y
@@ -52,8 +54,14 @@ def producto(request):
             return redirect('producto')
         except:
             return redirect('login')
+        
+    content = {
+        'comentarios': comentarios,
+        'producto': get_object_or_404(producto, slug=slug),
+        'valores': precio.objects.filter(producto__slug=producto)
+    }
 
-    return render(request, 'products/producto.html', {'comentarios': comentarios})
+    return render(request, 'products/producto.html', content)
 
 def login2(request):
     if request.method == 'GET':

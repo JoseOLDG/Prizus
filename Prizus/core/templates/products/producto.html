@@ -3,37 +3,45 @@
 <!-- Product section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
-        <h1 class="display-5 text-light fw-bolder">Shop item template</h1>
+        <h1 class="display-5 text-light fw-bolder">{{producto.nombre}}</h1>
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-4"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+            <div class="col-md-4"><img class="card-img-top mb-5 mb-md-0" src="{{producto.imagen}}" alt="..." /></div>
             <div class="col-md-5">
-                <p class="lead text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
+                <p class="lead text-light">Descripción: {{producto.descripcion}}</p>
+                <p class="lead text-light">Género: {{producto.genero}}</p>
+                <p class="lead text-light">Marca: {{producto.marca}}</p>
+                <p class="lead text-light">Año: {{producto.anno_lanzamiento}}</p>
+                <p class="lead text-light">Contenido: {{producto.contenido_neto}}ML</p>
+                <p class="lead text-light">Familia Olfativa: {{producto.familia_olfativa}}</p>
+                <p class="lead text-light">Notas salida: {{producto.notas_salida}}</p>
+                <p class="lead text-light">Notas corazón: {{producto.notas_corazon}}</p>
+                <p class="lead text-light">Notas fondo: {{producto.notas_fondo}}</p>
             </div>
             <div class="col-md-2">
                 <div class="card" style="width: 18rem;">
                     <div class="card-header">
                       Precios
                     </div>
+                    {% if valores %}
+                    {% for precio in valores %}
                     <ol class="list-group list-group-numbered">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                           <div class="ms-2 me-auto">
-                            <div class="fw-bold">Falabella</div>
+                            <div class="fw-bold">{{precio.tienda}}</div>
                           </div>
-                          <span class="badge bg-primary rounded-pill">$15.200</span>
+                          <span class="badge bg-primary rounded-pill">${{precio.valor}}</span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Ripley</div>
-                          </div>
-                          <span class="badge bg-primary rounded-pill">$20.324</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">Fashion Online</div>
-                          </div>
-                          <span class="badge bg-primary rounded-pill">$25.223</span>
-                        </li>
-                      </ol>
+                    </ol>
+                    {% endfor %}
+                    {% else %}
+                    <ol class="list-group list-group-numbered">
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                          <div class="fw-bold">No existen precios por el momento</div>
+                        </div>
+                      </li>
+                    </ol>
+                    {% endif %}
                   </div>
             </div>
         </div>
