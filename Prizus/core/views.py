@@ -8,6 +8,30 @@ from .models import comentario, producto, precio
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
 
+from bs4 import BeautifulSoup
+import requests
+
+
+def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
+  try:
+    response = requests.get(url)
+    if response.status_code == 200:
+      try:
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        precio_perfume = soup.find(name=f'{tag_html_perfume}', class_=f'{clase_precio_perfume}')
+
+        try:
+          clear_precio = int(''.join(filter(str.isalnum, precio_perfume.text.strip().encode("utf-8").decode("utf-8", "ignore"))))
+        except:
+          clear_precio = precio_perfume.text.strip()
+        return clear_precio
+      except:
+        return print("Error en la extracción")
+    else:
+      return print("Error, codigo de estado: ", response.status_code)
+  except:
+    return print("Error en la solicitud")
 
 # Create your views here.
 
@@ -38,13 +62,10 @@ def registro(request):
     return render(request, 'registration/registro.html', data)
 
 def perfumes(request, slug):
-    """
-    Esta vista carga la lista de comentarios, el 
-    POST request es para cuando se escribe un comentario y
-    el GET request para listarlos en el mismo html
-    """
-    
+ 
     comentarios = comentario.objects.all()
+    perfume = get_object_or_404(producto, slug=slug)
+    valores = precio.objects.filter(producto__slug__icontains=slug)
 
     if request.method == 'POST':
         try:
@@ -57,9 +78,14 @@ def perfumes(request, slug):
         
     content = {
         'comentarios': comentarios,
-        'producto': get_object_or_404(producto, slug=slug),
-        'valores': precio.objects.filter(producto__slug=producto)
+        'producto': perfume,
+        'valores': valores,
     }
+
+    for val in valores:
+       nuevo_valor = extraer_informacion_perfume(val.webScraping_url, val.tienda.webScraping_tag, val.tienda.webScraping_precio)
+       val.valor = nuevo_valor
+       val.save()
 
     return render(request, 'products/producto.html', content)
 

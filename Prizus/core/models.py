@@ -47,7 +47,7 @@ class tiendaOnline(models.Model):
     webScraping_precio = models.CharField(max_length=200)
 
     def __str__(self):
-        return f"{self.nombre}, {self.webScraping_tag}, {self.webScraping_precio}"
+        return f"{self.nombre}"
 
 class precio(models.Model):
     producto = models.ForeignKey(producto, on_delete=models.CASCADE)
