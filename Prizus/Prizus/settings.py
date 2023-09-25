@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'core',
     'crispy_forms',
     'crispy_bootstrap4',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -143,6 +143,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'resetprizus@gmail.com'
 EMAIL_HOST_PASSWORD = 'nkqzgcoubezwtpqd'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -164,6 +165,8 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
 
 
 # Default primary key field type

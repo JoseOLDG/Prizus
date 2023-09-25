@@ -14,5 +14,6 @@ urlpatterns = [
     path('menu/', menu, name="menu"),
     path('producto/<slug>/', perfumes, name="producto"),
     path('login2/', login2, name="login2"),
+    
 
 ]

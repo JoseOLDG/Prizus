@@ -102,7 +102,7 @@ def login2(request):
 
     if user.is_staff:
         login(request, user)
-        return redirect('xd.html')
+        return redirect('administration/administration.html')
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
 
