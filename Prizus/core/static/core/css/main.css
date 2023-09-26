@@ -102,7 +102,21 @@
 
 .form-select{
     background-color: #222222 !important;
+    outline: none !important;
+    border-color: #CCCCCC !important;
+    box-shadow: none !important;
     color: #CCCCCC !important;
+    font-family: 'Ubuntu' !important;
+}
+
+.form-select option:hover {
+    background-color: #222222 !important;
+    outline: none !important;
+    border-color: #CCCCCC !important;
+    box-shadow: none !important;
+    color: #CCCCCC !important;
+    font-family: 'Ubuntu' !important;
+    
 }
 
 .textoopciones{

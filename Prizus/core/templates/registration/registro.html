@@ -12,29 +12,11 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@1,300&family=Ubuntu&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@1,300&family=Ubuntu&display=swap"
+        rel="stylesheet">
 
-    <style>
-        .formucolor {
-            max-width: 25em;
-            padding: 1.3em;
-            margin: 0 auto;
-            background: #D9D9D9;
-            font-weight: bold;
-            font-family: 'Ubuntu';
-            color: #222222;
 
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background: #222222;
-            background-size: cover;
-            font-family: sans-serif;
-            height: 100vh;
-        }
-    </style>
     <title>Register</title>
 
 </head>
@@ -42,30 +24,31 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #666666;">
-            <a href="{% url 'menu' %}"><img src="{% static 'core/img/BRIZUS.png' %}" alt="logo img" class="logo"></a> 
+            <a href="{% url 'menu' %}"><img src="{% static 'core/img/BRIZUS.png' %}" alt="logo img" class="logo"></a>
         </nav>
     </header>
-    <div class="container">
+    <div class="centrarlg">
         <div class="container">
-            <divc class="col-12 col-md-6 offset-md-3">
+            <div class="container">
+                <div class="col-12 col-md-6 offset-md-3">
 
-                <div class="card-body">
-                    <form action="" method="post" class="formucolor">
-                        <h2>Regístrate</h2>
-                        <div class="form-group"> 
-                            {% csrf_token %}
-                            {{ form|crispy }}
+                    <div class="card-body">
+                        <form action="" method="post" class="formucolor">
+                            <h2>Regístrate</h2>
+                            <div class="form-group">
+                                {% csrf_token %}
+                                {{ form|crispy }}
 
-                            <a href="{% url 'index' %}" class="linkreg">Ir al home</a>
-                            <a href="{% url 'login' %}" class="linkreg">Iniciar Sesión</a>
-                            <input type="submit" value="Registrar" class="botreg">
-                        </div>
+                                <a href="{% url 'index' %}" class="linkreg">Ir al home</a>
+                                <a href="{% url 'login' %}" class="linkreg">Iniciar Sesión</a>
+                                <input type="submit" value="Registrar" class="botreg">
+                            </div>
+                        </form>
+                    </div>
 
-                    </form>
                 </div>
-
+            </div>
         </div>
-    </div>
     </div>
 </body>
 
