@@ -26,28 +26,31 @@
 
 <body>
     <header>
+
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #666666;">
             <a href="{% url 'menu' %}"><img src="{% static 'core/img/BRIZUS.png' %}" alt="logo img" class="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-              </button>
-
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <form class="form-inline my-2 my-lg-0">
-                    <div class=" contenedorbtn">
-                        <div class="busqueda">
-                            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                            <button class="btn1" type="submit">Buscar</button>
-                        </div>
-
-                        <a href="{% url 'login' %}" class="btn1">Ingreso</a>
-                        &nbsp;
-                        <a href="{% url 'registro' %}" class="btn1">Registro</a>
+            </button>
+        
+            <div class="collapse navbar-collapse optnav" id="navbarSupportedContent">
+                <form class="form-inline mx-auto">
+                    <div class="busqueda">
+                        <input class="form-control me-2 tmbq" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn1" type="submit">Buscar</button>
                     </div>
                 </form>
+                <ul class="navbar-nav ml-auto d-flex flex-row">
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="btn1 custom-margin">Ingresar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'registro' %}" class="btn1 custom-margin">Registro</a>
+                    </li>
+                </ul>
             </div>
         </nav>
+        
     </header>
 
     <div class="contenerdorbody">

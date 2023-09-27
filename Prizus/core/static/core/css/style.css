@@ -47,8 +47,12 @@ body {
 
 .busqueda{
     display: flex;
-    width: 600px;
-    margin-right: 400px;
+    width: 100%;
+    
+}
+
+.tmbq{
+    width: 600px !important;
 }
 
 .btn1{
@@ -62,7 +66,7 @@ body {
     border-radius: 50px;
     width: 100px;
     text-decoration: none;
-    margin-left: 5px;
+    
     position: relative;
     display: block;
     padding: 10px;
@@ -77,6 +81,9 @@ body {
     background: #CCCCCC;
 }
 
+.custom-margin{
+    margin-right: 15px;
+}
 
 header form{
     margin-left: auto;
@@ -129,11 +136,11 @@ header form{
 }
 
 .centrarlg{
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
     height: 80%;
-    width: 100%;
+    width: 100%; 
 }
 
 .contenedor {
@@ -156,4 +163,34 @@ header form{
     box-shadow: none !important;
     color: #CCCCCC !important;
     font-family: 'Ubuntu' !important;
+}
+
+/* Responsividad */
+@media (max-width: 767px) {
+    .tmbq {
+        width: 100% !important;
+    }
+    
+    .optnav{
+        padding: 1em !important;
+    }
+
+    .busqueda {
+        margin-bottom: 10px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .tmbq {
+        width: 300px !important; /* Ajusta el ancho según tus necesidades */
+
+    }
+
+    .optnav{
+        padding: 1em !important;
+    }
+
+    .busqueda {
+        margin-bottom: 10px;
+    }
 }
