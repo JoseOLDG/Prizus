@@ -1,0 +1,115 @@
+#titulo{
+    text-align: center;
+    color: #CCCCCC !important;
+    font-family: 'Ubuntu';
+}
+
+.imgproducto{
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px 10px 10px 10px;
+    transition: all .5s;
+}
+
+#contenedordescripcion{
+    display: flex;
+    padding: 15px 10px;
+    
+    
+    
+}
+
+#descripcion{
+    
+    font-size: 14px;
+    color: #CCCCCC;
+    text-align: justify;
+    font-family: 'Ubuntu'; 
+    
+}
+
+#precios{
+    background-color: #1C1C1C;
+    color: #CCCCCC;
+    border-radius: 10px 10px 10px 10px;
+    font-family: 'Ubuntu';
+}
+
+#descrprecio{
+    background-color: #1C1C1C;
+    color: #CCCCCC;
+    font-family: 'Ubuntu';
+}
+
+#comentarios{
+    border-color: #1C1C1C !important;
+    background-color: #1C1C1C !important;
+    border-radius: 10px 10px 10px 10px;
+    
+}
+
+.ttc{
+    font-size: 32px;
+    color: #CCCCCC;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: 'Ubuntu';
+}
+
+.tta{
+    font-size: 20px;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: 'Ubuntu';
+
+}
+
+
+.lista-comentarios {
+    background-color: #222222;
+    color: #CCCCCC;
+    border-color: #222222;
+    font-family: 'Ubuntu';
+}
+
+.hacer-comentarios {
+    background-color: #222222;
+    color: #CCCCCC;
+    border-color: #222222;
+    font-family: 'Ubuntu';
+}
+
+.hacer-comentarios:focus{
+    background-color: #222222;
+    outline: none !important;
+    border-color: #CCCCCC;
+    box-shadow: none;
+    color: #CCCCCC;
+    font-family: 'Ubuntu';
+}
+
+.btnn{
+    display: block;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #A59D95;
+    color: #222222;
+    font-size: 12px;
+    border-radius: 50px;
+    width: 100%;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    text-align: center;
+    font-family: 'Ubuntu';
+}
+
+.btnn:hover{
+    text-decoration: none;
+    color: #222222;
+    background: #CCCCCC;
+}
+
