@@ -2,6 +2,7 @@ from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import UserCreationForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
 
 from .models import comentario, producto, precio
 
@@ -62,10 +63,8 @@ def registro(request):
     return render(request, 'registration/registro.html', data)
 
 def perfumes(request, slug):
- 
     comentarios = comentario.objects.all()
     perfume = get_object_or_404(producto, slug=slug)
-    valores = precio.objects.filter(producto__slug__icontains=slug)
 
     if request.method == 'POST':
         try:
@@ -75,19 +74,26 @@ def perfumes(request, slug):
             return redirect('producto')
         except:
             return redirect('login')
-        
+
     content = {
         'comentarios': comentarios,
         'producto': perfume,
-        'valores': valores,
     }
 
-    for val in valores:
-       nuevo_valor = extraer_informacion_perfume(val.webScraping_url, val.tienda.webScraping_tag, val.tienda.webScraping_precio)
-       val.valor = nuevo_valor
-       val.save()
-
     return render(request, 'products/producto.html', content)
+
+def update_prices(request, slug):
+    valores = precio.objects.filter(producto__slug__icontains=slug)
+
+    updated_prices = []
+
+    for val in valores:
+        nuevo_valor = extraer_informacion_perfume(val.webScraping_url, val.tienda.webScraping_tag, val.tienda.webScraping_precio)
+        tienda_valor = val.tienda.nombre
+        val.save()
+        updated_prices.append([nuevo_valor, tienda_valor])
+
+    return JsonResponse({'prices': updated_prices})
 
 def login2(request):
     if request.method == 'GET':

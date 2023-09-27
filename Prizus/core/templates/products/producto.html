@@ -83,5 +83,29 @@
     </div>
 </section>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Lógica para cargar los precios con AJAX
+        $.ajax({
+            url: "{% url 'update_prices' slug=producto.slug %}",  // Reemplaza 'update_prices' con la URL correcta de tu vista AJAX
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log (data)
+                var priceContainer = $('#price-container');
+                priceContainer.empty();  // Limpia cualquier contenido anterior
+
+                // Recorre los precios actualizados y añádelos al contenedor
+                for (var i = 0; i < data.prices.length; i++) {
+                    priceContainer.append('<p>' + data.prices[i] + '</p>');
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
 
 {% endblock %}
