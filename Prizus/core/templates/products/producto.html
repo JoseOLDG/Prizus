@@ -15,7 +15,6 @@
                 <p><strong>Descripción:</strong> {{producto.descripcion}}</p>
                 <p><strong>Género:</strong> {{producto.genero}}</p>
                 <p><strong>Marca:</strong> {{producto.marca}}</p>
-                <p><strong>Año:</strong> {{producto.anno_lanzamiento}}</p>
                 <p><strong>Contenido:</strong> {{producto.contenido_neto}}ML</p>
                 <p><strong>Familia Olfativa:</strong> {{producto.familia_olfativa}}</p>
                 <p><strong>Notas salida:</strong> {{producto.notas_salida}}</p>
@@ -27,26 +26,14 @@
                     <div class="card-header">
                       Precios
                     </div>
-                    {% if valores %}
-                    {% for precio in valores %}
-                    <ol class="list-group list-group-numbered">
+                    <ol id="precio-tienda" class="list-group list-group-numbered">
                         <li class="list-group-item d-flex justify-content-between align-items-start" id="descrprecio">
                           <div class="ms-2 me-auto">
-                            <div class="fw-bold">{{precio.tienda}}</div>
+                            <div id="tienda-container" class="fw-bold"></div>
                           </div>
-                          <span class="badge bg-primary rounded-pill">${{precio.valor}}</span>
+                          <span id="price-container" class="badge bg-primary rounded-pill"></span>
                         </li>
                     </ol>
-                    {% endfor %}
-                    {% else %}
-                    <ol class="list-group list-group-numbered">
-                      <li class="list-group-item d-flex justify-content-between align-items-start" id="descrprecio">
-                        <div class="ms-2 me-auto">
-                          <div class="fw-bold">No existen precios por el momento</div>
-                        </div>
-                      </li>
-                    </ol>
-                    {% endif %}
                   </div>
             </div>
         </div>
@@ -88,17 +75,24 @@
     $(document).ready(function() {
         // Lógica para cargar los precios con AJAX
         $.ajax({
-            url: "{% url 'update_prices' slug=producto.slug %}",  // Reemplaza 'update_prices' con la URL correcta de tu vista AJAX
+            url: "{% url 'update_prices' slug=producto.slug %}", 
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                console.log (data)
-                var priceContainer = $('#price-container');
-                priceContainer.empty();  // Limpia cualquier contenido anterior
+                var tiendaContainer = $('#tienda-container');
+                tiendaContainer.empty();
 
-                // Recorre los precios actualizados y añádelos al contenedor
                 for (var i = 0; i < data.prices.length; i++) {
-                    priceContainer.append('<p>' + data.prices[i] + '</p>');
+                    tiendaContainer.append(
+                        `
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">${data.prices[i][1]}</div>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">${data.prices[i][0]}</span>
+                        </li>
+                        `
+                    )  
                 }
             },
             error: function(error) {
