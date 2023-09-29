@@ -1,11 +1,11 @@
+from pdb import post_mortem
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import UserCreationForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
-
 from .models import comentario, producto, precio
-
+from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
 
@@ -40,9 +40,18 @@ def index(request):
     return render(request, 'core/index.html')
 
 def menu(request):
+    queryset = request.GET.get("buscar")
+    print("Valor de queryset:", queryset)  # Agregar esta línea para depuración
     content = {
         'productos': producto.objects.all()
     }
+    if queryset:
+        productos = producto.objects.filter(
+            Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset)
+        ).distinct()
+        print("Resultados de la consulta:", productos)  # Agregar esta línea para depuración
+        content['productos'] = productos
+
     return render(request, 'core/menu.html', content)
 
 def registro(request):
@@ -111,4 +120,5 @@ def login2(request):
         return redirect('admin:index')
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
+
 
