@@ -90,8 +90,9 @@ def update_prices(request, slug):
     for val in valores:
         nuevo_valor = extraer_informacion_perfume(val.webScraping_url, val.tienda.webScraping_tag, val.tienda.webScraping_precio)
         tienda_valor = val.tienda.nombre
+        producto_url = val.webScraping_url
         val.save()
-        updated_prices.append([nuevo_valor, tienda_valor])
+        updated_prices.append([nuevo_valor, tienda_valor, producto_url])
 
     return JsonResponse({'prices': updated_prices})
 
