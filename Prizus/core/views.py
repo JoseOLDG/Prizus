@@ -4,7 +4,7 @@ from .forms import UserCreationForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 
-from .models import comentario, producto, precio
+from .models import comentario, producto, precio, registroHistoricoPrecio
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
@@ -91,7 +91,14 @@ def update_prices(request, slug):
         nuevo_valor = extraer_informacion_perfume(val.webScraping_url, val.tienda.webScraping_tag, val.tienda.webScraping_precio)
         tienda_valor = val.tienda.nombre
         producto_url = val.webScraping_url
-        val.save()
+        if val.valor != nuevo_valor:
+            val.valor = nuevo_valor
+            val.save()
+            registroHistoricoPrecio.objects.create(
+                producto=val.producto,
+                tienda = val.tienda,
+                precio_registrado=nuevo_valor,
+            )
         updated_prices.append([nuevo_valor, tienda_valor, producto_url])
 
     return JsonResponse({'prices': updated_prices})

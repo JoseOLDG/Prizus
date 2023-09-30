@@ -56,3 +56,12 @@ class precio(models.Model):
 
     def __str__(self):
         return f"{self.producto.nombre}: {self.tienda.nombre} ${self.valor}"
+
+class registroHistoricoPrecio(models.Model):
+    producto = models.ForeignKey(producto, on_delete=models.CASCADE)
+    tienda = models.ForeignKey(tiendaOnline, on_delete=models.CASCADE)
+    precio_registrado = models.IntegerField()
+    fecha_cambio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.producto.nombre}, ${self.precio_registrado} en {self.fecha_cambio}"
