@@ -36,20 +36,20 @@
             <div class="collapse navbar-collapse optnav" id="navbarSupportedContent">
                 <form class="form-inline mx-auto">
                     <div class="busqueda">
-                        <input class="form-control me-2 tmbq" type="search" placeholder="Buscar" aria-label="Search">
                         <form method="get">
                             <div id="custom-search-input">
                                 <div class="input-group col-md-12">
-                                    <input type="text" class="form-control" placeholder="Buscar" name="buscar">
+                                    <input type="search" area-label="Search" class="form-control me-2 tmbq" placeholder="Buscar" name="buscar" value="{{ request.GET.buscar}}">
                                     <span class="inputj-group-list">
                                         <i class="icon icon-search"></i>
-                                        <button type="submit" class="boton btn-success">Buscar</button>
+                                        <button type="submit" class="btn1">Buscar</button>
                                     </span>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </form>
+
                 <ul class="navbar-nav ml-auto d-flex flex-row">
                     <li class="nav-item">
                         <a href="{% url 'login' %}" class="btn1 custom-margin">Ingresar</a>
