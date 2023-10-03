@@ -19,7 +19,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@1,300&family=Ubuntu&display=swap"
         rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/c8cde94915.js" crossorigin="anonymous"></script>
 
     <title>Login</title>
 
@@ -57,18 +57,18 @@
                             <div class="contenedor">
                                 <a href="{% url 'password_reset' %}" class="linkreg">¿Olvidasde tu contraseña?</a>
                                 &nbsp;
-                                <a href="{% provider_login_url 'google' %}?next=/" class="linkreg">
-                                    <i class="fab fa-google"></i>
-                                    Login con google
-                                </a>
                                 {% if user.is_authenticated %}
                                 {% endif %}
-                                <input type="submit" value="ingresar" class="botreg">
-
+                                <input type="submit" value="Ingresar" class="botreg">
                             </div>
                         </form>
                     </div>
-
+                    <div class="googlediv">
+                        <a href="{% provider_login_url 'google' %}?next=/" class="btngoogle">
+                            <i class="fab fa-google"></i>
+                            Continuar con Google
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

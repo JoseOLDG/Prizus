@@ -1,5 +1,6 @@
 {% load static %}
 {% load crispy_forms_tags %}
+{% load socialaccount %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -15,9 +16,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@1,300&family=Ubuntu&display=swap"
         rel="stylesheet">
+    <script src="https://kit.fontawesome.com/c8cde94915.js" crossorigin="anonymous"></script>
 
-
-    <title>Register</title>
+    <title>Registro</title>
 
 </head>
 
@@ -44,6 +45,12 @@
                                 <input type="submit" value="Registrar" class="botreg">
                             </div>
                         </form>
+                    </div>
+                    <div class="googlediv">
+                        <a href="{% provider_login_url 'google' %}?next=/" class="btngoogle">
+                            <i class="fab fa-google"></i>
+                            Continuar con Google
+                        </a>
                     </div>
 
                 </div>

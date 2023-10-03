@@ -124,6 +124,36 @@ header form{
     color: #222222;
 }
 
+.btngoogle{
+    display: block;
+    border: none;
+    outline: none;
+    height: 45px;
+    background: #A59D95;
+    color: #222222;
+    font-size: large;
+    border-radius: 50px;
+    width: 75%;
+    text-decoration: none;
+    position: relative;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    
+}
+
+.btngoogle:hover{
+    text-decoration: none;
+    color: #222222;
+    background: #CCCCCC;
+}
+
+.googlediv{
+    display: grid;
+    place-items: center;
+}
+
 .formucolor {
     max-width: 25em;
     padding: 1.3em;
@@ -139,7 +169,7 @@ header form{
     display: block;
     align-items: center;
     justify-content: center;
-    height: 80%;
+    
     width: 100%; 
 }
 
