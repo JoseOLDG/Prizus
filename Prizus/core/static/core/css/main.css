@@ -133,3 +133,8 @@
     box-shadow: none !important;
     border-color: #CCCCCC !important;
 }
+
+.iconw{
+    height: 50px;
+    width: 50px;
+}
