@@ -72,6 +72,7 @@
 
 .contenerdorbody{
     display: flex;
+    margin-top: 70px !important;
 }
 
 .acordeon{

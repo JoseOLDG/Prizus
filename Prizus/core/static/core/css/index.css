@@ -1,0 +1,27 @@
+section {
+    display: flex !important;
+    width: 1200px !important;
+    height: 430px !important;
+}
+
+section img {
+    width: 0px !important;
+    flex-grow: 1 !important;
+    object-fit: cover !important;
+    opacity: .8 !important;
+    transition: .5s ease !important;
+    border-radius: 10px !important; 
+}
+
+section img:hover {
+    cursor: crosshair !important;
+    width: 300px !important;
+    opacity: 1 !important;
+    filter: contrast(120%) !important;
+}
+
+.imgcar{
+    display: grid;
+    justify-content: center;
+    margin-top: 5%;
+}
