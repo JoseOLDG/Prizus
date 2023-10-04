@@ -28,9 +28,8 @@ class producto(models.Model):
 
     nombre = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='nombre')
-    descripcion = models.CharField(max_length=200)
+    descripcion = models.CharField(max_length=400)
     marca = models.CharField(max_length=100)
-    anno_lanzamiento = models.DateField()
     contenido_neto = models.IntegerField()
     familia_olfativa = models.CharField(max_length=100)
     notas_salida = models.CharField(max_length=100)
@@ -53,7 +52,7 @@ class precio(models.Model):
     producto = models.ForeignKey(producto, on_delete=models.CASCADE)
     tienda = models.ForeignKey(tiendaOnline, on_delete=models.CASCADE)
     webScraping_url = models.URLField()
-    valor = models.IntegerField()
+    valor = models.IntegerField(null=True, default=0)
 
     def __str__(self):
         return f"{self.producto.nombre}: {self.tienda.nombre} ${self.valor}"

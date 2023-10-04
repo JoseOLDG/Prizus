@@ -1,7 +1,7 @@
 from django import views
 from django.urls import path
 
-from .views import index, login, registro, menu, perfumes
+from .views import index, login, registro, menu, perfumes, update_prices
 
 from .views import index, login, login2, registro, menu
 from django.contrib.auth import views as auth_views
@@ -14,6 +14,5 @@ urlpatterns = [
     path('menu/', menu, name="menu"),
     path('producto/<slug>/', perfumes, name="producto"),
     path('login2/', login2, name="login2"),
-    
-
+    path('update_prices/<slug>/', update_prices, name='update_prices'),
 ]
