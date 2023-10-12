@@ -136,6 +136,10 @@
 }
 
 .iconw{
-    height: 50px;
-    width: 50px;
+    color: #cccccc; 
+    font-size: 50px;
+    display: flex;
+    position: fixed;
+    bottom: 40px; 
+    left: 5%;
 }
