@@ -7,3 +7,6 @@ django-allauth==0.57.0
 beautifulsoup4==4.12.2
 django-admin-interface==0.26.0
 db-sqlite3==0.0.1
+django-environ==0.9.0
+django-cors-headers==3.13.0
+argon2-cffi==21.3.0
