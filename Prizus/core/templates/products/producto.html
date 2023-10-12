@@ -5,8 +5,9 @@
 {% load crispy_forms_tags %}
 <!-- Product section-->
 <link href="{% static 'core/css/producto.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'core/css/style.css' %}" type="text/css" rel="stylesheet">
 
-<section class="py-5">
+<section class="py-5 bordeproduc">
     <div class="container px-4 px-lg-5 my-5">
         <h1 class="display-5 text-light fw-bolder" id="titulo">{{producto.nombre}}</h1>
         <div class="row gx-4 gx-lg-5" id="contenedordescripcion">
@@ -22,7 +23,7 @@
                 <p><strong>Notas fondo:</strong> {{producto.notas_fondo}}</p>
             </div>
             <div class="col-md-2">
-                <div class="card" style="width: 18rem;" id="precios">
+                <div class="precios">
                     <div class="card-header">
                       Precios
                     </div>
@@ -85,11 +86,11 @@
                 for (var i = 0; i < data.prices.length; i++) {
                     tiendaContainer.append(
                         `
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <li class="list-group-item d-flex justify-content-between align-items-start numcolor">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">${data.prices[i][1]}</div>
                             </div>
-                            <span class="badge bg-primary rounded-pill">${data.prices[i][0]}</span>
+                            <span class="badge rounded-pill numcolor">${data.prices[i][0]}</span>
                         </li>
                         `
                     )  
