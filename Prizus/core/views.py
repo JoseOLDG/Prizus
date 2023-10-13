@@ -8,7 +8,6 @@ from .models import comentario, producto, precio
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
-
 from bs4 import BeautifulSoup
 import requests
 
@@ -47,7 +46,7 @@ def menu(request):
     }
     if queryset:
         productos = producto.objects.filter(
-            Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset)
+            Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset) | Q(genero__icontains=queryset) | Q(contenido_neto__icontains=queryset) | Q(familia_olfativa__icontains=queryset) | Q(notas_salida__icontains=queryset) | Q(notas_corazon__icontains=queryset) | Q(notas_fondo__icontains=queryset)
         ).distinct()
         print("Resultados de la consulta:", productos)  # Agregar esta línea para depuración
         content['productos'] = productos
