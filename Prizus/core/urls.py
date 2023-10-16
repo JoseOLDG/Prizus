@@ -15,4 +15,5 @@ urlpatterns = [
     path('producto/<slug>/', perfumes, name="producto"),
     path('login2/', login2, name="login2"),
     path('update_prices/<slug>/', update_prices, name='update_prices'),
+   
 ]
