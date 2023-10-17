@@ -3,7 +3,7 @@ body {
     padding: 0 !important;
     background: #222222 !important;
     background-size: cover !important;
-    font-family: sans-serif !important;
+    font-family: 'Ubuntu' !important;
     height: 100vh !important;
 }
 
@@ -257,4 +257,5 @@ header form{
     .busqueda {
         margin-bottom: 10px;
     }
+
 }
