@@ -227,4 +227,11 @@
 .disable{
     background: #ccc;
 }
+
+footer{
+    width: 100%;
+    height: 600px;
+    display: block;
+    margin-top: 80%;
+}
         
