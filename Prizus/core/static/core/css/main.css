@@ -190,14 +190,14 @@
 }
   
 .paginator li a{
-    color: #fff;
+    color: #CCCCCC;
     text-decoration: none;
     font-size: 1.2em;
     line-height: 45px;
 }
   
 .previous-page, .next-page{
-    background: #222222;
+    background: #A59D95;
     width: 80px;
     border-radius: 45px;
     cursor: pointer;
@@ -213,19 +213,19 @@
 }
   
 .current-page, .dots{
-    background: #CCCCCC;
+    background: #666666;
     width: 45px;
     border-radius: 50%;
     cursor: pointer;
 }
   
 .active{
-    background: #222222;
+    background: #A59D95;
     color:#CCCCCC
 }
   
 .disable{
-    background: #ccc;
+    background: #A59D95;
 }
 
 footer{
@@ -233,5 +233,9 @@ footer{
     height: 600px;
     display: block;
     margin-top: 80%;
+}
+
+.ftr{
+    background-color: #666666 !important;
 }
         
