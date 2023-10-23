@@ -86,3 +86,10 @@ function getPageList(totalPages, page, maxLength){
     });
   });
 
+// Selecciona el elemento del menú desplegable
+var select = document.getElementById("buscar");
+    
+// Agrega un evento para detectar cambios en el menú desplegable
+select.addEventListener("change", function() {
+    document.getElementById("filtro-form").submit(); // Envía el formulario cuando cambia la selección
+});

@@ -8,6 +8,7 @@ from .models import comentario, producto, precio
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 
 from bs4 import BeautifulSoup
 import requests
@@ -47,10 +48,10 @@ def menu(request):
     }
     if queryset:
         productos = producto.objects.filter(
-            Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset)
+            Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset) | Q(genero__icontains=queryset) | Q(contenido_neto__icontains=queryset) | Q(familia_olfativa__icontains=queryset) | Q(notas_salida__icontains=queryset) | Q(notas_corazon__icontains=queryset) | Q(notas_fondo__icontains=queryset)
         ).distinct()
         print("Resultados de la consulta:", productos)  # Agregar esta línea para depuración
-        content['productos'] = productos
+        content['productos'] = productos 
 
     return render(request, 'core/menu.html', content)
 
@@ -121,4 +122,16 @@ def login2(request):
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
 
-
+def obtener_productos_por_genero(request):
+    genero = request.GET.get('genero', None)
+    
+    if genero is not None:
+        # Realiza una consulta en la base de datos para obtener los productos filtrados por el género seleccionado
+        productos_filtrados = Producto.objects.filter(descripcion=genero)
+        
+        # Convierte los productos en un formato JSON
+        productos_json = [{'nombre': producto.nombre, 'imagen': producto.imagen, 'descripcion': producto.descripcion, 'slug': producto.slug} for producto in productos_filtrados]
+        
+        return JsonResponse(productos_json, safe=False)
+    
+    return JsonResponse([], safe=False)
