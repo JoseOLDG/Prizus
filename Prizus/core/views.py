@@ -12,6 +12,9 @@ from bs4 import BeautifulSoup
 import requests
 from django.http import JsonResponse
 from .models import Calificacion
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
 
 def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
   try:
@@ -130,4 +133,7 @@ def guardar_puntuacion(request):
 
     return JsonResponse({'error': 'Este endpoint solo admite solicitudes POST.'})
 
+def logout_view(request):
+    logout(request)
+    return redirect('nombre_de_la_página_de_inicio')
 
