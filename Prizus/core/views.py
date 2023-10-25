@@ -42,16 +42,36 @@ def index(request):
 
 def menu(request):
     queryset = request.GET.get("buscar")
-    print("Valor de queryset:", queryset)  # Agregar esta línea para depuración
+    filtro_contenido = request.GET.get("filtro_contenido")
+
     content = {
         'productos': producto.objects.all()
     }
-    if queryset:
+
+    if filtro_contenido:
+        # Mapea el valor del filtro a los rangos de contenido neto
+        rango_filtro = {
+            "1": (25, 50),
+            "2": (50, 100),
+            "3": (100, 150),
+            "4": (150, 200),
+            "5": (200, 500),
+            "6": (500, 1000)
+        }
+
+        if filtro_contenido in rango_filtro:
+            rango = rango_filtro[filtro_contenido]
+            productos = producto.objects.filter(
+                contenido_neto__gte=rango[0],
+                contenido_neto__lte=rango[1]
+            )
+            content['productos'] = productos
+
+    if queryset: 
         productos = producto.objects.filter(
             Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset) | Q(genero__icontains=queryset) | Q(contenido_neto__icontains=queryset) | Q(familia_olfativa__icontains=queryset) | Q(notas_salida__icontains=queryset) | Q(notas_corazon__icontains=queryset) | Q(notas_fondo__icontains=queryset)
         ).distinct()
-        print("Resultados de la consulta:", productos)  # Agregar esta línea para depuración
-        content['productos'] = productos 
+        content['productos'] = productos
 
     return render(request, 'core/menu.html', content)
 

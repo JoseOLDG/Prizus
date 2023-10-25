@@ -88,8 +88,16 @@ function getPageList(totalPages, page, maxLength){
 
 // Selecciona el elemento del menú desplegable
 var select = document.getElementById("buscar");
-    
+     
 // Agrega un evento para detectar cambios en el menú desplegable
 select.addEventListener("change", function() {
     document.getElementById("filtro-form").submit(); // Envía el formulario cuando cambia la selección
+});
+
+// Selecciona el elemento del menú desplegable de contenido neto
+var select = document.querySelector('select[name="filtro_contenido"]');
+         
+// Agrega un evento para detectar cambios en el menú desplegable
+select.addEventListener('change', function() {
+    document.querySelector('#filtro-form2').submit(); // Envía el formulario cuando cambia la selección
 });

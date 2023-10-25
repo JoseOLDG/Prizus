@@ -101,16 +101,21 @@
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                    <strong></strong><code><select class="form-select" aria-label="Default select example">
-                        <option selected>Contenido neto</option>
-                        <option value="1">25 ml</option>
-                        <option value="2">30 ml</option>
-                        <option value="3">40 ml</option>
-                        <option value="4">50 ml</option>
-                        <option value="5">75 ml</option>
-                        <option value="6">100 ml</option>
-                        <option value="7">125 ml</option>
-                      </select></code>
+                    <strong></strong>
+                    <code>
+                        <form id="filtro-form2" method="get">
+                            <select name="filtro_contenido" class="form-select" aria-label="Default select example">
+                                <option value="" selected>Contenido neto</option>
+                                <option value="1">25 ml - 50 ml</option>
+                                <option value="2">50 ml - 100 ml</option>
+                                <option value="3">100 ml - 150 ml</option>
+                                <option value="4">150 ml - 200 ml</option>
+                                <option value="5">200 ml - 500 ml</option>
+                                <option value="6">500 ml - 1000 ml</option>
+                            </select>
+                        </form>
+                        
+                    </code>
 
                     </div>
                 </div>
