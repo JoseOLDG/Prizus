@@ -67,126 +67,128 @@
     </header>
 
     <div class="contenerdorbody">
-
-        <div class="acordeon">
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Genero
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                    <strong></strong>
+        <form id="filtro-form" method="get" action="{% url 'menu' %}">
+            <div class="acordeon">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Genero
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <strong></strong>
+                            <code>
+                                
+                                    <select name="filtro" class="form-select" aria-label="Default select example">
+                                        <option selected value="">Seleccionar Género</option>
+                                        <option value="Hombre">Hombre</option>
+                                        <option value="Mujer">Mujer</option>
+                                        <option value="Unisex">Unisex</option>
+                                    </select>
+                                
+                                
+                            </code>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Contenido neto
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <strong></strong>
                         <code>
-                            <form id="filtro-form" method="get">
-                                <select name="buscar" id="buscar" class="form-select" aria-label="Default select example">
-                                    <option selected>Seleccionar Género</option>
-                                    <option value="Hombre">Hombre</option>
-                                    <option value="Mujer">Mujer</option>
-                                    <option value="Unisex">Unisex</option>
+                            
+                                <select name="filtro_contenido" class="form-select" aria-label="Default select example">
+                                    <option selected value="">Contenido neto</option>
+                                    <option value="1">25 ml - 50 ml</option>
+                                    <option value="2">50 ml - 100 ml</option>
+                                    <option value="3">100 ml - 150 ml</option>
+                                    <option value="4">150 ml - 200 ml</option>
+                                    <option value="5">200 ml - 500 ml</option>
+                                    <option value="6">500 ml - 1000 ml</option>
                                 </select>
-                            </form>
+                            
                             
                         </code>
-                    </div>
-                </div>
-                </div>
-                <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Contenido neto
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                    <strong></strong>
-                    <code>
-                        <form id="filtro-form2" method="get">
-                            <select name="filtro_contenido" class="form-select" aria-label="Default select example">
-                                <option value="" selected>Contenido neto</option>
-                                <option value="1">25 ml - 50 ml</option>
-                                <option value="2">50 ml - 100 ml</option>
-                                <option value="3">100 ml - 150 ml</option>
-                                <option value="4">150 ml - 200 ml</option>
-                                <option value="5">200 ml - 500 ml</option>
-                                <option value="6">500 ml - 1000 ml</option>
-                            </select>
-                        </form>
-                        
-                    </code>
 
+                        </div>
                     </div>
-                </div>
-                </div>
-                <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Marca
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                    <strong></strong><code><div class="form-check"> 
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Cartier                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            CHANEL                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Dior                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Giorgio Armani                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Jean Paul Gaultier                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Narciso Rodríguez                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Ralph Lauren                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Tous                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Yves Saint Laurent                        </label>
-                      </div></code>
                     </div>
+                    <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Marca
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <strong></strong><code><div class="form-check"> 
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Cartier                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                CHANEL                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Dior                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Giorgio Armani                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Jean Paul Gaultier                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Narciso Rodríguez                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Ralph Lauren                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Tous                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Yves Saint Laurent                        </label>
+                        </div></code>
+                        </div>
+                    </div>
+                    </div>
+                    
                 </div>
+
+                
+
+                <div id="range-slider"></div>
+
+                <div>
+                    <a href="https://wa.me/56987831560?text=Hola, necesito ayuda."><i class="fa-brands fa-whatsapp iconw"></i></a>
                 </div>
+                <button type="submit" class="btn1">Buscar</button>
             </div>
-
-            
-
-            <div id="range-slider"></div>
-
-            <div>
-                <a href="https://wa.me/56987831560?text=Hola, necesito ayuda."><i class="fa-brands fa-whatsapp iconw"></i></a>
-            </div>
-            
-        </div> 
+        </form>
         <div class="sii">
             <div class="container-items">
                 {% if productos %}
