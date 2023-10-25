@@ -8,9 +8,12 @@ from .models import comentario, producto, precio
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
-
 from bs4 import BeautifulSoup
 import requests
+from django.http import JsonResponse
+from .models import Calificacion
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
@@ -34,8 +37,6 @@ def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
   except:
     return print("Error en la solicitud")
 
-# Create your views here.
-
 def index(request):
     return render(request, 'core/index.html')
 
@@ -47,7 +48,7 @@ def menu(request):
     }
     if queryset:
         productos = producto.objects.filter(
-            Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset)
+            Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset) | Q(genero__icontains=queryset) | Q(contenido_neto__icontains=queryset) | Q(familia_olfativa__icontains=queryset) | Q(notas_salida__icontains=queryset) | Q(notas_corazon__icontains=queryset) | Q(notas_fondo__icontains=queryset)
         ).distinct()
         print("Resultados de la consulta:", productos)  # Agregar esta línea para depuración
         content['productos'] = productos
@@ -120,5 +121,19 @@ def login2(request):
         return redirect('admin:index')
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
+    
+def guardar_puntuacion(request):
+    if request.method == 'POST':
+        puntuacion = int(request.POST.get('puntuacion'))
 
+        calificacion = Calificacion(puntuacion=puntuacion)
+        calificacion.save()
+
+        return JsonResponse({'message': f'Calificación guardada: {puntuacion} estrellas.'})
+
+    return JsonResponse({'error': 'Este endpoint solo admite solicitudes POST.'})
+
+def logout_view(request):
+    logout(request)
+    return redirect('nombre_de_la_página_de_inicio')
 
