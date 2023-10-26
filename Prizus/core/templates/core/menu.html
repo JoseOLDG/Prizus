@@ -15,20 +15,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@1,300&family=Ubuntu&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+    <script src="https://kit.fontawesome.com/c8cde94915.js" crossorigin="anonymous"></script>
+    
 
     
 
-    <title>Document</title>
+    <title>Inicio</title>
 </head>
 
 <body>
     <header>
 
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #666666;">
-            <a href="{% url 'menu' %}"><img src="{% static 'core/img/BRIZUS.png' %}" alt="logo img" class="logo"></a>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #666666;">
+            <a href="{% url 'menu' %}" class="navbar-brand"><img src="{% static 'core/img/BRIZUS.png' %}" alt="logo img" class="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,16 +39,29 @@
             <div class="collapse navbar-collapse optnav" id="navbarSupportedContent">
                 <form class="form-inline mx-auto">
                     <div class="busqueda">
-                        <input class="form-control me-2 tmbq" type="search" placeholder="Buscar" aria-label="Search">
-                        <button class="btn1" type="submit">Buscar</button>
+                        <form method="get">
+                            <div id="custom-search-input">
+                                <div class="input-group col-md-12">
+                                    <input type="search" area-label="Search" class="form-control me-2 tmbq" placeholder="Buscar" name="buscar" value="{{ request.GET.buscar}}">
+                                    <span class="inputj-group-list">
+                                        <i class="icon icon-search"></i>
+                                        <button type="submit" class="btn1">Buscar</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </form>
+
                 <ul class="navbar-nav ml-auto d-flex flex-row">
                     <li class="nav-item">
                         <a href="{% url 'login' %}" class="btn1 custom-margin">Ingresar</a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'registro' %}" class="btn1 custom-margin">Registro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="btn1 custom-margin">Cerrar sesión</a>
                     </li>
                 </ul>
             </div>
@@ -54,138 +70,209 @@
     </header>
 
     <div class="contenerdorbody">
+        <form id="filtro-form" method="get" action="{% url 'menu' %}">
+            <div class="acordeon">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Genero
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <strong></strong>
+                            <code>
+                                
+                                    <select name="filtro" class="form-select" aria-label="Default select example">
+                                        <option selected value="">Seleccionar Género</option>
+                                        <option value="Hombre">Hombre</option>
+                                        <option value="Mujer">Mujer</option>
+                                        <option value="Unisex">Unisex</option>
+                                    </select>
+                                
+                                
+                            </code>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Contenido neto
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <strong></strong>
+                        <code>
+                            
+                                <select name="filtro_contenido" class="form-select" aria-label="Default select example">
+                                    <option selected value="">Contenido neto</option>
+                                    <option value="1">25 ml - 50 ml</option>
+                                    <option value="2">50 ml - 100 ml</option>
+                                    <option value="3">100 ml - 150 ml</option>
+                                    <option value="4">150 ml - 200 ml</option>
+                                    <option value="5">200 ml - 500 ml</option>
+                                    <option value="6">500 ml - 1000 ml</option>
+                                </select>
+                            
+                            
+                        </code>
 
-        <div class="acordeon">
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Genero
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                    <strong></strong><code><select class="form-select" aria-label="Default select example">
-                        <option selected>Seleccionar Genero</option>
-                        <option value="1">Hombre</option> 
-                        <option value="2">Mujer</option>
-                        <option value="3">Unisex</option>
-                      </select></code>
+                        </div>
                     </div>
+                    </div>
+                    <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Marca
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                        <strong></strong><code><div class="form-check"> 
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Cartier                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                CHANEL                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Dior                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Giorgio Armani                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Jean Paul Gaultier                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Narciso Rodríguez                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Ralph Lauren                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Tous                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Yves Saint Laurent                        </label>
+                        </div></code>
+                        </div>
+                    </div>
+                    </div>
+                    
                 </div>
-                </div>
-                <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Contenido neto
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                    <strong></strong><code><select class="form-select" aria-label="Default select example">
-                        <option selected>Contenido neto</option>
-                        <option value="1">25 ml</option>
-                        <option value="2">30 ml</option>
-                        <option value="3">40 ml</option>
-                        <option value="4">50 ml</option>
-                        <option value="5">75 ml</option>
-                        <option value="6">100 ml</option>
-                        <option value="7">125 ml</option>
-                      </select></code>
 
+                
+
+                <div id="range-slider"></div>
+
+
+                <div>
+                    <a href="https://wa.me/56987831560?text=Hola, necesito ayuda."><i class="fa-brands fa-whatsapp iconw"></i></a>
+                </div>
+                <button type="submit" class="btn1">Buscar</button>
+            </div>
+        </form>
+        <div class="sii">
+            <div class="container-items">
+                {% if productos %}
+                {% for producto in productos %}
+                <a href="{% url 'producto' producto.slug %}">
+                    <div class="item">
+                        <figure>
+                            <img src="{{producto.imagen}}"
+                                alt="producto" />
+                        </figure>
+                        <div class="info-product">
+                            <h3>{{producto.nombre}}</h3>
+                            <h3 class="descripcion">{{producto.descripcion}}</h3>
+                        </div>
                     </div>
-                </div>
-                </div>
-                <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed custom-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Marca
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                    <strong></strong><code><div class="form-check"> 
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Cartier                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            CHANEL                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Dior                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Giorgio Armani                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Jean Paul Gaultier                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Narciso Rodríguez                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Ralph Lauren                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Tous                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Yves Saint Laurent                        </label>
-                      </div></code>
-                    </div>
-                </div>
-                </div>
+                </a>
+                {% endfor %}
+                {% else %}
+                <p class="notfoundp">No se encontraron productos</p>
+                {% endif %}
+
+                
             </div>
 
-            
-
-            <div id="range-slider"></div>
-
-            
-            
-        </div> 
-
-        <div class="container-items">
-            {% if productos %}
-            {% for producto in productos %}
-            <a href="{% url 'producto' producto.slug %}">
-                <div class="item">
-                    <figure>
-                        <img src="{{producto.imagen}}"
-                            alt="producto" />
-                    </figure>
-                    <div class="info-product">
-                        <h3>{{producto.nombre}}</h3>
-                        <h3 class="descripcion">{{producto.descripcion}}</h3>
-                        <p class="price">$50.000</p>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
-            {% else %}
-            <p>No productos</p>
-            {% endif %}
-
+            <div class="paginator">
+                <li class="page-item previous-page disable lipag"><a class="page-link apg" href="#">◄</a></li>
+                <li class="page-item current-page active lipag"><a class="page-link apg" href="#">1</a></li>
+                <li class="page-item dots lipag"><a class="page-link apg" href="#">...</a></li>
+                <li class="page-item current-page lipag"><a class="page-link apg" href="#">5</a></li>
+                <li class="page-item current-page lipag"><a class="page-link apg" href="#">6</a></li>
+                <li class="page-item dots lipag"><a class="page-link apg" href="#">...</a></li>
+                <li class="page-item current-page lipag"><a class="page-link apg" href="#">10</a></li>
+                <li class="page-item next-page lipag"><a class="page-link apg" href="#">►</a></li>
+            </div>
         </div>
-    </div>
-<script src="{% static 'core/js/rangeslider.js' %}" type="text/javascript"></script>
-</body>
 
+        
+        
+    </div>
+
+    <footer class="ftr text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0 ftr">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" role="button"><i
+                        class="fab fa-facebook-f"></i></a>
+    
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/" role="button"><i class="fab fa-twitter"></i></a>
+    
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.com/" role="button"><i class="fab fa-google"></i></a>
+    
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" role="button"><i
+                        class="fab fa-instagram"></i></a>
+    
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/" role="button"><i
+                        class="fab fa-linkedin-in"></i></a>
+    
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/" role="button"><i class="fab fa-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+    
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white" href="http://127.0.0.1:8000/">Prizus.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    
+
+<script src="{% static 'core/js/rangeslider.js' %}" type="text/javascript"></script>
+<br>
+</body>
 </html>

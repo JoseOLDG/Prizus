@@ -1,16 +1,28 @@
+from pdb import post_mortem
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import UserCreationForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+<<<<<<< HEAD
 
 from .models import comentario, producto, precio, registroHistoricoPrecio
 
+=======
+from .models import comentario, producto, precio
+from django.db.models import Q
+>>>>>>> main
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
+from django.http import JsonResponse
+
 
 from bs4 import BeautifulSoup
 import requests
+from django.http import JsonResponse
+from .models import Calificacion
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
@@ -34,16 +46,47 @@ def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
   except:
     return print("Error en la solicitud")
 
-# Create your views here.
-
 def index(request):
     return render(request, 'core/index.html')
 
 def menu(request):
+    queryset = request.GET.get("buscar")
+    genero = request.GET.get("filtro")
+    contenido_neto = request.GET.get("filtro_contenido")
+
     content = {
         'productos': producto.objects.all()
     }
+
+    if genero:
+        content['productos'] = content['productos'].filter(Q(genero__icontains=genero))
+
+    if contenido_neto:
+        rango_filtro = {
+            "1": (25, 50),
+            "2": (50, 100),
+            "3": (100, 150),
+            "4": (150, 200),
+            "5": (200, 500),
+            "6": (500, 1000)
+        }
+
+        if contenido_neto in rango_filtro:
+            rango = rango_filtro[contenido_neto]
+            productos = producto.objects.filter(
+                contenido_neto__gte=rango[0],
+                contenido_neto__lte=rango[1]
+            )
+            content['productos'] = content['productos'].filter(pk__in=productos)
+
+    if queryset:
+        productos = producto.objects.filter(
+            Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset) | Q(genero__icontains=queryset) | Q(contenido_neto__icontains=queryset) | Q(familia_olfativa__icontains=queryset) | Q(notas_salida__icontains=queryset) | Q(notas_corazon__icontains=queryset) | Q(notas_fondo__icontains=queryset)
+        ).distinct()
+        content['productos'] = content['productos'].filter(pk__in=productos)
+
     return render(request, 'core/menu.html', content)
+
 
 def registro(request):
     data = {
@@ -119,4 +162,34 @@ def login2(request):
         return redirect('admin:index')
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
+    
+def guardar_puntuacion(request):
+    if request.method == 'POST':
+        puntuacion = int(request.POST.get('puntuacion'))
+
+        calificacion = Calificacion(puntuacion=puntuacion)
+        calificacion.save()
+
+        return JsonResponse({'message': f'Calificación guardada: {puntuacion} estrellas.'})
+
+    return JsonResponse({'error': 'Este endpoint solo admite solicitudes POST.'})
+
+
+def obtener_productos_por_genero(request):
+    genero = request.GET.get('genero', None)
+    
+    if genero is not None:
+        # Realiza una consulta en la base de datos para obtener los productos filtrados por el género seleccionado
+        productos_filtrados = Producto.objects.filter(descripcion=genero)
+        
+        # Convierte los productos en un formato JSON
+        productos_json = [{'nombre': producto.nombre, 'imagen': producto.imagen, 'descripcion': producto.descripcion, 'slug': producto.slug} for producto in productos_filtrados]
+        
+        return JsonResponse(productos_json, safe=False)
+    
+    return JsonResponse([], safe=False)
+
+def logout_view(request):
+    logout(request)
+    return redirect('nombre_de_la_página_de_inicio')
 

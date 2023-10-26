@@ -19,13 +19,23 @@ class producto(models.Model):
         HOMBRE = "HOMBRE", "Hombre"
         MUJER = "MUJER", "Mujer"
         UNISEX = "UNISEX", "Unisex"
+    
+    class FormaPerfume(models.TextChoices):
+        Cilindro = "Cilindro", "Cilindro"
+        Cintura = "Cintura", "Cintura"
+        Cuadrado = "Cuadrado", "Cuadrado"
+        Esfera = "Esfera", "Esfera"
+        Figura = "Figura", "Figura"
+        Pack = "Pack", "Pack"
+        Prisma = "Prisma", "Prisma"
+        Rectangulo = "Rectangulo", "Rectangulo"
+        Tronco = "Tronco", "Tronco"
 
     genero = models.CharField(
         max_length = 20,
         choices=GeneroPerfume.choices,
         default=GeneroPerfume.UNISEX
     )
-
     nombre = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='nombre')
     descripcion = models.CharField(max_length=400)
@@ -36,6 +46,11 @@ class producto(models.Model):
     notas_corazon = models.CharField(max_length=100)
     notas_fondo = models.CharField(max_length=100)
     imagen = models.URLField()
+    forma = models.CharField(
+        max_length = 20,
+        choices=FormaPerfume.choices,
+        default=FormaPerfume.Figura
+    )
 
     def __str__(self):
         return f"{self.nombre}, {self.marca}, {self.genero}, {self.contenido_neto}"
@@ -65,3 +80,7 @@ class registroHistoricoPrecio(models.Model):
 
     def __str__(self):
         return f"{self.producto.nombre}, ${self.precio_registrado} en {self.fecha_cambio}"
+    
+class Calificacion(models.Model):
+    puntuacion = models.PositiveIntegerField()
+

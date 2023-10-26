@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-
 {% load static %}
 {% load crispy_forms_tags %}
 <!-- Product section-->
 <link href="{% static 'core/css/producto.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'core/css/style.css' %}" type="text/css" rel="stylesheet">
+<link href="{% static 'core/css/main.css' %}" type="text/css" rel="stylesheet">
 
-<section class="py-5">
+<section class="py-5 bordeproduc">
     <div class="container px-4 px-lg-5 my-5">
         <h1 class="display-5 text-light fw-bolder" id="titulo">{{producto.nombre}}</h1>
         <div class="row gx-4 gx-lg-5" id="contenedordescripcion">
@@ -18,11 +19,11 @@
                 <p><strong>Contenido:</strong> {{producto.contenido_neto}}ML</p>
                 <p><strong>Familia Olfativa:</strong> {{producto.familia_olfativa}}</p>
                 <p><strong>Notas salida:</strong> {{producto.notas_salida}}</p>
-                <p><strong>Notas corazón:</strong> {{producto.notas_corazon}}</p>
+                <p><strong>Notas corazón:</strong> {{producto.notas_corazon}}</p> 
                 <p><strong>Notas fondo:</strong> {{producto.notas_fondo}}</p>
             </div>
             <div class="col-md-2">
-                <div class="card" style="width: 18rem;" id="precios">
+                <div class="precios">
                     <div class="card-header">
                       Precios
                     </div>
@@ -42,6 +43,42 @@
 <section>
     {% include 'products/comentario.html' %}
 </section>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+<div class="card">
+    <div class="card-header">
+    <h2>DÉJANOS TU PUNTUACIÓN<h2>
+    </div>
+        <div class="col-12">
+            <table class="table" id="tabla_calificacion">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombres y Apellidos</th>
+                        <th>Calificaci&oacute;n</th>
+                        <th>Acci&oacute;n</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>
+                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="1estrella"></SPAN>
+
+                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="2estrella"></SPAN>
+            
+                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="3estrella"></SPAN>
+            
+                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="4estrella"></SPAN>
+            
+                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="5estrella"></SPAN>
+                        </td>
+                        <td><button class="btn btn-primary" onclick="Mensaje()" >Calificar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+              </div>
+        </div>
+</div>
+<br>
 <!-- Related items section-->
 <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
@@ -60,6 +97,7 @@
                             $40.00 - $80.00
                         </div>
                     </div>
+                   
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
@@ -69,6 +107,50 @@
         </div>
     </div>
 </section>
+<<<<<<< HEAD
+=======
+
+<section>
+    <footer class="ftr text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0 ftr">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" role="button"><i
+                        class="fab fa-facebook-f"></i></a>
+    
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/" role="button"><i class="fab fa-twitter"></i></a>
+    
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.com/" role="button"><i class="fab fa-google"></i></a>
+    
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" role="button"><i
+                        class="fab fa-instagram"></i></a>
+    
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/" role="button"><i
+                        class="fab fa-linkedin-in"></i></a>
+    
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/" role="button"><i class="fab fa-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div> 
+        <!-- Grid container -->
+    
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Copyright:
+            <a class="text-white" href="http://127.0.0.1:8000/">Prizus.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+</section>
+
+>>>>>>> main
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -84,11 +166,15 @@
                 for (var i = 0; i < data.prices.length; i++) {
                     tiendaContainer.append(
                         `
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <li class="list-group-item d-flex justify-content-between align-items-start numcolor">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold"><a href="${data.prices[i][2]}">${data.prices[i][1]}</a></div>
                             </div>
+<<<<<<< HEAD
                             <span class="badge bg-primary rounded-pill">${data.prices[i][0]}</span> 
+=======
+                            <span class="badge rounded-pill numcolor">${data.prices[i][0]}</span>
+>>>>>>> main
                         </li>
                         `
                     )  
@@ -99,6 +185,25 @@
             }
         });
     });
+</script>
+<script>
+    var contador;
+    function calificar(item){
+        console.log(item)
+        contador=item.id[0];
+        let nombre = item.id.substring(1);
+        for(let i=0;i<5;i++){
+            if(i<contador){
+
+                document.getElementById((i+1)+nombre).style.color="#CCCCCC";
+            }else{
+                document.getElementById((i+1)+nombre).style.color="black";
+            }
+        }
+    }
+    function Mensaje(){
+        alert("Gracias por calificar este producto con "+contador+" estrellas.")
+    }
 </script>
 
 {% endblock %}
