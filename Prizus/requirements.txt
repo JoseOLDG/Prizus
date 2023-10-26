@@ -7,3 +7,5 @@ django-allauth==0.57.0
 beautifulsoup4==4.12.2
 django-admin-interface==0.26.0
 db-sqlite3==0.0.1
+numpy==1.26.1 
+tensorflow==2.14.0 
