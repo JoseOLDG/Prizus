@@ -4,14 +4,14 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .forms import UserCreationForm, CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
-<<<<<<< HEAD
+
 
 from .models import comentario, producto, precio, registroHistoricoPrecio
 
-=======
+
 from .models import comentario, producto, precio
 from django.db.models import Q
->>>>>>> main
+
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
 from django.http import JsonResponse
