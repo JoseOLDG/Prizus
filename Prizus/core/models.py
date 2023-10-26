@@ -56,3 +56,6 @@ class precio(models.Model):
 
     def __str__(self):
         return f"{self.producto.nombre}: {self.tienda.nombre} ${self.valor}"
+    
+class Calificacion(models.Model):
+    puntuacion = models.PositiveIntegerField()

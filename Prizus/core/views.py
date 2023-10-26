@@ -10,8 +10,13 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 
+
 from bs4 import BeautifulSoup
 import requests
+from django.http import JsonResponse
+from .models import Calificacion
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
@@ -34,8 +39,6 @@ def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
       return print("Error, codigo de estado: ", response.status_code)
   except:
     return print("Error en la solicitud")
-
-# Create your views here.
 
 def index(request):
     return render(request, 'core/index.html')
@@ -145,6 +148,18 @@ def login2(request):
         return redirect('admin:index')
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
+    
+def guardar_puntuacion(request):
+    if request.method == 'POST':
+        puntuacion = int(request.POST.get('puntuacion'))
+
+        calificacion = Calificacion(puntuacion=puntuacion)
+        calificacion.save()
+
+        return JsonResponse({'message': f'Calificación guardada: {puntuacion} estrellas.'})
+
+    return JsonResponse({'error': 'Este endpoint solo admite solicitudes POST.'})
+
 
 def obtener_productos_por_genero(request):
     genero = request.GET.get('genero', None)
@@ -159,3 +174,8 @@ def obtener_productos_por_genero(request):
         return JsonResponse(productos_json, safe=False)
     
     return JsonResponse([], safe=False)
+
+def logout_view(request):
+    logout(request)
+    return redirect('nombre_de_la_página_de_inicio')
+
