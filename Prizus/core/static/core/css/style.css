@@ -3,7 +3,7 @@ body {
     padding: 0 !important;
     background: #222222 !important;
     background-size: cover !important;
-    font-family: sans-serif !important;
+    font-family: 'Ubuntu' !important;
     height: 100vh !important;
 }
 
@@ -213,6 +213,42 @@ header form{
     .busqueda {
         margin-bottom: 10px;
     }
+
+    .container-items{
+        grid-template-columns: repeat(1, 1fr) !important;
+        display: block !important;
+        width: 80% !important;
+        margin-top: 400px !important;
+    }
+
+    .contenerdorbody{
+        display: block !important;
+    }
+
+    .acordeon{
+        display: block !important;
+        margin: auto !important;
+        width: 400px !important;
+        height: 300px !important;
+        padding: 15px !important;
+        gap: 50px !important;
+    }
+
+    .iconw{
+        color: #cccccc !important; 
+        font-size: 25px !important;
+        display: flex !important;
+        position: fixed !important;
+        bottom: 40px !important; 
+        left: 5% !important;
+    }
+
+    footer{
+        width: 100%;
+        height: 600px;
+        display: block;
+        margin-top: 1250% !important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -228,4 +264,5 @@ header form{
     .busqueda {
         margin-bottom: 10px;
     }
+
 }

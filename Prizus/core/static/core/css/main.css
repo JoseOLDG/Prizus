@@ -2,11 +2,18 @@
 .container-items{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    
     margin: auto;
     width: 60%;
     height: 300px;
     padding: 15px 10px;
+
+    min-height: 100vh;
+    
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
 }
 
 .container-items a{
@@ -20,6 +27,10 @@
 .item{
     border-radius: 10px;
     background: #1C1C1C;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 25px;
     
 }
 
@@ -70,11 +81,22 @@
     font-family: 'Ubuntu';
 }
 
+.notfoundp{
+    color: #CCCCCC;
+    width: 400px;
+    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    display: flex;
+
+}
+
 .contenerdorbody{
     display: flex;
     margin-top: 70px !important;
 }
-
+ 
 .acordeon{
     display: grid;
     margin: auto;
@@ -82,6 +104,8 @@
     height: 300px;
     padding: 15px;
     gap: 50px;
+    margin-top: 20px;
+    margin-left: 30px;
     
 }
 
@@ -136,6 +160,82 @@
 }
 
 .iconw{
-    height: 50px;
-    width: 50px;
+    color: #cccccc; 
+    font-size: 50px;
+    display: flex;
+    position: fixed;
+    bottom: 40px; 
+    left: 5%;
 }
+
+.sii{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.paginator{
+    text-align: center;
+    margin: 30px 30px 60px;
+    user-select: none;
+    position: fixed;
+    bottom: 0;
+}
+  
+.paginator li{
+    display: inline-block;
+    margin: 5px;
+    box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+}
+  
+.paginator li a{
+    color: #CCCCCC;
+    text-decoration: none;
+    font-size: 1.2em;
+    line-height: 45px;
+}
+  
+.previous-page, .next-page{
+    background: #A59D95;
+    width: 80px;
+    border-radius: 45px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+  
+.previous-page:hover{
+    transform: translateX(-5px);
+}
+  
+.next-page:hover{
+    transform: translateX(5px);
+}
+  
+.current-page, .dots{
+    background: #666666;
+    width: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+  
+.active{
+    background: #A59D95;
+    color:#CCCCCC
+}
+  
+.disable{
+    background: #A59D95;
+}
+
+footer{
+    width: 100%;
+    height: 600px;
+    display: block;
+    margin-top: 80%;
+}
+
+.ftr{
+    background-color: #666666 !important;
+}
+        

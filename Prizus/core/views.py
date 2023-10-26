@@ -8,6 +8,9 @@ from .models import comentario, producto, precio
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
+from django.http import JsonResponse
+
+
 from bs4 import BeautifulSoup
 import requests
 from django.http import JsonResponse
@@ -42,18 +45,42 @@ def index(request):
 
 def menu(request):
     queryset = request.GET.get("buscar")
-    print("Valor de queryset:", queryset)  # Agregar esta línea para depuración
+    genero = request.GET.get("filtro")
+    contenido_neto = request.GET.get("filtro_contenido")
+
     content = {
         'productos': producto.objects.all()
     }
+
+    if genero:
+        content['productos'] = content['productos'].filter(Q(genero__icontains=genero))
+
+    if contenido_neto:
+        rango_filtro = {
+            "1": (25, 50),
+            "2": (50, 100),
+            "3": (100, 150),
+            "4": (150, 200),
+            "5": (200, 500),
+            "6": (500, 1000)
+        }
+
+        if contenido_neto in rango_filtro:
+            rango = rango_filtro[contenido_neto]
+            productos = producto.objects.filter(
+                contenido_neto__gte=rango[0],
+                contenido_neto__lte=rango[1]
+            )
+            content['productos'] = content['productos'].filter(pk__in=productos)
+
     if queryset:
         productos = producto.objects.filter(
             Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset) | Q(genero__icontains=queryset) | Q(contenido_neto__icontains=queryset) | Q(familia_olfativa__icontains=queryset) | Q(notas_salida__icontains=queryset) | Q(notas_corazon__icontains=queryset) | Q(notas_fondo__icontains=queryset)
         ).distinct()
-        print("Resultados de la consulta:", productos)  # Agregar esta línea para depuración
-        content['productos'] = productos
+        content['productos'] = content['productos'].filter(pk__in=productos)
 
     return render(request, 'core/menu.html', content)
+
 
 def registro(request):
     data = {
@@ -132,6 +159,21 @@ def guardar_puntuacion(request):
         return JsonResponse({'message': f'Calificación guardada: {puntuacion} estrellas.'})
 
     return JsonResponse({'error': 'Este endpoint solo admite solicitudes POST.'})
+
+
+def obtener_productos_por_genero(request):
+    genero = request.GET.get('genero', None)
+    
+    if genero is not None:
+        # Realiza una consulta en la base de datos para obtener los productos filtrados por el género seleccionado
+        productos_filtrados = Producto.objects.filter(descripcion=genero)
+        
+        # Convierte los productos en un formato JSON
+        productos_json = [{'nombre': producto.nombre, 'imagen': producto.imagen, 'descripcion': producto.descripcion, 'slug': producto.slug} for producto in productos_filtrados]
+        
+        return JsonResponse(productos_json, safe=False)
+    
+    return JsonResponse([], safe=False)
 
 def logout_view(request):
     logout(request)
