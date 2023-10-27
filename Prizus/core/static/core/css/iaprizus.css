@@ -1,0 +1,12 @@
+.formulario-emergente {
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 2;
+  background: lightgreen;
+  left: 270px;
+  top: 150px;
+  text-align: center;
+  margin: 30px 30px 60px;
+  user-select: none;
+  bottom: 0;
+}

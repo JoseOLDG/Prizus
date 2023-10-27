@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div id="formulario-ia" class="formulario-emergente">
+    <h2>PRIZUS AI: Perfumes</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Subir Imagen</button>
+    </form>    
+</div>
+
+{% endblock %}

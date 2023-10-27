@@ -1,13 +1,17 @@
 from pdb import post_mortem
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .forms import UserCreationForm, CustomUserCreationForm
+from .forms import UserCreationForm, CustomUserCreationForm, ImagenForm
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
-
-
+from django.http import HttpResponse
 from .models import comentario, producto, precio, registroHistoricoPrecio
 
+import numpy as np
+import tensorflow as tf
+import os
+from django.conf import settings
+import re
 
 from .models import comentario, producto, precio
 from django.db.models import Q
@@ -86,7 +90,6 @@ def menu(request):
         content['productos'] = content['productos'].filter(pk__in=productos)
 
     return render(request, 'core/menu.html', content)
-
 
 def registro(request):
     data = {
@@ -174,7 +177,6 @@ def guardar_puntuacion(request):
 
     return JsonResponse({'error': 'Este endpoint solo admite solicitudes POST.'})
 
-
 def obtener_productos_por_genero(request):
     genero = request.GET.get('genero', None)
     
@@ -193,3 +195,41 @@ def logout_view(request):
     logout(request)
     return redirect('nombre_de_la_página_de_inicio')
 
+def procesar_imagen_ia(request):
+    if request.method == 'POST':
+        # Verifica si el campo de archivo se ha enviado y no está vacío
+        form = ImagenForm(request.POST, request.FILES)
+        if form.is_valid():
+            imagen = form.cleaned_data['imagen']
+
+            s = imagen.name
+            slug = re.sub(r'[^a-z0-9]+', '-', s).lower().strip('-')
+            imagen_name = re.sub(r'[-]+', '-', slug).replace("-jpg", ".jpg")
+
+            imagen_path = os.path.join(settings.MEDIA_ROOT, imagen_name)
+            with open(os.path.join(settings.MEDIA_ROOT, imagen_name), 'wb') as destination:
+                for chunk in imagen.chunks():
+                    destination.write(chunk)
+            # Procesa el formulario
+            if os.path.exists(imagen_path):
+                model = tf.keras.models.load_model("models/PrizusML.h5")
+
+                img_height = 180
+                img_width = 180
+
+                class_names = ['Cilindro', 'Cintura', 'Cuadrado', 'Esfera', 'Figura', 'Pack', 'Prisma', 'Rectangulo', 'Tronco']
+
+                perfume_url = f'http://127.0.0.1:8000{os.path.join(settings.MEDIA_URL, imagen_name)}'
+                perfume_path = tf.keras.utils.get_file('Perfume: {imagen.name}', origin=perfume_url)
+                
+                img = tf.keras.utils.load_img(perfume_path, target_size=(img_height, img_width))
+                img_array = tf.keras.utils.img_to_array(img)
+                img_array_expand = tf.expand_dims(img_array, 0)
+
+                predictions = model.predict(img_array_expand)
+                score = tf.nn.softmax(predictions[0])
+                os.remove(imagen_path)
+            return HttpResponse("Este perfume claramente tiene forma {} , mentira, es un porcentaje de {:.2f} de certeza.".format(class_names[np.argmax(score)], 100 * np.max(score)))
+    else:
+        form = ImagenForm()
+    return render(request, 'core/prizus_ia.html', {'form': form})
