@@ -1,17 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from autoslug import AutoSlugField
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here.
-
-class comentario(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    texto = models.TextField()
-    fecha_publicacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Comentario de {self.usuario.username}"
-
 
 class producto(models.Model):
 
@@ -55,6 +47,20 @@ class producto(models.Model):
     def __str__(self):
         return f"{self.nombre}, {self.marca}, {self.genero}, {self.contenido_neto}"
 
+class comentario(models.Model):
+    producto = models.ForeignKey(producto, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    texto = models.TextField()
+    puntuacion = models.IntegerField(
+        default=1,
+        validators=[MaxValueValidator(5), MinValueValidator(1)]
+     )
+    fecha_publicacion = models.DateTimeField(auto_now_add=True)
+    
+
+    def __str__(self):
+        return f"Comentario de {self.usuario.username}"
+
 class tiendaOnline(models.Model):
     nombre = models.CharField(max_length=100)
     webScraping_tag = models.CharField(max_length=100)
@@ -80,7 +86,3 @@ class registroHistoricoPrecio(models.Model):
 
     def __str__(self):
         return f"{self.producto.nombre}, ${self.precio_registrado} en {self.fecha_cambio}"
-    
-class Calificacion(models.Model):
-    puntuacion = models.PositiveIntegerField()
-

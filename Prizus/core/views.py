@@ -24,7 +24,6 @@ from django.http import JsonResponse
 from bs4 import BeautifulSoup
 import requests
 from django.http import JsonResponse
-from .models import Calificacion
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
@@ -113,13 +112,11 @@ def perfumes(request, slug):
     perfume = get_object_or_404(producto, slug=slug)
 
     if request.method == 'POST':
-        try:
-            texto = request.POST['texto']
-            comments = comentario(usuario=request.user, texto=texto)
-            comments.save()
-            return redirect('producto')
-        except:
-            return redirect('login')
+        texto = request.POST['texto']
+        puntuacion = int(request.POST.get('puntuacion'))
+        comments = comentario(producto=perfume, usuario=request.user, texto=texto, puntuacion=puntuacion)
+        comments.save()
+        return redirect('producto', slug=perfume.slug)
 
     content = {
         'comentarios': comentarios,
@@ -166,17 +163,6 @@ def login2(request):
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
     
-def guardar_puntuacion(request):
-    if request.method == 'POST':
-        puntuacion = int(request.POST.get('puntuacion'))
-
-        calificacion = Calificacion(puntuacion=puntuacion)
-        calificacion.save()
-
-        return JsonResponse({'message': f'Calificación guardada: {puntuacion} estrellas.'})
-
-    return JsonResponse({'error': 'Este endpoint solo admite solicitudes POST.'})
-
 def obtener_productos_por_genero(request):
     genero = request.GET.get('genero', None)
     

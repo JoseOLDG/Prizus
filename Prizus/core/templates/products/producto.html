@@ -44,40 +44,6 @@
     {% include 'products/comentario.html' %}
 </section>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<div class="card">
-    <div class="card-header">
-    <h2>DÉJANOS TU PUNTUACIÓN<h2>
-    </div>
-        <div class="col-12">
-            <table class="table" id="tabla_calificacion">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Nombres y Apellidos</th>
-                        <th>Calificaci&oacute;n</th>
-                        <th>Acci&oacute;n</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ user.username }}</td>
-                        <td>
-                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="1estrella"></SPAN>
-
-                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="2estrella"></SPAN>
-            
-                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="3estrella"></SPAN>
-            
-                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="4estrella"></SPAN>
-            
-                            <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="5estrella"></SPAN>
-                        </td>
-                        <td><button class="btn btn-primary" onclick="Mensaje()" >Calificar</button></td>
-                    </tr>
-                </tbody>
-            </table>
-              </div>
-        </div>
-</div>
 <br>
 <!-- Related items section-->
 <section class="py-5 bg-light">
@@ -182,25 +148,6 @@
             }
         });
     });
-</script>
-<script>
-    var contador;
-    function calificar(item){
-        console.log(item)
-        contador=item.id[0];
-        let nombre = item.id.substring(1);
-        for(let i=0;i<5;i++){
-            if(i<contador){
-
-                document.getElementById((i+1)+nombre).style.color="#CCCCCC";
-            }else{
-                document.getElementById((i+1)+nombre).style.color="black";
-            }
-        }
-    }
-    function Mensaje(){
-        alert("Gracias por calificar este producto con "+contador+" estrellas.")
-    }
 </script>
 
 {% endblock %}

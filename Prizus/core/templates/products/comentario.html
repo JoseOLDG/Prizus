@@ -12,7 +12,7 @@
             {% if comentarios %}
                 {% for comentario in comentarios %}
                     <li class="list-group-item lista-comentarios">
-                        <strong>{{ comentario.usuario.username }}</strong>: {{ comentario.texto }}
+                        <strong>{{ comentario.usuario.username }}</strong>:<span class="fa fa-star">{{ comentario.puntuacion }}</span> {{ comentario.texto }}
                     </li>
                 {% endfor %}
             {% else %}
@@ -28,9 +28,50 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <textarea class="form-control hacer-comentarios" id="texto" name="texto" rows="4" required></textarea>
+                    <h3 class="tta">Puntuación: </h3>
+                        <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="1estrella">
+                            <input type="radio" name="puntuacion" value="1" required>
+                        </SPAN>
+
+                        <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="2estrella">
+                            <input type="radio" name="puntuacion" value="2" required>
+                        </SPAN>
+        
+                        <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="3estrella">
+                            <input type="radio" name="puntuacion" value="3" required>
+                        </SPAN>
+        
+                        <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="4estrella">
+                            <input type="radio" name="puntuacion" value="4" required>
+                        </SPAN>
+        
+                        <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="5estrella">
+                            <input type="radio" name="puntuacion" value="5" required>
+                        </SPAN>
+                    </td>
                 </div>
                 <button type="submit" class="btnn">Agregar Comentario</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    var contador;
+    function calificar(item){
+        contador=item.id[0];
+        let nombre = item.id.substring(1);
+        var radioInput = document.querySelector('input[name="puntuacion"][value="' + contador + '"]');
+        for(let i=0;i<5;i++){
+            if(i<contador){
+                document.getElementById((i+1)+nombre).style.color="#CCCCCC";
+                radioInput.checked = true;
+            }else{
+                document.getElementById((i+1)+nombre).style.color="black";
+            }
+        }
+    }
+    function Mensaje(){
+        alert("Gracias por calificar este producto con "+contador+" estrellas.")
+    }
+</script>
