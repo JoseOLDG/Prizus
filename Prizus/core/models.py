@@ -43,6 +43,7 @@ class producto(models.Model):
         choices=FormaPerfume.choices,
         default=FormaPerfume.Figura
     )
+    views = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
         return f"{self.nombre}, {self.marca}, {self.genero}, {self.contenido_neto}"

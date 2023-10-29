@@ -110,6 +110,8 @@ def registro(request):
 def perfumes(request, slug):
     comentarios = comentario.objects.all()
     perfume = get_object_or_404(producto, slug=slug)
+    perfume.views = perfume.views + 1
+    perfume.save()
 
     if request.method == 'POST':
         texto = request.POST['texto']
