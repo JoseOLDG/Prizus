@@ -61,10 +61,10 @@
 }
 
 .tta{
-    font-size: 20px;
-    color: #CCCCCC;
-    text-align: center;
-    font-family: 'Ubuntu';
+    font-size: 20px !important;
+    color: #CCCCCC !important;
+    text-align: center !important;
+    font-family: 'Ubuntu' !important;
 
 }
 

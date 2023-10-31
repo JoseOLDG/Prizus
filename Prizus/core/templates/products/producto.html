@@ -44,13 +44,13 @@
     {% include 'products/comentario.html' %}
 </section>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<div class="card">
+<div class="card" id="comentarios">
     <div class="card-header">
-    <h2>DÉJANOS TU PUNTUACIÓN<h2>
+    <h2 class="ttc">Déjanos tu Puntuación<h2>
     </div>
         <div class="col-12">
             <table class="table" id="tabla_calificacion">
-                <thead class="thead-dark">
+                <thead class="lista-comentarios">
                     <tr>
                         <th>Nombres y Apellidos</th>
                         <th>Calificaci&oacute;n</th>
@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ user.username }}</td>
+                        <td class="lista-comentarios">{{ user.username }}</td>
                         <td>
                             <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="1estrella"></SPAN>
 
@@ -71,7 +71,7 @@
             
                             <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="5estrella"></SPAN>
                         </td>
-                        <td><button class="btn btn-primary" onclick="Mensaje()" >Calificar</button></td>
+                        <td><button class="btnn" onclick="Mensaje()" >Calificar</button></td>
                     </tr>
                 </tbody>
             </table>
