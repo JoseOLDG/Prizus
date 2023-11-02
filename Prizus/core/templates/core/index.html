@@ -44,19 +44,30 @@
 
   <div class="imgcar">
     <section>
-        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dw52f84c0d/images/imagenes-productos/625/519172-0000-002.jpg" alt="">
-        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dweed61e70/images/imagenes-productos/625/760718-0000-002.jpg" alt="">
-        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dwc522d1b1/images/imagenes-productos/625/231718-0000-003.jpg" alt="">
-        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dw827a0cf3/images/imagenes-productos/625/313772-0000-004.jpg" alt="">
-        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dw715a712f/images/imagenes-productos/625/320931-0000-004.jpg" alt="">
+        <img src="https://falabella.scene7.com/is/image/Falabella/gsc_113826019_779015_1?wid=800&hei=800&qlt=70" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-gucci-pour-homme-varon-edt-50-ml/">
+        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dweed61e70/images/imagenes-productos/625/760718-0000-002.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/colonia-4711-unisex-after-bath-splash-800-ml/">
+        <img src="https://i.blogs.es/bd4793/visualsplash/650_1200.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-acqua-di-gio-varon-edt-50-ml/">
+        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dw827a0cf3/images/imagenes-productos/625/313772-0000-004.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/colonia-4711-unisex-after-bath-splash-800-ml/">
+        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dw715a712f/images/imagenes-productos/625/320931-0000-004.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/colonia-4711-unisex-after-bath-splash-800-ml/">
     </section>
-  </div>
+</div>
 
   <div>
     <a href="{% url 'menu' %}" class="indexbtn">Ir a Prizus</a>
   </div>
 
-  
+<script>
+    const images = document.querySelectorAll(".imgcar img");
+
+    images.forEach((image) => {
+        image.addEventListener("click", () => {
+            const link = image.getAttribute("data-link");
+            if (link) {
+                window.location.href = link;
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

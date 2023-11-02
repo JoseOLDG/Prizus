@@ -104,3 +104,16 @@ function getPageList(totalPages, page, maxLength){
           }
       });
   });
+
+/* Link index 
+const images = document.querySelectorAll(".imgcar img");
+
+images.forEach((image) => {
+    image.addEventListener("click", () => {
+        const link = image.getAttribute("data-link");
+        if (link) {
+            window.location.href = link;
+        }
+    });
+});
+*/
