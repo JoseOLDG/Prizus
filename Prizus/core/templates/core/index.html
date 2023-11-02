@@ -44,11 +44,11 @@
 
   <div class="imgcar">
     <section>
-        <img src="https://falabella.scene7.com/is/image/Falabella/gsc_113826019_779015_1?wid=800&hei=800&qlt=70" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-gucci-pour-homme-varon-edt-50-ml/">
-        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dweed61e70/images/imagenes-productos/625/760718-0000-002.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/colonia-4711-unisex-after-bath-splash-800-ml/">
-        <img src="https://i.blogs.es/bd4793/visualsplash/650_1200.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-acqua-di-gio-varon-edt-50-ml/">
-        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dw827a0cf3/images/imagenes-productos/625/313772-0000-004.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/colonia-4711-unisex-after-bath-splash-800-ml/">
-        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dw715a712f/images/imagenes-productos/625/320931-0000-004.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/colonia-4711-unisex-after-bath-splash-800-ml/">
+        <img src="https://home.ripley.cl/store/Attachment/WOP/D327/2000396052063/2000396052063-2.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-la-vie-est-belle-dama-edp-50-ml/">
+        <img src="https://cosmetic.cl/cdn/shop/products/EROS_4dd8b809-c61e-481b-9db9-c93254d65f8f_1024x.jpg?v=1627403179" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-eros-versace-varon-edt-100-ml/">
+        <img src="https://www.paris.cl/dw/image/v2/BCHW_PRD/on/demandware.static/-/Sites-cencosud-master-catalog/default/dweed61e70/images/imagenes-productos/625/760718-0000-002.jpg" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-acqua-di-gio-varon-edt-50-ml/">
+        <img src="https://www.perfumesecompanhia.pt/dw/image/v2/BGXV_PRD/on/demandware.static/-/Sites-master-catalog-pc/default/dwd85a214b/images/hi-res/P01/49300_155935.jpeg?sw=1080&sh=1080&sm=fit" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-light-blue-dama-edt-50-ml/">
+        <img src="https://http2.mlstatic.com/D_NQ_NP_624924-MLA46387750699_062021-O.webp" alt="" data-link="http://127.0.0.1:8000/menu/producto/perfume-golden-secret-varon-edt-200-ml/">
     </section>
 </div>
 
@@ -56,18 +56,7 @@
     <a href="{% url 'menu' %}" class="indexbtn">Ir a Prizus</a>
   </div>
 
-<script>
-    const images = document.querySelectorAll(".imgcar img");
-
-    images.forEach((image) => {
-        image.addEventListener("click", () => {
-            const link = image.getAttribute("data-link");
-            if (link) {
-                window.location.href = link;
-            }
-        });
-    });
-</script>
+<script src="{% static 'core/js/index.js' %}" type="text/javascript"></script>
 </body>
 
 </html>
