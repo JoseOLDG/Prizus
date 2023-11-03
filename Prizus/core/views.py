@@ -29,25 +29,32 @@ from django.shortcuts import redirect
 
 
 def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
-  try:
-    response = requests.get(url)
-    if response.status_code == 200:
-      try:
-        soup = BeautifulSoup(response.text, 'html.parser')
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            try:
+                soup = BeautifulSoup(response.text, 'html.parser')
+                elemento = soup.find(name=f'{tag_html_perfume}', class_=f'{clase_precio_perfume}')
+                if elemento:
+                    # Busca los precios dentro del texto del elemento
+                    precios = [int(''.join(filter(str.isalnum, parte.encode("utf-8").decode("utf-8", "ignore"))) or '0')
+                               for parte in elemento.stripped_strings]
 
-        precio_perfume = soup.find(name=f'{tag_html_perfume}', class_=f'{clase_precio_perfume}')
+                    if precios:
+                        precio_minimo = min(precios)
+                        return precio_minimo
+                    else:
+                        return "No se encontraron precios válidos en el texto del elemento"
 
-        try:
-          clear_precio = int(''.join(filter(str.isalnum, precio_perfume.text.strip().encode("utf-8").decode("utf-8", "ignore"))))
-        except:
-          clear_precio = precio_perfume.text.strip()
-        return clear_precio
-      except:
-        return print("Error en la extracción")
-    else:
-      return print("Error, codigo de estado: ", response.status_code)
-  except:
-    return print("Error en la solicitud")
+                else:
+                    return "No se encontró un elemento con la clase y etiqueta especificada"
+
+            except:
+                return "Error en la extracción"
+        else:
+            return f"Error, código de estado: {response.status_code}"
+    except:
+        return "Error en la solicitud"
 
 def index(request):
     return render(request, 'core/index.html')
@@ -217,7 +224,11 @@ def procesar_imagen_ia(request):
                 predictions = model.predict(img_array_expand)
                 score = tf.nn.softmax(predictions[0])
                 os.remove(imagen_path)
-            return HttpResponse("Este perfume claramente tiene forma {} , mentira, es un porcentaje de {:.2f} de certeza.".format(class_names[np.argmax(score)], 100 * np.max(score)))
+            forma_predict = class_names[np.argmax(score)]
+            productos = producto.objects.filter(forma__icontains=forma_predict)
+            print("Este perfume claramente tiene forma {} , mentira, es un porcentaje de {:.2f} de certeza.".format(class_names[np.argmax(score)], 100 * np.max(score)))    
+            return render(request, 'core/menu.html', {'productos': productos})
+            
     else:
         form = ImagenForm()
     return render(request, 'core/prizus_ia.html', {'form': form})

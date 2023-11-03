@@ -1,5 +1,5 @@
-const formulario = document.getElementById("formulario-ia");
-formulario.addEventListener("submit", function() {
-    document.getElementById("boton-enviar").disabled = true;
-});
+const formulario = document.getElementById("formulario_ia");
 
+formulario.addEventListener("submit", function() {
+    document.getElementById("spinner").style.display = "block";
+});
