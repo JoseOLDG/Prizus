@@ -86,7 +86,7 @@ tiendas = [
     (1,'multimarcasperfumes','span','price price--sale'),
     (2,'productosdelujo','span','price price--sale'),
     (3,'royalqueen','span','product-form-price form-price'),
-    (4,'sairam','h2','product-heading__pricing--has-discount'),
+    (4,'sairam','h2','product-heading__pricing'),
     (5,'silkperfumes','span','product-price'),
     (6,'mundoaromas','span','price on-sale'),
     (7,'cosmetic','span','ProductMeta__Price Price Price--highlight Text--subdued u-h4')

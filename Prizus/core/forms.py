@@ -9,4 +9,4 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', "email", "password1", "password2"]
 
 class ImagenForm(forms.Form):
-    imagen = forms.FileField()
+    imagen = forms.FileField(label=False)

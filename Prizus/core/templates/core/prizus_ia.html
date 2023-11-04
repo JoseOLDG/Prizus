@@ -1,17 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{% static 'core/css/file.css' %}" type="text/css" rel="stylesheet">
 <div class="formulario-emergente">
-    <h2>PRIZUS AI: Perfumes</h2>
+    <h2 class="title">PRIZUS AI: Perfumes</h2>
     <form id="formulario_ia" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
+        <div class="file-upload-input">
+            <i class="fa fa-file-picture-o"> Suelte los archivos aquí o buscar </i>
+            {% csrf_token %}
+            {{ form.as_p }}
+        </div>
+        <div class="file-upload-content">
+            <img class="file-upload-image" src="#" alt="your image" />
+            <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+            </div>
+        </div> 
         <button type="submit">Subir Imagen</button>
-    </form>    
+    </form>
+       
     <div class="spinner" id="spinner"></div>
 </div>
-
-
 
 {% endblock %}
