@@ -66,32 +66,20 @@
                     <li>
                         <div class="container-icon">
                             <div class="container-cart-icon">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="icon-cart"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                                    />
-                                </svg>
-                                <div class="count-products">
-                                    <span id="contador-productos">0</span>
-                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-cart">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z" />
+                                  </svg>
+                                  
+                                
                             </div>
             
                             <div class="container-cart-products hidden-cart">
                                 <div class="row-product hidden">
                                     <div class="cart-product">
                                         <div class="info-cart-product">
-                                            <span class="cantidad-producto-carrito">1</span>
-                                            <p class="titulo-producto-carrito">Zapatos Nike</p>
-                                            <span class="precio-producto-carrito">$80</span>
+                                            <span class="cantidad-producto-carrito"></span>
+                                            <p class="titulo-producto-carrito"></p>
+                                            <span class="precio-producto-carrito"></span>
                                         </div>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -109,10 +97,11 @@
                                         </svg>
                                     </div>
                                 </div>
-            
+                                <div class="cart-scrollable">
+                                    <div class="cart-total hidden">
+                                    </div>
+                                </div>
                                 <div class="cart-total hidden">
-                                    <h3>Total:</h3>
-                                    <span class="total-pagar">$200</span>
                                 </div>
                                 <p class="cart-empty">El carrito está vacío</p>
                             </div>
@@ -328,7 +317,7 @@
                                     <h3 class="descripcion">{{producto.descripcion}}</h3>
                                 </div>
                             </a>
-                            <div class="item-details" data-product-name="{{producto.nombre}}" data-product-description="{{producto.descripcion}}" data-product-price="{{producto.precio}}">
+                            <div class="item-details" data-product-name="{{producto.nombre}}" data-product-description="{{producto.descripcion}}" data-product-price="{{producto.precio}}" data-product-img="{{producto.imagen}}">
                                 <!-- ... otros detalles del producto ... -->
                                 <button class="btn-add-cart">Agregar al carrito</button>
                             </div>
