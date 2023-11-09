@@ -25,6 +25,7 @@ from bs4 import BeautifulSoup
 import requests
 from django.http import JsonResponse
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
 
@@ -168,10 +169,10 @@ def login2(request):
 
     if user.is_staff:
         login(request, user)
-        return redirect('admin:index')
+        return redirect('dashboard')
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
-    
+
 def obtener_productos_por_genero(request):
     genero = request.GET.get('genero', None)
     
@@ -188,7 +189,7 @@ def obtener_productos_por_genero(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('nombre_de_la_página_de_inicio')
+    return redirect('')
 
 def procesar_imagen_ia(request):
     if request.method == 'POST':
@@ -232,3 +233,9 @@ def procesar_imagen_ia(request):
     else:
         form = ImagenForm()
     return render(request, 'core/prizus_ia.html', {'form': form})
+
+@login_required
+def admin_dashboard(request):
+    if not request.user.is_staff:
+        return redirect('login2')
+    return render(request, 'registration2/dashboard.html')
