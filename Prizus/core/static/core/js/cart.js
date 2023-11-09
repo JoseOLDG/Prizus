@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const valorTotal = document.querySelector('.total-pagar');
     const countProducts = document.querySelector('#contador-productos');
     const cartEmpty = document.querySelector('.cart-empty');
-    const cartTotal = document.querySelector('.cart-total');
+
 
     // Función para mostrar los productos en el carrito
     function showHTML() {
@@ -38,9 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const imagenProductoCarrito = document.createElement('img'); // Crear una etiqueta <img> para la imagen
             imagenProductoCarrito.src = product.img; // Establecer la URL de la imagen
 
-            const tituloProductoCarrito = document.createElement('p');
-            tituloProductoCarrito.textContent = product.title; // Mostrar el nombre del producto
-
             const descriptionProductoCarrito = document.createElement('p');
             descriptionProductoCarrito.textContent = product.description; // Mostrar la descripción del producto
 
@@ -49,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Agregar los elementos al contenedor del producto en el carrito
             infoCartProduct.appendChild(imagenProductoCarrito); // Agregar la imagen al carrito
-            infoCartProduct.appendChild(tituloProductoCarrito);
             infoCartProduct.appendChild(descriptionProductoCarrito);
             infoCartProduct.appendChild(precioProductoCarrito);
             cartProduct.appendChild(infoCartProduct);
@@ -76,20 +72,18 @@ document.addEventListener('DOMContentLoaded', function() {
     productsList.addEventListener('click', e => {
         if (e.target.classList.contains('btn-add-cart')) {
             const productDetails = e.target.closest('.item-details');
-            const productName = productDetails.getAttribute('data-product-name');
             const productDescription = productDetails.getAttribute('data-product-description');
             const productPrice = productDetails.getAttribute('data-product-price');
             const productImg = productDetails.getAttribute('data-product-img'); // Obtener la URL de la imagen
 
             const infoProduct = {
                 quantity: 1,
-                title: productName,
                 description: productDescription,
                 price: productPrice,
                 img: productImg, // Agregar la URL de la imagen al objeto
             };
 
-            const existingProduct = allProducts.find(product => product.title === infoProduct.title);
+            const existingProduct = allProducts.find(product => product.description === infoProduct.description);
 
             if (existingProduct) {
                 existingProduct.quantity++;
