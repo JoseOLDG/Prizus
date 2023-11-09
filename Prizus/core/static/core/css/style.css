@@ -237,6 +237,7 @@ header form{
         height: 300px !important;
         padding: 15px !important;
         gap: 50px !important;
+        margin-top: 20% !important;
     }
 
     .btnfiltro{
