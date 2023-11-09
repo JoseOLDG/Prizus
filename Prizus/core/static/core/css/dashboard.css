@@ -1,0 +1,26 @@
+.slide {
+    height: 100vh;
+    background-color: #222222;
+}
+
+.bg-body{
+    background-color: #222222;
+}
+
+.bg-body-tertiary{
+    background-color: #666666;
+}
+
+.dashboard-slide{
+    max-height: 500px;
+    display: grid !important;
+}
+
+.content{
+    height: 100vh;
+    background-color: #222222;
+}
+
+.barrita {
+    background-color: #666666;
+}
