@@ -191,8 +191,15 @@
     font-size: 50px;
     display: flex;
     position: fixed;
-    bottom: 40px; 
+    bottom: 50px; 
     right: 2%;
+
+    transition: transform 0.3s ease-in-out;
+}
+
+.iconw:hover {
+    animation: bounce 1s;
+    transform-origin: center bottom;
 }
 
 .sii{
@@ -288,4 +295,16 @@ footer{
     text-decoration: none;
     color: #222222;
     background: #CCCCCC;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
 }
