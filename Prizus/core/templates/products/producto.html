@@ -44,13 +44,13 @@
     {% include 'products/comentario.html' %}
 </section>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<div class="card">
+<div class="card" id="comentarios">
     <div class="card-header">
-    <h2>DÉJANOS TU PUNTUACIÓN<h2>
+    <h2 class="ttc">Déjanos tu Puntuación<h2>
     </div>
         <div class="col-12">
             <table class="table" id="tabla_calificacion">
-                <thead class="thead-dark">
+                <thead class="lista-comentarios">
                     <tr>
                         <th>Nombres y Apellidos</th>
                         <th>Calificaci&oacute;n</th>
@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ user.username }}</td>
+                        <td class="lista-comentarios">{{ user.username }}</td>
                         <td>
                             <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="1estrella"></SPAN>
 
@@ -71,7 +71,7 @@
             
                             <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="5estrella"></SPAN>
                         </td>
-                        <td><button class="btn btn-primary" onclick="Mensaje()" >Calificar</button></td>
+                        <td><button class="btnn" onclick="Mensaje()" >Calificar</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -109,42 +109,36 @@
 </section>
 
 <section>
-    <footer class="ftr text-center text-white">
+    <footer class="text-center" style="color: #CCCCCC;">
         <!-- Grid container -->
-        <div class="container p-4 pb-0 ftr">
+        <div class="footercard">
             <!-- Section: Social media -->
-            <section class="mb-4">
+            <section class="">
                 <!-- Facebook -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" role="button"><i
+                <a class="btn  btn-floating" href="https://www.facebook.com/" role="button"><i
                         class="fab fa-facebook-f"></i></a>
     
                 <!-- Twitter -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/" role="button"><i class="fab fa-twitter"></i></a>
+                <a class="btn  btn-floating" href="https://twitter.com/" role="button"><i class="fab fa-twitter"></i></a>
     
                 <!-- Google -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.com/" role="button"><i class="fab fa-google"></i></a>
+                <a class="btn  btn-floating" href="https://www.google.com/" role="button"><i class="fab fa-google"></i></a>
     
                 <!-- Instagram -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" role="button"><i
+                <a class="btn  btn-floating" href="https://www.instagram.com/" role="button"><i
                         class="fab fa-instagram"></i></a>
     
                 <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/" role="button"><i
+                <a class="btn  btn-floating" href="https://www.linkedin.com/" role="button"><i
                         class="fab fa-linkedin-in"></i></a>
     
                 <!-- Github -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/" role="button"><i class="fab fa-github"></i></a>
+                <a class="btn  btn-floating" href="https://github.com/" role="button"><i class="fab fa-github"></i></a>
+                © 2023 Copyright:
+                <a style="color: #CCCCCC;" href="http://127.0.0.1:8000/">Prizus.com</a>
             </section>
             <!-- Section: Social media -->
-        </div> 
-        <!-- Grid container -->
-    
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 Copyright:
-            <a class="text-white" href="http://127.0.0.1:8000/">Prizus.com</a>
         </div>
-        <!-- Copyright -->
     </footer>
 </section>
 

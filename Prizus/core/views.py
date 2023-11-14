@@ -47,6 +47,7 @@ def menu(request):
     queryset = request.GET.get("buscar")
     genero = request.GET.get("filtro")
     contenido_neto = request.GET.get("filtro_contenido")
+    fragancia = request.GET.get("filtro_fragancia")
 
     content = {
         'productos': producto.objects.all()
@@ -78,6 +79,68 @@ def menu(request):
             Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset) | Q(genero__icontains=queryset) | Q(contenido_neto__icontains=queryset) | Q(familia_olfativa__icontains=queryset) | Q(notas_salida__icontains=queryset) | Q(notas_corazon__icontains=queryset) | Q(notas_fondo__icontains=queryset)
         ).distinct()
         content['productos'] = content['productos'].filter(pk__in=productos)
+
+    # Nueva sección para filtrar por fragancia seleccionada
+    if fragancia:
+        if fragancia == "7":  # Cítrica
+            content['productos'] = content['productos'].filter(
+                Q(nombre__icontains="Piña") | Q(descripcion__icontains="Piña") |
+                Q(familia_olfativa__icontains="Piña") |
+                Q(notas_salida__icontains="Piña") | Q(notas_corazon__icontains="Piña") | Q(notas_fondo__icontains="Piña") |
+                Q(nombre__icontains="Naranja") | Q(descripcion__icontains="Naranja") |
+                Q(familia_olfativa__icontains="Naranja") |
+                Q(notas_salida__icontains="Naranja") | Q(notas_corazon__icontains="Naranja") | Q(notas_fondo__icontains="Naranja") |
+                Q(nombre__icontains="limón") | Q(descripcion__icontains="limón") |
+                Q(familia_olfativa__icontains="limón") |
+                Q(notas_salida__icontains="limón") | Q(notas_corazon__icontains="limón") | Q(notas_fondo__icontains="limón") 
+                
+                
+            )
+        elif fragancia == "8":  # Aromática
+            content['productos'] = content['productos'].filter(
+                Q(nombre__icontains="lavanda") | Q(descripcion__icontains="lavanda") |
+                Q(familia_olfativa__icontains="lavanda") |
+                Q(notas_salida__icontains="lavanda") | Q(notas_corazon__icontains="lavanda") | Q(notas_fondo__icontains="lavanda") |
+                Q(nombre__icontains="romero") | Q(descripcion__icontains="romero") |
+                Q(familia_olfativa__icontains="romero") |
+                Q(notas_salida__icontains="romero") | Q(notas_corazon__icontains="romero") | Q(notas_fondo__icontains="romero") |
+                Q(nombre__icontains="salvia") | Q(descripcion__icontains="salvia") |
+                Q(familia_olfativa__icontains="salvia") |
+                Q(notas_salida__icontains="salvia") | Q(notas_corazon__icontains="salvia") | Q(notas_fondo__icontains="salvia") 
+            )
+        elif fragancia == "9":  # Frutal
+            content['productos'] = content['productos'].filter(
+                Q(nombre__icontains="manzana") | Q(descripcion__icontains="manzana") |
+                Q(familia_olfativa__icontains="manzana") |
+                Q(notas_salida__icontains="manzana") | Q(notas_corazon__icontains="manzana") | Q(notas_fondo__icontains="manzana") |
+                Q(nombre__icontains="pera") | Q(descripcion__icontains="pera") |
+                Q(familia_olfativa__icontains="pera") |
+                Q(notas_salida__icontains="pera") | Q(notas_corazon__icontains="pera") | Q(notas_fondo__icontains="pera") |
+                Q(nombre__icontains="melocotón") | Q(descripcion__icontains="melocotón") |
+                Q(familia_olfativa__icontains="melocotón") |
+                Q(notas_salida__icontains="melocotón") | Q(notas_corazon__icontains="melocotón") | Q(notas_fondo__icontains="melocotón") |
+                Q(nombre__icontains="fresa") | Q(descripcion__icontains="fresa") |
+                Q(familia_olfativa__icontains="fresa") |
+                Q(notas_salida__icontains="fresa") | Q(notas_corazon__icontains="fresa") | Q(notas_fondo__icontains="fresa") |
+                Q(nombre__icontains="Piña") | Q(descripcion__icontains="Piña") |
+                Q(familia_olfativa__icontains="Piña") |
+                Q(notas_salida__icontains="Piña") | Q(notas_corazon__icontains="Piña") | Q(notas_fondo__icontains="Piña")
+            )
+        elif fragancia == "10":  # Especiada
+            content['productos'] = content['productos'].filter(
+                Q(nombre__icontains="canela") | Q(descripcion__icontains="canela") |
+                Q(familia_olfativa__icontains="canela") |
+                Q(notas_salida__icontains="canela") | Q(notas_corazon__icontains="canela") | Q(notas_fondo__icontains="canela") |
+                Q(nombre__icontains="clavo") | Q(descripcion__icontains="clavo") |
+                Q(familia_olfativa__icontains="clavo") |
+                Q(notas_salida__icontains="clavo") | Q(notas_corazon__icontains="clavo") | Q(notas_fondo__icontains="clavo") |
+                Q(nombre__icontains="pimienta") | Q(descripcion__icontains="pimienta") |
+                Q(familia_olfativa__icontains="pimienta") |
+                Q(notas_salida__icontains="pimienta") | Q(notas_corazon__icontains="pimienta") | Q(notas_fondo__icontains="pimienta") |
+                Q(nombre__icontains="nuez moscada") | Q(descripcion__icontains="nuez moscada") |
+                Q(familia_olfativa__icontains="nuez moscada") |
+                Q(notas_salida__icontains="nuez moscada") | Q(notas_corazon__icontains="nuez moscada") | Q(notas_fondo__icontains="nuez moscada")
+            )
 
     return render(request, 'core/menu.html', content)
 
