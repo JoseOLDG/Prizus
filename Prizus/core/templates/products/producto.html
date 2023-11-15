@@ -44,13 +44,13 @@
     {% include 'products/comentario.html' %}
 </section>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
-<div class="card" id="comentarios">
+<div class="card">
     <div class="card-header">
-    <h2 class="ttc">Déjanos tu Puntuación<h2>
+    <h2>DÉJANOS TU PUNTUACIÓN<h2>
     </div>
         <div class="col-12">
             <table class="table" id="tabla_calificacion">
-                <thead class="lista-comentarios">
+                <thead class="thead-dark">
                     <tr>
                         <th>Nombres y Apellidos</th>
                         <th>Calificaci&oacute;n</th>
@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="lista-comentarios">{{ user.username }}</td>
+                        <td>{{ user.username }}</td>
                         <td>
                             <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="1estrella"></SPAN>
 
@@ -71,7 +71,7 @@
             
                             <SPAN class="fa fa-star" onclick="calificar(this)"  style="cursor: pointer;" id="5estrella"></SPAN>
                         </td>
-                        <td><button class="btnn" onclick="Mensaje()" >Calificar</button></td>
+                        <td><button class="btn btn-primary" onclick="Mensaje()" >Calificar</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -107,6 +107,7 @@
         </div>
     </div>
 </section>
+
 
 <section>
     <footer class="text-center" style="color: #CCCCCC;">
@@ -158,10 +159,12 @@
                     tiendaContainer.append(
                         `
                         <li class="list-group-item d-flex justify-content-between align-items-start numcolor">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">${data.prices[i][1]}</div>
+                            <div class="ms-2 me-auto mr-2">
+                                <div class="fw-bold"><a href="${data.prices[i][2]}">${data.prices[i][1]}</a></div>
                             </div>
-                            <span class="badge rounded-pill numcolor">${data.prices[i][0]}</span>
+
+                            <span class="badge bg-primary rounded-pill">$ ${data.prices[i][0]}</span>
+
                         </li>
                         `
                     )  
@@ -172,25 +175,6 @@
             }
         });
     });
-</script>
-<script>
-    var contador;
-    function calificar(item){
-        console.log(item)
-        contador=item.id[0];
-        let nombre = item.id.substring(1);
-        for(let i=0;i<5;i++){
-            if(i<contador){
-
-                document.getElementById((i+1)+nombre).style.color="#CCCCCC";
-            }else{
-                document.getElementById((i+1)+nombre).style.color="black";
-            }
-        }
-    }
-    function Mensaje(){
-        alert("Gracias por calificar este producto con "+contador+" estrellas.")
-    }
 </script>
 
 {% endblock %}

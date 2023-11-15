@@ -21,9 +21,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
     <script src="https://kit.fontawesome.com/c8cde94915.js" crossorigin="anonymous"></script>
-    
-
-    
 
     <title>Inicio</title>
 </head>
@@ -55,6 +52,9 @@
                 </form>
 
                 <ul class="navbar-nav ml-auto d-flex flex-row">
+                    <li class="nav-item">
+                        <a href="{% url 'procesar_imagen' %}" class="btn1 custom-margin">PRIZUS.AI</a>
+                    </li>
                     <li class="nav-item">
                         <a href="{% url 'login' %}" class="btn1 custom-margin">Ingresar</a>
                     </li> 
@@ -93,6 +93,7 @@
         </nav>
         
     </header>
+
 
     <div class="contenerdorbody">
         <form id="filtro-form" method="get" action="{% url 'menu' %}">

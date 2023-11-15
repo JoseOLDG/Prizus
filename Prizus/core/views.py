@@ -1,11 +1,21 @@
 from pdb import post_mortem
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .forms import UserCreationForm, CustomUserCreationForm
+from .forms import UserCreationForm, CustomUserCreationForm, ImagenForm
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+from django.http import HttpResponse
+from .models import comentario, producto, precio, registroHistoricoPrecio
+
+import numpy as np
+import tensorflow as tf
+import os
+from django.conf import settings
+import re
+
 from .models import comentario, producto, precio
 from django.db.models import Q
+
 from django.contrib.auth.forms import AuthenticationForm
 from django.urls import reverse_lazy
 from django.http import JsonResponse
@@ -14,31 +24,38 @@ from django.http import JsonResponse
 from bs4 import BeautifulSoup
 import requests
 from django.http import JsonResponse
-from .models import Calificacion
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
 
 def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
-  try:
-    response = requests.get(url)
-    if response.status_code == 200:
-      try:
-        soup = BeautifulSoup(response.text, 'html.parser')
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            try:
+                soup = BeautifulSoup(response.text, 'html.parser')
+                elemento = soup.find(name=f'{tag_html_perfume}', class_=f'{clase_precio_perfume}')
+                if elemento:
+                    # Busca los precios dentro del texto del elemento
+                    precios = [int(''.join(filter(str.isalnum, parte.encode("utf-8").decode("utf-8", "ignore"))) or '0')
+                               for parte in elemento.stripped_strings]
 
-        precio_perfume = soup.find(name=f'{tag_html_perfume}', class_=f'{clase_precio_perfume}')
+                    if precios:
+                        precio_minimo = min(precios)
+                        return precio_minimo
+                    else:
+                        return "No se encontraron precios válidos en el texto del elemento"
 
-        try:
-          clear_precio = int(''.join(filter(str.isalnum, precio_perfume.text.strip().encode("utf-8").decode("utf-8", "ignore"))))
-        except:
-          clear_precio = precio_perfume.text.strip()
-        return clear_precio
-      except:
-        return print("Error en la extracción")
-    else:
-      return print("Error, codigo de estado: ", response.status_code)
-  except:
-    return print("Error en la solicitud")
+                else:
+                    return "No se encontró un elemento con la clase y etiqueta especificada"
+
+            except:
+                return "Error en la extracción"
+        else:
+            return f"Error, código de estado: {response.status_code}"
+    except:
+        return "Error en la solicitud"
 
 def index(request):
     return render(request, 'core/index.html')
@@ -144,7 +161,6 @@ def menu(request):
 
     return render(request, 'core/menu.html', content)
 
-
 def registro(request):
     data = {
         'form': CustomUserCreationForm()
@@ -165,15 +181,15 @@ def registro(request):
 def perfumes(request, slug):
     comentarios = comentario.objects.all()
     perfume = get_object_or_404(producto, slug=slug)
+    perfume.views = perfume.views + 1
+    perfume.save()
 
     if request.method == 'POST':
-        try:
-            texto = request.POST['texto']
-            comments = comentario(usuario=request.user, texto=texto)
-            comments.save()
-            return redirect('producto')
-        except:
-            return redirect('login')
+        texto = request.POST['texto']
+        puntuacion = int(request.POST.get('puntuacion'))
+        comments = comentario(producto=perfume, usuario=request.user, texto=texto, puntuacion=puntuacion)
+        comments.save()
+        return redirect('producto', slug=perfume.slug)
 
     content = {
         'comentarios': comentarios,
@@ -190,8 +206,16 @@ def update_prices(request, slug):
     for val in valores:
         nuevo_valor = extraer_informacion_perfume(val.webScraping_url, val.tienda.webScraping_tag, val.tienda.webScraping_precio)
         tienda_valor = val.tienda.nombre
-        val.save()
-        updated_prices.append([nuevo_valor, tienda_valor])
+        producto_url = val.webScraping_url
+        if val.valor != nuevo_valor:
+            val.valor = nuevo_valor
+            val.save()
+            registroHistoricoPrecio.objects.create(
+                producto=val.producto,
+                tienda = val.tienda,
+                precio_registrado=nuevo_valor,
+            )
+        updated_prices.append([nuevo_valor, tienda_valor, producto_url])
 
     return JsonResponse({'prices': updated_prices})
 
@@ -208,21 +232,9 @@ def login2(request):
 
     if user.is_staff:
         login(request, user)
-        return redirect('admin:index')
+        return redirect('dashboard')
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
-    
-def guardar_puntuacion(request):
-    if request.method == 'POST':
-        puntuacion = int(request.POST.get('puntuacion'))
-
-        calificacion = Calificacion(puntuacion=puntuacion)
-        calificacion.save()
-
-        return JsonResponse({'message': f'Calificación guardada: {puntuacion} estrellas.'})
-
-    return JsonResponse({'error': 'Este endpoint solo admite solicitudes POST.'})
-
 
 def obtener_productos_por_genero(request):
     genero = request.GET.get('genero', None)
@@ -240,5 +252,53 @@ def obtener_productos_por_genero(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('nombre_de_la_página_de_inicio')
+    return redirect('')
 
+def procesar_imagen_ia(request):
+    if request.method == 'POST':
+        # Verifica si el campo de archivo se ha enviado y no está vacío
+        form = ImagenForm(request.POST, request.FILES)
+        if form.is_valid():
+            imagen = form.cleaned_data['imagen']
+
+            s = imagen.name
+            slug = re.sub(r'[^a-z0-9]+', '-', s).lower().strip('-')
+            imagen_name = re.sub(r'[-]+', '-', slug).replace("-jpg", ".jpg")
+
+            imagen_path = os.path.join(settings.MEDIA_ROOT, imagen_name)
+            with open(os.path.join(settings.MEDIA_ROOT, imagen_name), 'wb') as destination:
+                for chunk in imagen.chunks():
+                    destination.write(chunk)
+            # Procesa el formulario
+            if os.path.exists(imagen_path):
+                model = tf.keras.models.load_model("models/PrizusML.h5")
+
+                img_height = 180
+                img_width = 180
+
+                class_names = ['Cilindro', 'Cintura', 'Cuadrado', 'Esfera', 'Figura', 'Pack', 'Prisma', 'Rectangulo', 'Tronco']
+
+                perfume_url = f'http://127.0.0.1:8000{os.path.join(settings.MEDIA_URL, imagen_name)}'
+                perfume_path = tf.keras.utils.get_file('Perfume: {imagen.name}', origin=perfume_url)
+                
+                img = tf.keras.utils.load_img(perfume_path, target_size=(img_height, img_width))
+                img_array = tf.keras.utils.img_to_array(img)
+                img_array_expand = tf.expand_dims(img_array, 0)
+
+                predictions = model.predict(img_array_expand)
+                score = tf.nn.softmax(predictions[0])
+                os.remove(imagen_path)
+            forma_predict = class_names[np.argmax(score)]
+            productos = producto.objects.filter(forma__icontains=forma_predict)
+            print("Este perfume claramente tiene forma {} , mentira, es un porcentaje de {:.2f} de certeza.".format(class_names[np.argmax(score)], 100 * np.max(score)))    
+            return render(request, 'core/menu.html', {'productos': productos})
+            
+    else:
+        form = ImagenForm()
+    return render(request, 'core/prizus_ia.html', {'form': form})
+
+@login_required
+def admin_dashboard(request):
+    if not request.user.is_staff:
+        return redirect('login2')
+    return render(request, 'registration2/dashboard.html')

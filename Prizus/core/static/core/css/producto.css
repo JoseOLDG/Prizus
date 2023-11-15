@@ -126,3 +126,7 @@
     color: #CCCCCC !important;
     border-color: transparent !important;
 }
+
+input[type="radio"] {
+    display: none;
+}
