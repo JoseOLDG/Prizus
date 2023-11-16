@@ -279,7 +279,7 @@ def procesar_imagen_ia(request):
                 class_names = ['Cilindro', 'Cintura', 'Cuadrado', 'Esfera', 'Figura', 'Pack', 'Prisma', 'Rectangulo', 'Tronco']
 
                 perfume_url = f'http://127.0.0.1:8000{os.path.join(settings.MEDIA_URL, imagen_name)}'
-                perfume_path = tf.keras.utils.get_file('Perfume: {imagen.name}', origin=perfume_url)
+                perfume_path = tf.keras.utils.get_file(f'Perfume: {imagen_name}', origin=perfume_url)
                 
                 img = tf.keras.utils.load_img(perfume_path, target_size=(img_height, img_width))
                 img_array = tf.keras.utils.img_to_array(img)
