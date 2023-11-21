@@ -295,6 +295,25 @@ footer{
     background: #CCCCCC;
 }
 
+.btnIA{
+    color: #A59D95; 
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-decoration: none;
+    
+}
+
+.btnIA:hover{
+    text-decoration: none;
+    color: #CCCCCC;
+}
+
+.iconIA{
+    font-size: 25px;
+}
+
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
