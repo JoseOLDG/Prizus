@@ -12,15 +12,43 @@
 }
 
 .dashboard-slide{
-    max-height: 500px;
-    display: grid !important;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item{
+    background-color: #999999;
+    width: 100%;
+
+}
+
+.nav-item:hover{
+    background-color: #c2c2c2;
 }
 
 .content{
-    height: 100vh;
+    height: 100%;
     background-color: #222222;
+    padding: 2rem 2rem 0 2rem;
 }
 
 .barrita {
     background-color: #666666;
+}
+
+.list-perfume:hover{
+    background-color: #c2c2c2 !important;
+    cursor: pointer;
+}
+
+.link-exposer{
+    position: absolute;
+    left: 4%;
+    width: calc(90% - 10px);
+    height: 100px;
+    background-color: aqua;
+    z-index: 2;
+    opacity: 0;
 }

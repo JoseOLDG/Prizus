@@ -1,0 +1,24 @@
+{% extends 'registration2/components/base.html' %}
+{% block content %}
+{% regroup historicos by tienda as hist_tienda  %}
+<h2>precios</h2>
+<div class="container">
+    {% for tienda in hist_tienda %}
+    <div class="row">
+        <div class="col-sm bg-primary"><p>{{tienda.nombre}}</p></div>
+        <div class="col-sm bg-secondary"><p>{{tienda.webScraping_tag}}</p></div>
+        <div class="col-sm bg-success"><p>{{tienda.webScraping_precio}}</p></div>
+    </div>
+    <div class="container">
+        {% for hist in tienda.list %}
+        <div class="row">
+            <div class="col-sm bg-primary"><p>{{hist.producto}}</p></div>
+            <div class="col-sm bg-secondary"><p>{{hist.tienda}}</p></div>
+            <div class="col-sm bg-success"><p>{{hist.precio_registrado}}</p></div>
+            <div class="col-sm bg-danger"><p>{{hist.fecha_cambio}}</p></div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

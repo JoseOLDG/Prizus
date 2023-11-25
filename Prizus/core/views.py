@@ -1,11 +1,11 @@
 from pdb import post_mortem
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .forms import UserCreationForm, CustomUserCreationForm, ImagenForm
+from .forms import UserCreationForm, CustomUserCreationForm, ImagenForm, ProductoForm
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
-from .models import comentario, producto, precio, registroHistoricoPrecio
+from .models import comentario, producto, precio, registroHistoricoPrecio, tiendaOnline
 
 import numpy as np
 import tensorflow as tf
@@ -279,7 +279,7 @@ def procesar_imagen_ia(request):
                 class_names = ['Cilindro', 'Cintura', 'Cuadrado', 'Esfera', 'Figura', 'Pack', 'Prisma', 'Rectangulo', 'Tronco']
 
                 perfume_url = f'http://127.0.0.1:8000{os.path.join(settings.MEDIA_URL, imagen_name)}'
-                perfume_path = tf.keras.utils.get_file('Perfume: {imagen.name}', origin=perfume_url)
+                perfume_path = tf.keras.utils.get_file(f'Perfume: {imagen_name}', origin=perfume_url)
                 
                 img = tf.keras.utils.load_img(perfume_path, target_size=(img_height, img_width))
                 img_array = tf.keras.utils.img_to_array(img)
@@ -290,8 +290,9 @@ def procesar_imagen_ia(request):
                 os.remove(imagen_path)
             forma_predict = class_names[np.argmax(score)]
             productos = producto.objects.filter(forma__icontains=forma_predict)
+            alerta = 'Analisis finalizado! Estos perfumes lucen semejantes con tu envase ingresado'
             print("Este perfume claramente tiene forma {} , mentira, es un porcentaje de {:.2f} de certeza.".format(class_names[np.argmax(score)], 100 * np.max(score)))    
-            return render(request, 'core/menu.html', {'productos': productos})
+            return render(request, 'core/menu.html', {'productos': productos, 'alerta': alerta})
             
     else:
         form = ImagenForm()
@@ -302,3 +303,56 @@ def admin_dashboard(request):
     if not request.user.is_staff:
         return redirect('login2')
     return render(request, 'registration2/dashboard.html')
+
+@login_required
+def admin_perfumes(request):
+    if not request.user.is_staff:
+        return redirect('login2')
+    
+    content = {
+        'productos': producto.objects.all()
+    }
+
+    return render(request, 'registration2/pages/perfumes.html', content)
+
+@login_required
+def admin_perfumes_detail(request, slug):
+    if not request.user.is_staff:
+        return redirect('login2')
+    
+    perfume = get_object_or_404(producto, slug=slug)
+
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, instance=perfume)
+        if form.is_valid():
+            form.save()
+            return redirect('perfumes_detail', slug=perfume.slug)
+    else: 
+        form = ProductoForm(instance=perfume)
+
+    content = {
+        'perfume': perfume,
+        'form': form
+    }
+
+    return render(request, 'registration2/pages/edit_perfume.html', content)
+
+@login_required
+def admin_precios(request):
+    if not request.user.is_staff:
+        return redirect('login2')
+    
+    content = {
+        'tiendas': tiendaOnline.objects.all(),
+        'historicos': registroHistoricoPrecio.objects.all()
+    }
+
+    return render(request, 'registration2/pages/precios.html', content)
+
+
+@login_required
+def admin_tendencias(request):
+    if not request.user.is_staff:
+        return redirect('login2')
+    return render(request, 'registration2/pages/tendencias.html')
+
