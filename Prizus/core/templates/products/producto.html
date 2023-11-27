@@ -101,6 +101,9 @@
                 tiendaContainer.empty();
 
                 for (var i = 0; i < data.prices.length; i++) {
+                    var currentPrice = parseFloat(data.prices[i][0]);
+                    var formattedPrice = currentPrice.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+
                     tiendaContainer.append(
                         `
                         <li class="list-group-item d-flex numcolor ordenprecio">
@@ -108,8 +111,7 @@
                                 <div class="fw-bold "><a class="numcolor" href="${data.prices[i][2]}">${data.prices[i][1]}</a></div>
                             </div>
 
-                            <span class="badge  rounded-pill numcolor bordeprecio">$ ${data.prices[i][0]}</span>
-
+                            <span class="badge  rounded-pill numcolor bordeprecio">${formattedPrice}</span>
                         </li>
                         `
                     )  
@@ -121,5 +123,6 @@
         });
     });
 </script>
+
 
 {% endblock %}

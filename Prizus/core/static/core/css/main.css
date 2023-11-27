@@ -32,7 +32,7 @@
     flex-wrap: wrap;
     margin: 25px;
     width: 250px;
-    height: 380px;
+    height: 420px;
     
 }
 
@@ -100,10 +100,12 @@
 }
 
 .price{
-    font-size: 18px;
-    font-weight: 900;
+    font-size: 20px !important;
+    font-weight: bolder;
     margin-bottom: auto;
     font-family: 'Ubuntu';
+    color: #CCCCCC;
+    border: 1px solid #CCCCCC;
 }
 
 .notfoundp{

@@ -286,35 +286,69 @@
             <div class="cart-product">
                 <div class="container-items">
                     {% if productos %}
-                        {% for producto in productos %}
-                        <div class="item" data-product-id="{{producto.id}}">
-                            <a href="{% url 'producto' producto.slug %}">
-                                <figure>
-                                    <img src="{{producto.imagen}}" alt="producto" />
-                                </figure>
-                                <div class="info-product">
-                                    <h3 class="nombreproducto">{{producto.nombre}}</h3>
-                                    <p class="descripcion"><strong>Género:</strong> {{producto.genero}}</p>
-                                    <p class="descripcion"><strong>Marca:</strong> {{producto.marca}}</p>
-                                    <p class="descripcion"><strong>Contenido:</strong> {{producto.contenido_neto}}ML</p>
-                                </div>
-                            </a>
-                            <div class="item-details"
-                                data-product-description="{{producto.descripcion}}"
-                                data-product-price="{{producto.precio}}"
-                                data-product-img="{{producto.imagen}}"
-                                data-familia-olfativa="{{producto.familia_olfativa}}"
-                                data-notas-salida="{{producto.notas_salida}}"
-                                data-notas-corazon="{{producto.notas_corazon}}"
-                                data-notas-fondo="{{producto.notas_fondo}}">
-                                <!-- ... otros detalles del producto ... -->
-                                <button class="btn-add-cart fa-solid fa-scale-balanced"></button>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        <p class="notfoundp">No se encontraron productos</p>
-                    {% endif %}
+    {% for producto in productos %}
+    <div class="item" data-product-id="{{producto.id}}">
+        <a href="{% url 'producto' producto.slug %}">
+            <figure>
+                <img src="{{producto.imagen}}" alt="producto" />
+            </figure>
+            <div class="info-product">
+                <h3 class="nombreproducto">{{producto.nombre}}</h3>
+                <p class="descripcion"><strong>Género:</strong> {{producto.genero}}</p>
+                <p class="descripcion"><strong>Marca:</strong> {{producto.marca}}</p>
+                <p class="descripcion"><strong>Contenido:</strong> {{producto.contenido_neto}}ML</p>
+                <div class="price-container">
+                    <span id="lowest-price-{{producto.id}}" class="badge price rounded-pill">Cargando...</span>
+                </div>
+            </div>
+        </a>
+        <div class="item-details"
+            data-product-description="{{producto.descripcion}}"
+            data-product-price="{{producto.precio}}"
+            data-product-img="{{producto.imagen}}"
+            data-familia-olfativa="{{producto.familia_olfativa}}"
+            data-notas-salida="{{producto.notas_salida}}"
+            data-notas-corazon="{{producto.notas_corazon}}"
+            data-notas-fondo="{{producto.notas_fondo}}">
+            <button class="btn-add-cart fa-solid fa-scale-balanced"></button>
+            
+        </div>
+    </div>
+    <!-- Llamada AJAX para obtener precios -->
+    <script>
+        $(document).ready(function() {
+            var productId = "{{ producto.id }}";
+            var lowestPriceContainer = $('#lowest-price-' + productId);
+    
+            $.ajax({
+                url: "{% url 'update_prices' slug=producto.slug %}",
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var lowestPrice = Number.MAX_VALUE;
+    
+                    for (var i = 0; i < data.prices.length; i++) {
+                        var currentPrice = parseFloat(data.prices[i][0]);
+    
+                        if (currentPrice < lowestPrice) {
+                            lowestPrice = currentPrice;
+                        }
+                    }
+    
+                    // Formatear el precio con punto como separador de miles y en formato CLP
+                    var formattedPrice = lowestPrice.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+    
+                    lowestPriceContainer.text(formattedPrice);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    </script>
+    
+    {% endfor %}
+{% endif %}
                 </div>
             </div>
 
