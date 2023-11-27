@@ -1,21 +1,24 @@
 .formulario-emergente {
-  background-color: #ffffff;
-  background: #A59D95;
+  color: #CCCCCC;
+  background: #1C1C1C;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   user-select: none;
-  margin-top: 4rem !important;
-  padding-top: 4rem !important;
+  margin-top: 15% !important;
+  padding-top: 1rem !important;
   padding-bottom: 2rem;
+  border-radius: 10px;
+  
 }
 
 .soltararchivos{
   background-color: #222222;
-  color: #fff;
+  color: #CCCCCC;
   width: 100%;
   padding: 10px;
+  border-radius: 10px;
 }
 
 .txtbtn{
@@ -32,15 +35,18 @@ input[type="file"] {
 }
 
 button[type="submit"] {
-  background-color: #222222;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  width: 60%;
-  margin-top: 2rem;
-  padding: 5px 0px 5px 0px;
-  border-radius: 50px;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #A59D95;
+    color: #222222;
+    font-size: 12px;
+    border-radius: 50px;
+    width: 60%;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Ubuntu';
 }
 
 button[type="submit"]:hover {
@@ -52,7 +58,7 @@ button[type="submit"]:hover {
 
 
 .title {
-  background: #222222;
+  background: #1C1C1C;
   color: #CCCCCC;
   margin: 1rem;
 }
