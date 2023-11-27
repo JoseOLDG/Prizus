@@ -121,7 +121,12 @@
     display: flex;
     margin-top: 2% !important;
     justify-content: center;
-    margin-bottom: 45% !important;
+    margin-bottom: 85% !important;
+}
+
+.espacio{
+    background-color: transparent;
+    color: transparent;
 }
  
 .acordeon{
@@ -263,7 +268,9 @@
 }
 
 footer{
+    position: fixed;
     bottom: 0;
+    left: 0;
     width: 100% !important;
 }
 
