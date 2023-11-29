@@ -1,12 +1,94 @@
 {% extends 'registration2/components/base.html' %}
 {% block content %}
 
-<h2>edit_perfume</h2>
-<form method="post" enctype="multipart/form-data">
+<h2>{{ perfume.nombre }}</h2>
+<form id="form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar cambios</button>
+    <button style="display: none;" id="submit" type="submit">Guardar cambios</button>
+    <div class="container">
+        <div class="row gap-3">
+            <div class="col-7 card bg-white">
+                <div class="card-body row-cols-1">
+                    <div class="col">
+                        {{ form.nombre.label }}
+                        {{ form.nombre }}
+                    </div>
+                    <div class="col">
+                        {{ form.descripcion.label }}
+                        {{ form.descripcion }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 card bg-white">
+                <div class="card-body">
+                    <img src="{{ form.imagen.value }}" width="200" height="200">
+                    {{ form.imagen.label }}
+                    {{ form.imagen }}
+                    {{ form.forma.label }}
+                    {{ form.forma }}
+                </div>
+            </div>  
+            <div class="col-7 card bg-white">
+                <div class="card-body">
+                    {{ form.familia_olfativa.label }}
+                    {{ form.familia_olfativa }}
+                    {{ form.notas_salida.label }}
+                    {{ form.notas_salida }}
+                    {{ form.notas_corazon.label }}
+                    {{ form.notas_corazon }}
+                    {{ form.notas_fondo.label }}
+                    {{ form.notas_fondo }}
+                </div>
+            </div>
+            <div class="col-4 card bg-white">
+                <div class="card-body">
+                    {{ form.genero.label }}
+                    {{ form.genero }}
+                    {{ form.marca.label }}
+                    {{ form.marca }}
+                    {{ form.contenido_neto.label }}
+                    {{ form.contenido_neto }}
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 
+
+<script>
+    
+document.addEventListener('DOMContentLoaded', function(){
+    var form = document.getElementById('form');
+    var submit = document.getElementById('submit');
+
+    form.addEventListener('input', function() {
+        submit.style.display = 'block';
+        console.log(`{{ form.nombre.value }}`)
+        console.log(`{{ form.descripcion.value }}`)
+        console.log(`{{ form.imagen.value }}`)
+        console.log(`{{ form.forma.value }}`)
+        console.log(`{{ form.familia_olfativa.value }}`)
+        console.log(`{{ form.notas_salida.value }}`)
+        console.log(`{{ form.notas_corazon.value }}`)
+        console.log(`{{ form.notas_fondo.value }}`)
+        console.log(`{{ form.genero.value }}`)
+        console.log(`{{ form.marca.value }}`)
+        console.log(`{{ form.contenido_neto.value }}`)
+    });
+})
+
+console.log(`{{ form.nombre.value }}`)
+console.log(`{{ form.descripcion.value }}`)
+console.log(`{{ form.imagen.value }}`)
+console.log(`{{ form.forma.value }}`)
+console.log(`{{ form.familia_olfativa.value }}`)
+console.log(`{{ form.notas_salida.value }}`)
+console.log(`{{ form.notas_corazon.value }}`)
+console.log(`{{ form.notas_fondo.value }}`)
+console.log(`{{ form.genero.value }}`)
+console.log(`{{ form.marca.value }}`)
+console.log(`{{ form.contenido_neto.value }}`)
+
+</script>
 
 {% endblock %}

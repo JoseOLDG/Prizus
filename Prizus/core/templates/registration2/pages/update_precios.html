@@ -1,0 +1,78 @@
+{% extends 'registration2/components/base.html' %}
+{% block content %}
+<h2>{{tiendas.nombre}}</h2>
+<form method="get" action="{% url 'update_prices' tiendas.id %}">
+    {% csrf_token %}
+  <button type="submit" class="btn btn-primary">
+    <span class="badge text-bg-secondary">Actualizar Precios de productos</span>
+  </button>
+</form>
+<form id="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row gap-3">
+            <div class="col-8 card bg-white">
+                <div class="card-title bg-body-tertiary">Parametros HTML de {{ tiendas.nombre }}</div>
+                <div class="card-body row-cols-1">
+                    <div class="w-100">
+                        {{ form.webScraping_tag.label }}
+                        {{ form.webScraping_tag }}
+                    </div>
+                    <div class="w-100">
+                        {{ form.webScraping_precio.label }}
+                        {{ form.webScraping_precio }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 card bg-white">
+                <button class="btn" id="submit" type="submit">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% if productos %}
+<div class="table-responsive">
+  <table class="table table-light table-striped" style="width:auto">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Producto</th>
+        <th scope="col">URL del Producto</th>
+        <th scope="col">Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for producto in productos %}
+    <tr>
+      <th class="base" scope="row">{{producto.id}}</th>
+      <td class="base">{{producto.producto}}</td>
+      <td class="base">{{producto.webScraping_url}}</td>
+      <td class="base">{{producto.valor}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="alert alert-light" role="alert">
+  No se encuentran perfumes con estas características!
+</div>
+{% endif %}
+
+<form method="post" action="{% url 'new_prices' tiendas.id %}">
+    {% csrf_token %}
+    <div class="col-7 card bg-white">
+        <div class="card-body row-cols-1">
+            <div class="col">
+                {{ PrecioForm.producto }}
+            </div>
+            <div class="col">
+                {{ PrecioForm.webScraping_url }}
+            </div>
+        </div>
+    </div>
+    <input class type="submit" value="Submit">
+</form>
+
+{% endblock %}

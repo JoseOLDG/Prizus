@@ -1,7 +1,7 @@
 from pdb import post_mortem
 from pyexpat.errors import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .forms import UserCreationForm, CustomUserCreationForm, ImagenForm, ProductoForm
+from .forms import UserCreationForm, CustomUserCreationForm, ImagenForm, ProductoForm, TiendaForm, PrecioForm
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
@@ -198,26 +198,50 @@ def perfumes(request, slug):
 
     return render(request, 'products/producto.html', content)
 
-def update_prices(request, slug):
-    valores = precio.objects.filter(producto__slug__icontains=slug)
+def new_prices(request, id):
+    tiendas = tiendaOnline.objects.filter(id=id)
+    for t in tiendas:
+        tienda = t.nombre
+        
+    form = PrecioForm(request.POST)
+    print(form)
+#        form.save()
+#        precio.objects.create(
+#            producto = '',
+#            tienda = id,
+#            webScraping_url = '',
+#        )
+    return redirect('actualizar_precios', nombre=tienda)
 
-    updated_prices = []
-
-    for val in valores:
-        nuevo_valor = extraer_informacion_perfume(val.webScraping_url, val.tienda.webScraping_tag, val.tienda.webScraping_precio)
-        tienda_valor = val.tienda.nombre
-        producto_url = val.webScraping_url
-        if val.valor != nuevo_valor:
-            val.valor = nuevo_valor
-            val.save()
-            registroHistoricoPrecio.objects.create(
-                producto=val.producto,
-                tienda = val.tienda,
-                precio_registrado=nuevo_valor,
-            )
-        updated_prices.append([nuevo_valor, tienda_valor, producto_url])
-
-    return JsonResponse({'prices': updated_prices})
+def update_prices(request, id):
+    valores = precio.objects.filter(tienda=id)
+    tiendas = tiendaOnline.objects.filter(id=id)
+    for t in tiendas:
+        tienda = t.nombre
+    try:
+        for val in valores:
+            try:
+                nuevo_valor = extraer_informacion_perfume(val.webScraping_url, val.tienda.webScraping_tag, val.tienda.webScraping_precio)
+                if val.valor != nuevo_valor:
+                    val.valor = nuevo_valor
+                    val.save()
+                    registroHistoricoPrecio.objects.create(
+                        producto=val.producto,
+                        tienda = val.tienda,
+                        precio_registrado=nuevo_valor,
+                    )
+            except:
+                nuevo_valor = 0
+                val.valor = nuevo_valor
+                val.save()
+                registroHistoricoPrecio.objects.create(
+                    producto=val.producto,
+                    tienda = val.tienda,
+                    precio_registrado=nuevo_valor,
+                )
+        return redirect('actualizar_precios', nombre=tienda)
+    except:
+        return redirect('actualizar_precios', nombre=tienda)
 
 def login2(request):
     if request.method == 'GET':
@@ -312,6 +336,14 @@ def admin_perfumes(request):
     content = {
         'productos': producto.objects.all()
     }
+    
+    if request.method=="POST":
+        queryset = request.POST['search']
+        if queryset:
+            productos = producto.objects.filter(
+                Q(id__icontains=queryset) | Q(nombre__icontains=queryset) | Q(descripcion__icontains=queryset) | Q(genero__icontains=queryset) | Q(contenido_neto__icontains=queryset) | Q(familia_olfativa__icontains=queryset) | Q(notas_salida__icontains=queryset) | Q(notas_corazon__icontains=queryset) | Q(notas_fondo__icontains=queryset) | Q(forma__icontains=queryset)
+            ).distinct()
+            content['productos'] = content['productos'].filter(pk__in=productos)
 
     return render(request, 'registration2/pages/perfumes.html', content)
 
@@ -343,12 +375,39 @@ def admin_precios(request):
         return redirect('login2')
     
     content = {
-        'tiendas': tiendaOnline.objects.all(),
-        'historicos': registroHistoricoPrecio.objects.all()
+        'tiendas': tiendaOnline.objects.all()
     }
 
     return render(request, 'registration2/pages/precios.html', content)
 
+@login_required
+def admin_precios_actualizar(request, nombre):
+    if not request.user.is_staff:
+        return redirect('login2')
+    
+    tienda = get_object_or_404(tiendaOnline, nombre=nombre)
+
+    if request.method == 'POST':
+        form = TiendaForm(request.POST, instance=tienda)
+        if form.is_valid():
+            form.save()
+            return redirect('actualizar_precios', nombre=tienda.nombre)
+    else: 
+        form = TiendaForm(instance=tienda)
+    
+    
+    precios = precio.objects.filter(tienda=tienda.id)
+    list_product = producto.objects.all()
+
+    content = {
+        'tiendas': tienda,
+        'productos': precios,
+        'form': form,
+        'PrecioForm': PrecioForm,
+        'list_product': list_product
+    }
+
+    return render(request, 'registration2/pages/update_precios.html', content)
 
 @login_required
 def admin_tendencias(request):

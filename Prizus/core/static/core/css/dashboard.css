@@ -1,54 +1,87 @@
-.slide {
-    height: 100vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #CCCCCC !important;
+}
+
+.my-nav {
+    padding-left: 5rem;
     background-color: #222222;
 }
 
-.bg-body{
-    background-color: #222222;
-}
-
-.bg-body-tertiary{
-    background-color: #666666;
-}
-
-.dashboard-slide{
-    height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-item{
-    background-color: #999999;
-    width: 100%;
-
-}
-
-.nav-item:hover{
-    background-color: #c2c2c2;
-}
-
-.content{
+.side-navbar {
+    width: 180px;
     height: 100%;
+    position: fixed;
+    margin-left: -300px;
     background-color: #222222;
-    padding: 2rem 2rem 0 2rem;
+    transition: 0.5s;
 }
 
-.barrita {
-    background-color: #666666;
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover {
+    background-color: #ffffff26;
 }
 
-.list-perfume:hover{
-    background-color: #c2c2c2 !important;
-    cursor: pointer;
+.my-container {
+    transition: 0.4s;
+}
+
+.active-nav {
+    margin-left: 0;
+}
+
+/* for main section */
+.active-cont {
+    margin-left: 180px;
+}
+
+#menu-btn {
+    background-color: #100901;
+    color: #fff;
+    margin-left: -62px;
+}
+
+.my-container {
+    border-radius: 2rem;
 }
 
 .link-exposer{
     position: absolute;
-    left: 4%;
-    width: calc(90% - 10px);
+    left: 20%;
+    width: calc(80% - 9px);
     height: 100px;
     background-color: aqua;
     z-index: 2;
     opacity: 0;
 }
+
+.list-exposer:hover{
+    cursor: pointer;
+}
+
+#id_nombre,
+#id_descripcion,
+#id_imagen,
+#id_forma,
+#id_genero,
+#id_marca,
+#id_contenido_neto,
+#id_familia_olfativa,
+#id_notas_salida,
+#id_notas_corazon,
+#id_notas_fondo {
+    width: 100%;
+}
+
+#id_descripcion {
+    height: 10rem;
+    display: flex;
+}
+

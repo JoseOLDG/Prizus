@@ -2,6 +2,13 @@
 {% block content %}
 
 <h2>PERFUMES</h2>
+<nav class="mx-3 navbar navbar-light">
+  <form class="form-inline w-100 row" method="post">
+    {% csrf_token %}
+    <input class="col form-control pl-6 mr-sm-2 w-75" type="search" name="search" placeholder="Buscar Perfume" aria-label="Search">
+    <button class="col-2 btn btn-outline-secondary my-2 my-sm-0" type="submit">Buscar</button>
+  </form>
+</nav>
 {% if productos %}
 <div class="table-responsive">
   <table class="table table-light table-striped" style="width:auto">
@@ -31,6 +38,10 @@
     {% endfor %}
     </tbody>
   </table>
+</div>
+{% else %}
+<div class="alert alert-light" role="alert">
+  No se encuentran perfumes con estas características!
 </div>
 {% endif %}
 
