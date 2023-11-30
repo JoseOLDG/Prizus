@@ -36,7 +36,6 @@
   <table class="table table-light table-striped" style="width:auto">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Producto</th>
         <th scope="col">URL del Producto</th>
         <th scope="col">Precio</th>
@@ -45,7 +44,6 @@
     <tbody>
     {% for producto in productos %}
     <tr>
-      <th class="base" scope="row">{{producto.id}}</th>
       <td class="base">{{producto.producto}}</td>
       <td class="base">{{producto.webScraping_url}}</td>
       <td class="base">{{producto.valor}}</td>

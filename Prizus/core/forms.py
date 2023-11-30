@@ -47,7 +47,10 @@ class TiendaForm(forms.ModelForm):
 class PrecioForm(forms.ModelForm):
     class Meta:
         model = precio
-        opciones = producto.objects.all().values('nombre') 
+        try:
+            opciones = producto.objects.all().values('nombre') 
+        except:
+            opciones = (("", ""),)
         fields = [
             'producto',
             'webScraping_url',

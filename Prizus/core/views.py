@@ -5,6 +5,7 @@ from .forms import UserCreationForm, CustomUserCreationForm, ImagenForm, Product
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
+from django.utils.encoding import escape_uri_path
 from .models import comentario, producto, precio, registroHistoricoPrecio, tiendaOnline
 
 import numpy as np
@@ -12,6 +13,7 @@ import tensorflow as tf
 import os
 from django.conf import settings
 import re
+import openpyxl
 
 from .models import comentario, producto, precio
 from django.db.models import Q
@@ -406,27 +408,60 @@ def admin_tendencias(request):
 def new_prices(request, id): 
     if not request.user.is_staff:
         return redirect('login2')
-    tiendas = tiendaOnline.objects.filter(id=id)
-    
-    for t in tiendas:
-        tienda = t.nombre
-
-    print(request.method)
-    print('Holas')
-    
+    tiendas = tiendaOnline.objects.get(id=id)
     if request.method == 'POST':
         form = PrecioForm(request.POST)
-        if form.is_valid():
-            print('Paso')
-            return redirect('actualizar_precios', nombre=tienda)
+        new_producto = producto.objects.get(id = form.data['producto'])
+        url = form.data['webScraping_url']
+        precio.objects.create(
+            producto = new_producto,
+            tienda = tiendas,
+            webScraping_url = url,
+        )
+        return redirect('actualizar_precios', nombre=tiendas)
     else: 
-        print('no paso')
-        form = PrecioForm() 
-    return HttpResponse('a') 
-#        form.save()
-#        precio.objects.create(
-#            producto = '',
-#            tienda = id,
-#            webScraping_url = '',
-#        )
-#    return redirect('actualizar_precios', nombre=tienda)
+        form = PrecioForm()
+    return redirect('actualizar_precios', nombre=tiendas)
+
+
+def generar_excel(request):
+    productos_popularidad = producto.objects.all().values('id', 'nombre', 'views')
+    lista_productos = list(productos_popularidad)
+    # Abrimos el libro de excel
+    workbook = openpyxl.Workbook()
+    # Esto es para crear la hoja de tendencias con id ID | nombre Producto | views Número de vistas
+    tendencias = workbook.active
+    tendencias.title = 'Tendencias'
+    tendencias['A1'] = 'ID'
+    tendencias['B1'] = 'Producto'
+    tendencias['C1'] = 'Número de vistas' 
+    i = 1
+    for lista in lista_productos:
+        i = i + 1
+        for key, value in lista.items():
+            if key == 'id':
+                print(f'A{i}: {value}')
+                tendencias[f'A{i}'] = value
+            if key == 'nombre':
+                print(f'B{i}: {value}')
+                tendencias[f'B{i}'] = value
+            if key == 'views':
+                print(f'C{i}: {value}')
+                tendencias[f'C{i}'] = value
+
+
+    # Crear el directorio "reports" en el proyecto Django si no existe
+    directorio_reports = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'reports')
+    if not os.path.exists(directorio_reports):
+        os.makedirs(directorio_reports)
+
+    # Guardar el archivo de Excel en el directorio "media"
+    archivo_excel_path = os.path.join(directorio_reports, 'archivo_excel.xlsx')
+    workbook.save(archivo_excel_path)
+
+    # Abrir el archivo y leer su contenido binario
+    with open(archivo_excel_path, 'rb') as excel_file:
+        response = HttpResponse(excel_file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename={}'.format(escape_uri_path('archivo_excel.xlsx'))
+    
+    return response
