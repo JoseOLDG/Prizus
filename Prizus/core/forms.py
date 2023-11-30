@@ -47,15 +47,15 @@ class TiendaForm(forms.ModelForm):
 class PrecioForm(forms.ModelForm):
     class Meta:
         model = precio
-        try:
-            opciones = producto.objects.all().values('nombre') 
-        except:
-            opciones = (("", ""),)
         fields = [
             'producto',
             'webScraping_url',
         ]
-        widgets = {
-            'producto': forms.Select(attrs={'class': 'form-control'}, choices=opciones),
-            'webScraping_url': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if 'producto' in self.fields:
+            opciones = producto.objects.all().values_list('nombre', flat=True)
+            self.fields['producto'].queryset = opciones
+        self.fields['webScraping_url'].widget.attrs.update({'class': 'form-control'})

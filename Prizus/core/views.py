@@ -411,7 +411,7 @@ def new_prices(request, id):
     tiendas = tiendaOnline.objects.get(id=id)
     if request.method == 'POST':
         form = PrecioForm(request.POST)
-        new_producto = producto.objects.get(id = form.data['producto'])
+        new_producto = producto.objects.get(nombre = form.data['producto'])
         url = form.data['webScraping_url']
         precio.objects.create(
             producto = new_producto,
