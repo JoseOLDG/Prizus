@@ -29,6 +29,10 @@ from django.http import JsonResponse
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.contrib import admin
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 
 def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
@@ -245,7 +249,7 @@ def login2(request):
 
     if user.is_staff:
         login(request, user)
-        return redirect('dashboard')
+        return redirect(reverse('admin:index'))  # Redirige al admin de Django
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
 
@@ -316,6 +320,7 @@ def admin_dashboard(request):
     if not request.user.is_staff:
         return redirect('login2')
     return render(request, 'registration2/dashboard.html')
+
 
 @login_required
 def admin_perfumes(request):

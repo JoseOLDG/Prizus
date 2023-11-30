@@ -93,26 +93,26 @@
 }
 
 .btnn{
-    display: block;
-    border: none;
-    outline: none;
-    height: 40px;
-    background: #A59D95;
-    color: #222222;
-    font-size: 12px;
-    border-radius: 50px;
-    width: 100%;
-    text-decoration: none;
-    position: relative;
-    display: block;
-    text-align: center;
-    font-family: 'Ubuntu';
+    display: block !important;
+    border: none !important;
+    outline: none !important;
+    height: 40px !important;
+    background: #A59D95 !important;
+    color: #222222 !important;
+    font-size: 12px !important;
+    border-radius: 50px !important;
+    width: 100% !important;
+    text-decoration: none !important;
+    position: relative !important;
+    display: block !important;
+    text-align: center !important;
+    font-family: 'Ubuntu' !important;
 }
 
 .btnn:hover{
-    text-decoration: none;
-    color: #222222;
-    background: #CCCCCC;
+    text-decoration: none !important;
+    color: #222222 !important;
+    background: #CCCCCC !important;
 }
 
 .bordeproduc{
@@ -125,6 +125,12 @@
     background-color: #1C1C1C !important;
     color: #CCCCCC !important;
     border-color: transparent !important;
+    font-size: 14px;
+}
+
+.ordenprecio{
+    align-items: center;
+    justify-content: center;
 }
 
 input[type="radio"] {

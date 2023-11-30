@@ -11,11 +11,15 @@
   padding-bottom: 2rem;
 }
 
-i{
+.soltararchivos{
   background-color: #222222;
   color: #fff;
   width: 100%;
   padding: 10px;
+}
+
+.txtbtn{
+  font-family: 'Ubuntu';
 }
 
 input[type="file"] {
@@ -36,6 +40,7 @@ button[type="submit"] {
   width: 60%;
   margin-top: 2rem;
   padding: 5px 0px 5px 0px;
+  border-radius: 50px;
 }
 
 button[type="submit"]:hover {

@@ -263,9 +263,7 @@
 }
 
 footer{
-    position: fixed;
     bottom: 0;
-    left: 0;
     width: 100% !important;
 }
 
@@ -325,6 +323,25 @@ footer{
     text-decoration: none;
     color: #222222;
     background: #CCCCCC;
+}
+
+.btnIA{
+    color: #A59D95; 
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-decoration: none;
+    
+}
+
+.btnIA:hover{
+    text-decoration: none;
+    color: #CCCCCC;
+}
+
+.iconIA{
+    font-size: 25px;
 }
 
 @keyframes bounce {
