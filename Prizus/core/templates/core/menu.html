@@ -24,7 +24,7 @@
 
     <title>Inicio</title>
 </head>
-
+ 
 <body>
     <header>
 
@@ -168,7 +168,7 @@
                         Marca
                         </button>
                     </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <code>
                                 <div class="form-check"> 
@@ -286,35 +286,71 @@
             <div class="cart-product">
                 <div class="container-items">
                     {% if productos %}
-                        {% for producto in productos %}
-                        <div class="item" data-product-id="{{producto.id}}">
-                            <a href="{% url 'producto' producto.slug %}">
-                                <figure>
-                                    <img src="{{producto.imagen}}" alt="producto" />
-                                </figure>
-                                <div class="info-product">
-                                    <h3 class="nombreproducto">{{producto.nombre}}</h3>
-                                    <p class="descripcion"><strong>Género:</strong> {{producto.genero}}</p>
-                                    <p class="descripcion"><strong>Marca:</strong> {{producto.marca}}</p>
-                                    <p class="descripcion"><strong>Contenido:</strong> {{producto.contenido_neto}}ML</p>
-                                </div>
-                            </a>
-                            <div class="item-details"
-                                data-product-description="{{producto.descripcion}}"
-                                data-product-price="{{producto.precio}}"
-                                data-product-img="{{producto.imagen}}"
-                                data-familia-olfativa="{{producto.familia_olfativa}}"
-                                data-notas-salida="{{producto.notas_salida}}"
-                                data-notas-corazon="{{producto.notas_corazon}}"
-                                data-notas-fondo="{{producto.notas_fondo}}">
-                                <!-- ... otros detalles del producto ... -->
-                                <button class="btn-add-cart fa-solid fa-scale-balanced"></button>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        <p class="notfoundp">No se encontraron productos</p>
-                    {% endif %}
+    {% for producto in productos %}
+    <div class="item" data-product-id="{{producto.id}}">
+        <a href="{% url 'producto' producto.slug %}">
+            <figure>
+                <img src="{{producto.imagen}}" alt="producto" />
+            </figure>
+            <div class="info-product">
+                <h3 class="nombreproducto">{{producto.nombre}}</h3>
+                <p class="descripcion"><strong>Género:</strong> {{producto.genero}}</p>
+                <p class="descripcion"><strong>Marca:</strong> {{producto.marca}}</p>
+                <p class="descripcion"><strong>Contenido:</strong> {{producto.contenido_neto}}ML</p>
+                <div class="price-container">
+                    <span id="lowest-price-{{producto.id}}" class="badge price rounded-pill">Cargando...</span>
+                </div>
+            </div>
+        </a>
+        <div class="item-details"
+            data-product-description="{{producto.descripcion}}"
+            data-product-price="{{producto.precio}}"
+            data-product-img="{{producto.imagen}}"
+            data-familia-olfativa="{{producto.familia_olfativa}}"
+            data-notas-salida="{{producto.notas_salida}}"
+            data-notas-corazon="{{producto.notas_corazon}}"
+            data-notas-fondo="{{producto.notas_fondo}}">
+            <button class="btn-add-cart fa-solid fa-scale-balanced"></button>
+            
+        </div>
+    </div>
+    <!-- Llamada AJAX para obtener precios -->
+    <script>
+        $(document).ready(function() {
+            var productId = "{{ producto.id }}";
+            var lowestPriceContainer = $('#lowest-price-' + productId);
+    
+            $.ajax({
+                url: "{% url 'update_prices' slug=producto.slug %}",
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var lowestPrice = Number.MAX_VALUE;
+    
+                    for (var i = 0; i < data.prices.length; i++) {
+                        var currentPrice = parseFloat(data.prices[i][0]);
+    
+                        if (currentPrice < lowestPrice) {
+                            lowestPrice = currentPrice;
+                        }
+                    }
+    
+                    // Formatear el precio con punto como separador de miles y en formato CLP
+                    var formattedPrice = lowestPrice.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+    
+                    lowestPriceContainer.text(formattedPrice);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+    </script>
+    
+    {% endfor %}
+{% else %}
+    <p class="notfoundp">No se encontraron productos</p>
+{% endif %}
                 </div>
             </div>
 
@@ -338,12 +374,14 @@
         <a href="https://wa.me/56968592619?text=Hola, necesito ayuda."><i class="fa-brands fa-whatsapp iconw"></i></a>
     </div>
 
-    <footer class="footercard text-center" style="color: #CCCCCC;">
+
+    
+    <footer class="text-center" style="color: #CCCCCC;">
         <!-- Grid container -->
-        <div class="container p-4 pb-0">
+        <div class="footercard">
             <!-- Section: Social media -->
-            <section class="mb-4">
-            <!-- Facebook -->
+            <section class="">
+                <!-- Facebook -->
                 <a class="btn  btn-floating" href="https://www.facebook.com/" role="button"><i
                         class="fab fa-facebook-f"></i></a>
     
@@ -363,22 +401,16 @@
     
                 <!-- Github -->
                 <a class="btn  btn-floating" href="https://github.com/" role="button"><i class="fab fa-github"></i></a>
-                
+                © 2023 Copyright:
+                <a style="color: #CCCCCC;" href="http://127.0.0.1:8000/">Prizus.com</a>
             </section>
             <!-- Section: Social media -->
         </div>
-        <!-- Grid container -->
-    
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 Copyright:
-                <a style="color: #CCCCCC;" href="http://127.0.0.1:8000/">Prizus.com</a>
-        </div>
-      <!-- Copyright -->
     </footer>
     
 
 <script src="{% static 'core/js/rangeslider.js' %}" type="text/javascript"></script>
 <script src="{% static 'core/js/cart.js' %}" type="text/javascript"></script>
+<br>
 </body>
 </html>

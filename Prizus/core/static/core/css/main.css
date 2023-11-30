@@ -32,7 +32,7 @@
     flex-wrap: wrap;
     margin: 25px;
     width: 250px;
-    height: 380px;
+    height: 420px;
     
 }
 
@@ -100,10 +100,12 @@
 }
 
 .price{
-    font-size: 18px;
-    font-weight: 900;
+    font-size: 20px !important;
+    font-weight: bolder;
     margin-bottom: auto;
     font-family: 'Ubuntu';
+    color: #CCCCCC;
+    border: 1px solid #CCCCCC;
 }
 
 .notfoundp{
@@ -121,7 +123,12 @@
     display: flex;
     margin-top: 2% !important;
     justify-content: center;
-    margin-bottom: 45% !important;
+    margin-bottom: 55% !important;
+}
+
+.espacio{
+    background-color: transparent;
+    color: transparent;
 }
  
 .acordeon{
@@ -263,7 +270,9 @@
 }
 
 footer{
+    position: fixed;
     bottom: 0;
+    left: 0;
     width: 100% !important;
 }
 

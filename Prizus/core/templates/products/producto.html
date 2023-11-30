@@ -48,18 +48,19 @@
 <section>
     {% include 'products/comentario.html' %}
 </section>
+<br>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
 
 
 
 <section>
     <div class="card-header"></div></div>
-    <footer class="footercard text-center" style="color: #CCCCCC;">
+    <footer class="text-center" style="color: #CCCCCC;">
         <!-- Grid container -->
-        <div class="container p-4 pb-0">
+        <div class="footercard">
             <!-- Section: Social media -->
-            <section class="mb-4">
-            <!-- Facebook -->
+            <section class="">
+                <!-- Facebook -->
                 <a class="btn  btn-floating" href="https://www.facebook.com/" role="button"><i
                         class="fab fa-facebook-f"></i></a>
     
@@ -79,18 +80,11 @@
     
                 <!-- Github -->
                 <a class="btn  btn-floating" href="https://github.com/" role="button"><i class="fab fa-github"></i></a>
-                
+                © 2023 Copyright:
+                <a style="color: #CCCCCC;" href="http://127.0.0.1:8000/">Prizus.com</a>
             </section>
             <!-- Section: Social media -->
         </div>
-        <!-- Grid container -->
-    
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 Copyright:
-                <a style="color: #CCCCCC;" href="http://127.0.0.1:8000/">Prizus.com</a>
-        </div>
-      <!-- Copyright -->
     </footer>
 </section>
 
@@ -106,19 +100,26 @@
                 var tiendaContainer = $('#tienda-container');
                 tiendaContainer.empty();
 
+                // Ordenar los precios de menor a mayor
+                data.prices.sort(function(a, b) {
+                    return parseFloat(a[0]) - parseFloat(b[0]);
+                });
+
+                // Mostrar todos los precios ordenados
                 for (var i = 0; i < data.prices.length; i++) {
+                    var currentPrice = parseFloat(data.prices[i][0]);
+
+                    // Formatear el precio con punto como separador de miles y en formato CLP
+                    var formattedPrice = currentPrice.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+
                     tiendaContainer.append(
-                        `
-                        <li class="list-group-item d-flex numcolor ordenprecio">
+                        `<li class="list-group-item d-flex numcolor ordenprecio">
                             <div class="ms-2 me-auto mr-2">
-                                <div class="fw-bold "><a class="numcolor" href="${data.prices[i][2]}">${data.prices[i][1]}</a></div>
+                                <div class="fw-bold "><a class="numcolor" href="${data.prices[i][2]}" target="_blank">${data.prices[i][1]}</a></div>
                             </div>
-
-                            <span class="badge  rounded-pill numcolor bordeprecio">$ ${data.prices[i][0]}</span>
-
-                        </li>
-                        `
-                    )  
+                            <span class="badge  rounded-pill numcolor bordeprecio">${formattedPrice}</span>
+                        </li>`
+                    );
                 }
             },
             error: function(error) {
@@ -127,5 +128,8 @@
         });
     });
 </script>
+
+
+
 
 {% endblock %}
