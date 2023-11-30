@@ -100,28 +100,22 @@
                 var tiendaContainer = $('#tienda-container');
                 tiendaContainer.empty();
 
-                // Encontrar el precio más bajo
-                var lowestPrice = Number.MAX_VALUE;
-                var lowestPriceIndex = -1;
+                // Ordenar los precios de menor a mayor
+                data.prices.sort(function(a, b) {
+                    return parseFloat(a[0]) - parseFloat(b[0]);
+                });
 
+                // Mostrar todos los precios ordenados
                 for (var i = 0; i < data.prices.length; i++) {
                     var currentPrice = parseFloat(data.prices[i][0]);
 
-                    if (currentPrice < lowestPrice) {
-                        lowestPrice = currentPrice;
-                        lowestPriceIndex = i;
-                    }
-                }
-
-                // Mostrar solo el precio más bajo
-                if (lowestPriceIndex !== -1) {
                     // Formatear el precio con punto como separador de miles y en formato CLP
-                    var formattedPrice = lowestPrice.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+                    var formattedPrice = currentPrice.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
 
                     tiendaContainer.append(
                         `<li class="list-group-item d-flex numcolor ordenprecio">
                             <div class="ms-2 me-auto mr-2">
-                                <div class="fw-bold "><a class="numcolor" href="${data.prices[lowestPriceIndex][2]}" target="_blank">${data.prices[lowestPriceIndex][1]}</a></div>
+                                <div class="fw-bold "><a class="numcolor" href="${data.prices[i][2]}" target="_blank">${data.prices[i][1]}</a></div>
                             </div>
                             <span class="badge  rounded-pill numcolor bordeprecio">${formattedPrice}</span>
                         </li>`
@@ -134,6 +128,7 @@
         });
     });
 </script>
+
 
 
 
