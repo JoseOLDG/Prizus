@@ -166,7 +166,16 @@ precios = [
     (71,'https://sairam.cl/perfume-tommy-girl-now-dama-edt-100-ml',0,71,4),
     (72,'https://sairam.cl/perfume-tommy-men-varon-edt-30-ml',0,72,4),
     (73,'https://sairam.cl/perfume-tommy-girl-dama-edt-100-ml',0,73,4),
-    (74,'https://sairam.cl/perfume-eros-versace-varon-edt-100-ml',0,74,4)
+    (74,'https://sairam.cl/perfume-eros-versace-varon-edt-100-ml',0,74,4),
+
+    (75,'https://cosmetic.cl/collections/perfumes/products/4711-tradicional-edc-800ml-unisex',0,1,7),
+    (76,'https://cosmetic.cl/collections/perfumes/products/4711-original-edc-400ml-unisex',0,2,7),
+    (77,'https://cosmetic.cl/collections/perfumes/products/4711-original-edc-200ml-unisex',0,3,7),
+    (78,'https://cosmetic.cl/collections/perfumes/products/abercrombie-fitch-first-instinct-blue-edp-100-ml-mujer',0,6,7),
+    (79,'https://cosmetic.cl/collections/perfumes/products/abercrombie-fitch-100ml-edt-hombre-abercrombie-fitch',0,7,7),
+    (80,'https://cosmetic.cl/collections/perfumes/products/authentic-woman-edp-100ml',0,8,7),
+    (81,'https://cosmetic.cl/collections/perfumes/products/authentic-man-edt-100ml',0,9,7),
+    (82,'https://cosmetic.cl/collections/perfumes/products/adidas-dynamic-pulse-edt-100ml-hombre',0,11,7)
 ]
 
 
