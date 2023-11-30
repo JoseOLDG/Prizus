@@ -181,6 +181,7 @@ def registro(request):
 def perfumes(request, slug):
     comentarios = comentario.objects.all()
     perfume = get_object_or_404(producto, slug=slug)
+    precios = precio.objects.filter(producto = perfume)
     perfume.views = perfume.views + 1
     perfume.save()
 
@@ -194,24 +195,10 @@ def perfumes(request, slug):
     content = {
         'comentarios': comentarios,
         'producto': perfume,
+        'precio': precios
     }
 
     return render(request, 'products/producto.html', content)
-
-def new_prices(request, id):
-    tiendas = tiendaOnline.objects.filter(id=id)
-    for t in tiendas:
-        tienda = t.nombre
-        
-    form = PrecioForm(request.POST)
-    print(form)
-#        form.save()
-#        precio.objects.create(
-#            producto = '',
-#            tienda = id,
-#            webScraping_url = '',
-#        )
-    return redirect('actualizar_precios', nombre=tienda)
 
 def update_prices(request, id):
     valores = precio.objects.filter(tienda=id)
@@ -415,3 +402,31 @@ def admin_tendencias(request):
         return redirect('login2')
     return render(request, 'registration2/pages/tendencias.html')
 
+@login_required
+def new_prices(request, id): 
+    if not request.user.is_staff:
+        return redirect('login2')
+    tiendas = tiendaOnline.objects.filter(id=id)
+    
+    for t in tiendas:
+        tienda = t.nombre
+
+    print(request.method)
+    print('Holas')
+    
+    if request.method == 'POST':
+        form = PrecioForm(request.POST)
+        if form.is_valid():
+            print('Paso')
+            return redirect('actualizar_precios', nombre=tienda)
+    else: 
+        print('no paso')
+        form = PrecioForm() 
+    return HttpResponse('a') 
+#        form.save()
+#        precio.objects.create(
+#            producto = '',
+#            tienda = id,
+#            webScraping_url = '',
+#        )
+#    return redirect('actualizar_precios', nombre=tienda)
