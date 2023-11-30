@@ -1,0 +1,49 @@
+{% extends 'registration2/components/base.html' %}
+{% block content %}
+
+<h2>PERFUMES</h2>
+<nav class="mx-3 navbar navbar-light">
+  <form class="form-inline w-100 row" method="post">
+    {% csrf_token %}
+    <input class="col form-control pl-6 mr-sm-2 w-75" type="search" name="search" placeholder="Buscar Perfume" aria-label="Search">
+    <button class="col-2 btn btn-outline-secondary my-2 my-sm-0" type="submit">Buscar</button>
+  </form>
+</nav>
+{% if productos %}
+<div class="table-responsive">
+  <table class="table table-light table-striped" style="width:auto">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col"></th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Contenido Neto</th>
+        <th scope="col">Genero</th>
+        <th scope="col">Forma</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for producto in productos %}
+    <tr class="list-perfume">
+      <th class="base" scope="row">{{producto.id}}</th>
+      <td class="base"><img src="{{producto.imagen}}" width="100" height="100"></td>
+      <td class="base">{{producto.nombre}}</td>
+      <td class="base">{{producto.marca}}ML</td>
+      <td class="base">{{producto.contenido_neto}}</td>
+      <td class="base">{{producto.genero}}</td>
+      <td class="base">{{producto.forma}}</td>
+      <td><a class="link-exposer" href="{% url 'perfumes_detail' producto.slug %}"></a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="alert alert-light" role="alert">
+  No se encuentran perfumes con estas características!
+</div>
+{% endif %}
+
+
+{% endblock %}

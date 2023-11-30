@@ -283,6 +283,14 @@
             </div>
         </form>
         <div class="sii">
+            {% if alerta %}
+                <div class="alerta alert alert-light d-flex align-items-cente" role="alert" id="alerta">             
+                    <div>
+                        {{alerta}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            {% endif %}          
             <div class="cart-product">
                 <div class="container-items">
                     {% if productos %}
