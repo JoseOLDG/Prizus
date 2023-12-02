@@ -1,0 +1,11 @@
+{% extends 'registration2/components/base.html' %}
+{% block content %}
+<h2>precios</h2>
+<div class="row-cols-3 gap-4">
+    {% for tienda in tiendas %}
+    <a class="btn btn-primary" href="{% url 'actualizar_precios' tienda.nombre %}" >
+        {{tienda.nombre}} <span class="badge text-bg-secondary">4</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,26 +1,87 @@
-.slide {
-    height: 100vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #CCCCCC !important;
+}
+
+.my-nav {
+    padding-left: 5rem;
     background-color: #222222;
 }
 
-.bg-body{
+.side-navbar {
+    width: 180px;
+    height: 100%;
+    position: fixed;
+    margin-left: -300px;
     background-color: #222222;
+    transition: 0.5s;
 }
 
-.bg-body-tertiary{
-    background-color: #666666;
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover {
+    background-color: #ffffff26;
 }
 
-.dashboard-slide{
-    max-height: 500px;
-    display: grid !important;
+.my-container {
+    transition: 0.4s;
 }
 
-.content{
-    height: 100vh;
-    background-color: #222222;
+.active-nav {
+    margin-left: 0;
 }
 
-.barrita {
-    background-color: #666666;
+/* for main section */
+.active-cont {
+    margin-left: 180px;
 }
+
+#menu-btn {
+    background-color: #100901;
+    color: #fff;
+    margin-left: -62px;
+}
+
+.my-container {
+    border-radius: 2rem;
+}
+
+.link-exposer{
+    position: absolute;
+    left: 20%;
+    width: calc(80% - 9px);
+    height: 100px;
+    background-color: aqua;
+    z-index: 2;
+    opacity: 0;
+}
+
+.list-exposer:hover{
+    cursor: pointer;
+}
+
+#id_nombre,
+#id_descripcion,
+#id_imagen,
+#id_forma,
+#id_genero,
+#id_marca,
+#id_contenido_neto,
+#id_familia_olfativa,
+#id_notas_salida,
+#id_notas_corazon,
+#id_notas_fondo {
+    width: 100%;
+}
+
+#id_descripcion {
+    height: 10rem;
+    display: flex;
+}
+

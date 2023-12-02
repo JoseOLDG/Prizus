@@ -276,6 +276,36 @@ footer{
     width: 100% !important;
 }
 
+@keyframes goDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+
+@keyframes desaparece {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to{
+        transform: translateY(-100%);
+        opacity: 0;
+        display: none;
+    }
+}
+
+.alerta{
+    position: fixed !important;
+    top: 150px;
+    animation: goDown 300ms ease-out, desaparece 1s ease-in 3s;
+    z-index: 2;
+    animation-fill-mode: forwards;
+}
+
+
 .footercard{
     background-color: #666666 !important;
 }
