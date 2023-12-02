@@ -195,7 +195,7 @@ precios = [
     (98,'https://cosmetic.cl/products/boss-bottled-100ml-edt-hombre-hugo-boss',0,63,7),
     (99,'https://cosmetic.cl/products/hugo-man-edt-125-ml',0,65,7),
     (100,'https://cosmetic.cl/collections/perfumes/products/eau-de-lacoste-l-12-12-pour-elle-sparkling-edt-50-ml',0,67,7),
-    (101,'https://cosmetic.cl/collections/perfumes/products/tommy-girl-de-tommy-hilfiger-para-mujer-edt-100-ml-sin-celofan',0,73,7)
+    (101,'https://cosmetic.cl/collections/perfumes/products/tommy-girl-de-tommy-hilfiger-para-mujer-edt-100-ml-sin-celofan',0,73,7),
 
     #silkperfumes
     (102,'https://silkperfumes.cl/perfumes/2121-4711-men-edc-800ml-4011700740031.html',0,1,5),
@@ -203,7 +203,6 @@ precios = [
     (104,'https://silkperfumes.cl/perfumes/2119-4711-men-edc-200ml-4011700740062.html',0,3,5),
     (105,'https://silkperfumes.cl/perfumes/2603-4711-men-edc-100ml-4011700740376.html',0,4,5),
     (106,'https://silkperfumes.cl/perfumes/34-get-ready-edt-100ml-3607342733817.html',0,10,5),
-    (106,'https://silkperfumes.cl/perfumes/26-dynamic-pulse-edt-100ml-3412242310071.html',0,11,5),
     (107,'https://silkperfumes.cl/perfumes/46-victory-league-edt-100ml-3607345397641.html',0,14,5),
     (108,'https://silkperfumes.cl/perfumes/32-flor-edt-100ml.html',0,15,5),
     (109,'https://silkperfumes.cl/perfumes/1406-beso-edt-100ml-8410225513667.html',0,16,5),
@@ -243,6 +242,7 @@ precios = [
     (143,'https://silkperfumes.cl/perfumes/2324-tommy-men-edt-30ml-022548055373.html',0,72,5),
     (144,'https://silkperfumes.cl/perfumes/943-tommy-girl-edt-100ml-022548040126.html',0,73,5),
     (145,'https://silkperfumes.cl/perfumes/1205-eros-hombre-edt-100ml-8011003809219.html',0,74,5),
+    (146,'https://silkperfumes.cl/perfumes/26-dynamic-pulse-edt-100ml-3412242310071.html',0,11,5),
 ]
 
 
