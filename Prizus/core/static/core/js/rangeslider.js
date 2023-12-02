@@ -1,18 +1,37 @@
 // Range slider
 $(document).ready(function () {
-    $("#range-slider").ionRangeSlider({
-        type: "double", // Dos sliders
-        grid: true,
-        min: 0, // Valor mínimo
-        max: 100000, // Valor máximo
-        from: 0, // Valor inicial para el primer slider
-        to: 100000, // Valor inicial para el segundo slider
-        skin: "square",
-        prefix: "$",
-    });
+  var rangeSlider = $("#range-slider").ionRangeSlider({
+      type: "double",
+      grid: true,
+      min: 0,
+      max: 100000,
+      from: 0,
+      to: 100000,
+      skin: "square",
+      prefix: "$",
+      onFinish: function (data) {
+          filterProducts(data.from, data.to);
+      }
+  });
 
-    
+  function filterProducts(minPrice, maxPrice) {
+      $(".item").each(function () {
+          var currentPrice = parseFloat($(this).find('.price').text().replace(/[^\d.-]/g, ''));
+
+          if (currentPrice >= minPrice && currentPrice <= maxPrice) {
+              $(this).show();
+          } else {
+              $(this).hide();
+          }
+      });
+  }
+
+  // Al cargar la página, aplicar el filtro inicial
+  var initialMinPrice = rangeSlider.data("from");
+  var initialMaxPrice = rangeSlider.data("to");
+  filterProducts(initialMinPrice, initialMaxPrice);
 });
+
 
 /* Paginator */
 function getPageList(totalPages, page, maxLength){

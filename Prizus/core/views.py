@@ -34,7 +34,10 @@ from django.contrib import admin
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from django.db.models import Case, Value, When, F
+from django.db.models.functions import Coalesce
+from django.db.models import Subquery, OuterRef
+from django.db.models.functions import Coalesce
 
 def extraer_informacion_perfume(url, tag_html_perfume, clase_precio_perfume):
     try:
@@ -73,11 +76,27 @@ def menu(request):
     contenido_neto = request.GET.get("filtro_contenido")
     fragancia = request.GET.get("filtro_fragancia")
 
-    content = {
-        'productos': producto.objects.all(),
-        'precios' : precio.objects.values('producto').annotate(precio=Min('valor')).order_by('producto')
-    }
+    subquery_second_lowest_price = precio.objects.filter(
+        producto=OuterRef('producto')
+    ).exclude(valor=0).order_by('valor').values('valor')[:1]
 
+    content = {
+        'productos': producto.objects.filter(
+            id__in=precio.objects.exclude(valor=0).values('producto')
+        ),
+        'precios': precio.objects.values('producto').annotate(
+            precio=Coalesce(Min('valor'), Value(0)),
+            second_lowest_price=Coalesce(Subquery(subquery_second_lowest_price), Value(0))
+        ).filter(
+            precio__gt=0
+        ).order_by(
+            Case(
+                When(precio=0, then='second_lowest_price'),
+                default='precio'
+            ),
+            'precio'
+        )
+    }
     if genero:
         content['productos'] = content['productos'].filter(Q(genero__icontains=genero))
 
@@ -189,8 +208,9 @@ def registro(request):
 def perfumes(request, slug):
     comentarios = comentario.objects.all()
     perfume = get_object_or_404(producto, slug=slug)
-    precios = precio.objects.filter(producto = perfume)
-    perfume.views = perfume.views + 1
+    precios = precio.objects.filter(producto=perfume).order_by('valor')  # Ordenar de menor a mayor por valor
+
+    perfume.views = F('views') + 1
     perfume.save()
 
     if request.method == 'POST':
@@ -205,7 +225,6 @@ def perfumes(request, slug):
         'producto': perfume,
         'precio': precios
     }
-
     return render(request, 'products/producto.html', content)
 
 def update_prices(request, id):

@@ -308,7 +308,17 @@
                                 {% for precio in precios %}
                                 {% if producto.id == precio.producto %}
                                 <div class="price-container">
-                                    <span class="badge price rounded-pill">${{precio.precio}}</span>
+                                    <span class="badge price rounded-pill">
+                                        <script>
+                                            // Obtener el precio desde el contexto (asegúrate de tener acceso a la variable "precio")
+                                            var currentPrice = parseFloat("{{ precio.precio }}");
+                                
+                                            // Formatear el precio con punto como separador de miles y en formato CLP
+                                            var formattedPrice = currentPrice.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+                                
+                                            document.write(formattedPrice);
+                                        </script>
+                                    </span>
                                 </div>
                                 {% endif %}
                                 {% endfor %}
