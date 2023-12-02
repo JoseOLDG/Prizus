@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 from django.utils.encoding import escape_uri_path
 from .models import comentario, producto, precio, registroHistoricoPrecio, tiendaOnline
+from django.db.models import Min
 
 import numpy as np
 import tensorflow as tf
@@ -73,7 +74,8 @@ def menu(request):
     fragancia = request.GET.get("filtro_fragancia")
 
     content = {
-        'productos': producto.objects.all()
+        'productos': producto.objects.all(),
+        'precios' : precio.objects.values('producto').annotate(precio=Min('valor')).order_by('producto')
     }
 
     if genero:
