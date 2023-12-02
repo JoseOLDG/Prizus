@@ -308,7 +308,7 @@
                                 {% for precio in precios %}
                                 {% if producto.id == precio.producto %}
                                 <div class="price-container">
-                                    <span class="badge price rounded-pill"$>{{precio.precio}}</span>
+                                    <span class="badge price rounded-pill">${{precio.precio}}</span>
                                 </div>
                                 {% endif %}
                                 {% endfor %}

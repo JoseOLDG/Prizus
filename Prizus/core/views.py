@@ -251,7 +251,7 @@ def login2(request):
 
     if user.is_staff:
         login(request, user)
-        return redirect(reverse('admin:index'))  # Redirige al admin de Django
+        return redirect(reverse('dashboard'))  
     else:
         return render(request, 'registration2/login2.html', {"form": AuthenticationForm(), "error": "You are not authorized to access this page."})
 
@@ -309,8 +309,7 @@ def procesar_imagen_ia(request):
                 os.remove(imagen_path)
             forma_predict = class_names[np.argmax(score)]
             productos = producto.objects.filter(forma__icontains=forma_predict)
-            alerta = 'Analisis finalizado! Estos perfumes lucen semejantes con tu envase ingresado'
-            print("Este perfume claramente tiene forma {} , mentira, es un porcentaje de {:.2f} de certeza.".format(class_names[np.argmax(score)], 100 * np.max(score)))    
+            alerta = 'Analisis finalizado! Estos perfumes lucen semejantes con tu envase ingresado'    
             return render(request, 'core/menu.html', {'productos': productos, 'alerta': alerta})
             
     else:
@@ -342,6 +341,8 @@ def admin_perfumes(request):
 
     return render(request, 'registration2/pages/perfumes.html', content)
 
+
+
 @login_required
 def admin_perfumes_detail(request, slug):
     if not request.user.is_staff:
@@ -365,12 +366,40 @@ def admin_perfumes_detail(request, slug):
     return render(request, 'registration2/pages/edit_perfume.html', content)
 
 @login_required
+def admin_create_perfumes(request):
+    if not request.user.is_staff:
+        return redirect('login2')
+
+    if request.method == 'POST':
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('create_perfumes')
+    else: 
+        form = ProductoForm()
+
+    content = {
+        'form': form
+    }
+
+    return render(request, 'registration2/pages/create_perfume.html', content)
+
+@login_required
 def admin_precios(request):
     if not request.user.is_staff:
         return redirect('login2')
+
+    if request.method == 'POST':
+        form = TiendaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('precios')
+    else: 
+        form = TiendaForm()
     
     content = {
-        'tiendas': tiendaOnline.objects.all()
+        'tiendas': tiendaOnline.objects.all(),
+        'form': form
     }
 
     return render(request, 'registration2/pages/precios.html', content)
@@ -446,13 +475,10 @@ def generar_excel(request):
         i = i + 1
         for key, value in lista.items():
             if key == 'id':
-                print(f'A{i}: {value}')
                 tendencias[f'A{i}'] = value
             if key == 'nombre':
-                print(f'B{i}: {value}')
                 tendencias[f'B{i}'] = value
             if key == 'views':
-                print(f'C{i}: {value}')
                 tendencias[f'C{i}'] = value
 
 

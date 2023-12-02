@@ -2,6 +2,7 @@
 {% block content %}
 
 <h2>PERFUMES</h2>
+<a class="btn btn-primary" href="{% url 'create_perfumes' %}" >+ Nuevo Perfume</a>
 <nav class="mx-3 navbar navbar-light">
   <form class="form-inline w-100 row" method="post">
     {% csrf_token %}

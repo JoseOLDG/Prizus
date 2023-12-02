@@ -8,4 +8,31 @@
     </a>
     {% endfor %}
 </div>
+<form id="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row gap-3">
+            <div class="col-8 card bg-white">
+                <div class="card-title bg-body-tertiary">Parametros HTML de {{ tiendas.nombre }}</div>
+                <div class="card-body row-cols-1">
+                    <div class="w-100">
+                        {{ form.nombre.label }}
+                        {{ form.nombre }}
+                    </div>
+					<div class="w-100">
+                        {{ form.webScraping_tag.label }}
+                        {{ form.webScraping_tag }}
+                    </div>
+                    <div class="w-100">
+                        {{ form.webScraping_precio.label }}
+                        {{ form.webScraping_precio }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 card bg-white">
+                <button class="btn" id="submit" type="submit">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</form>
 {% endblock %}

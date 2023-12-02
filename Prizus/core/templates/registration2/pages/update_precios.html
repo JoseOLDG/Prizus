@@ -14,7 +14,10 @@
             <div class="col-8 card bg-white">
                 <div class="card-title bg-body-tertiary">Parametros HTML de {{ tiendas.nombre }}</div>
                 <div class="card-body row-cols-1">
-                    <div class="w-100">
+                    <div class="w-100 disable">
+                        {{ form.nombre }}
+                    </div>
+					<div class="w-100">
                         {{ form.webScraping_tag.label }}
                         {{ form.webScraping_tag }}
                     </div>

@@ -40,9 +40,13 @@ class TiendaForm(forms.ModelForm):
     class Meta:
         model = tiendaOnline
         fields = [
+            'nombre',
             'webScraping_tag',
             'webScraping_precio',
         ]
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'solo-leer'})
+        }
 
 class PrecioForm(forms.ModelForm):
     class Meta:

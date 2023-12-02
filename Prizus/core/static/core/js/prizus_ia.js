@@ -40,6 +40,5 @@ function readURL(input) {
 
   
 fileInput.addEventListener('change', function () {
-    console.log('Cambiaso unimarcl');
     readURL(this);
 });

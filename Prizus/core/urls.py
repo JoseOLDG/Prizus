@@ -3,7 +3,7 @@ from django.urls import path
 
 from .views import index, login, registro, menu, perfumes, update_prices, procesar_imagen_ia
 
-from .views import index, login, login2, registro, menu, admin_dashboard, admin_perfumes, admin_perfumes_detail ,admin_precios, admin_precios_actualizar ,admin_tendencias, new_prices, generar_excel
+from .views import index, login, login2, registro, menu, admin_dashboard, admin_perfumes, admin_perfumes_detail, admin_create_perfumes ,admin_precios, admin_precios_actualizar ,admin_tendencias, new_prices, generar_excel
 from django.contrib.auth import views as auth_views
 from django.urls import path
 from . import views
@@ -17,6 +17,7 @@ urlpatterns = [
     path('menu/', menu, name="menu"),
     path('dashboard/', admin_dashboard, name="dashboard"),
     path('dashboard/perfumes', admin_perfumes, name="perfumes"),
+    path('dashboard/create/perfumes', admin_create_perfumes, name="create_perfumes"),
     path('dashboard/<slug>/', admin_perfumes_detail, name="perfumes_detail"),
     path('dashboard/precios', admin_precios, name="precios"),
     path('dashboard/precios/<nombre>', admin_precios_actualizar, name="actualizar_precios"),
